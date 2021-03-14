@@ -2,12 +2,14 @@ package com.leo.snacks.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.leo.snacks.domain.User;
+import com.sun.istack.NotNull;
 
 public class EditUserDTO implements Serializable {
 
@@ -19,8 +21,7 @@ public class EditUserDTO implements Serializable {
 	@Length(min=3, max=120, message="O tamanho deve ser entre 3 e 120 caracteres")
 	private String name;
 	
-	@NotEmpty(message="Preenchimento obrigatório")
-	@Email(message="Email inválido")
+	@Email
 	private String email;
 	private String password;
 	private String phones;
@@ -59,7 +60,9 @@ public class EditUserDTO implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	@NotNull
+	@Column(unique = true)
 	public String getEmail() {
 		return email;
 	}

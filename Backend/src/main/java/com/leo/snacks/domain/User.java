@@ -12,6 +12,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.sun.istack.NotNull;
+
 @Entity
 @Table(name = "tb_client")
 public class User implements Serializable {
@@ -26,7 +28,6 @@ public class User implements Serializable {
 	@NotBlank(message = "O nome não pode ser vazio.")
 	private String name;
 	
-	@Column(unique = true)
 	@Email
 	private String email;
 	
@@ -64,6 +65,8 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
+	@NotNull
+	@Column(unique = true)
 	public String getEmail() {
 		return email;
 	}

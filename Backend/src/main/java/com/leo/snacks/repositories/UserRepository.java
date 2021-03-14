@@ -7,4 +7,6 @@ import com.leo.snacks.domain.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	public User findByEmailAndPassword(String email, String password);
+	
+	public User findByEmailEquals(String email);
 }

@@ -52,8 +52,13 @@ public class UserService {
 	@Transactional
 	public EditUserDTO register(EditUserDTO dto) {
 		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones());	
-		user = repository.save(user);
-		return new EditUserDTO(user);
+		if (repository.findByEmailEquals(dto.getEmail()) == null) {
+			user = repository.save(user);
+			return new EditUserDTO(user);
+		}
+		
+		return new EditUserDTO(null);
+
 	}
 	
 	@Transactional
@@ -64,7 +69,7 @@ public class UserService {
 			return new EditUserDTO(user);
 		}
 		else {
-			return null;
+			return new EditUserDTO(null);
 		}
 	}
 	
