@@ -2,6 +2,7 @@ package com.leo.snacks.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,9 +25,15 @@ public class User implements Serializable {
 	@Size(min = 3, max = 50, message = "O nome deve conter no mínimo 3 caracteres")
 	@NotBlank(message = "O nome não pode ser vazio.")
 	private String name;
+	
+	@Column(unique = true)
 	@Email
 	private String email;
+	
+	@NotBlank
 	private String password;
+	
+	@NotBlank
 	private String phones;
 		
 	public User() {
