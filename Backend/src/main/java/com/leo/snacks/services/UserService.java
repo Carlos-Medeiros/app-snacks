@@ -35,30 +35,21 @@ public class UserService {
 		return new UserDTO(user);
 	}
 	
-	/*@Transactional
-	public boolean register(EditUserDTO dto) {
-		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones(), null);
-		if (user != null) {
-			
-			user = repository.save(user);
-			new EditUserDTO(user);
-			return true;
-		} 
-		else {
-			return false;
+	@Transactional
+	public EditUserDTO emailValidator(EditUserDTO dto) {
+		User user = new User(null, null, dto.getEmail(), null, null, dto.getValidator());
+		if (repository.findByEmailEquals(dto.getEmail()) == null) {
+			return new EditUserDTO(user);
 		}
-	}*/
+		return new EditUserDTO(null);
+	}
+	
 	
 	@Transactional
 	public EditUserDTO register(EditUserDTO dto) {
-		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones());	
-		if (repository.findByEmailEquals(dto.getEmail()) == null) {
-			user = repository.save(user);
-			return new EditUserDTO(user);
-		}
-		
-		return new EditUserDTO(null);
-
+		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones(), null);	
+		user = repository.save(user);
+		return new EditUserDTO(user);
 	}
 	
 	@Transactional

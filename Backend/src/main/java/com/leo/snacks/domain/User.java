@@ -2,17 +2,11 @@ package com.leo.snacks.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_client")
@@ -23,29 +17,22 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Size(min = 3, max = 50, message = "O nome deve conter no mínimo 3 caracteres")
-	@NotBlank(message = "O nome não pode ser vazio.")
 	private String name;
-	
-	@Email
 	private String email;
-	
-	@NotBlank
 	private String password;
-	
-	@NotBlank
 	private String phones;
+	private Integer validator;
 		
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, String phones) {
+	public User(Long id, String name, String email, String password, String phones, Integer validator) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
+		this.validator = validator;
 
 	}
 
@@ -65,8 +52,6 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	@NotNull
-	@Column(unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -89,6 +74,14 @@ public class User implements Serializable {
 
 	public void setPhones(String phones) {
 		this.phones = phones;
+	}
+
+	public Integer getValidator() {
+		return validator;
+	}
+
+	public void setValidator(Integer validator) {
+		this.validator = validator;
 	}
 
 	@Override

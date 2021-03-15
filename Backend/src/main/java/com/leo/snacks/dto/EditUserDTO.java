@@ -2,39 +2,29 @@ package com.leo.snacks.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
-
 import com.leo.snacks.domain.User;
-import com.sun.istack.NotNull;
 
 public class EditUserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	
-	@NotEmpty(message="Preenchimento obrigatório")
-	@Length(min=3, max=120, message="O tamanho deve ser entre 3 e 120 caracteres")
 	private String name;
-	
-	@Email
 	private String email;
 	private String password;
 	private String phones;
-		
+	private Integer validator;
+	
 	public EditUserDTO() {
 	}
 
-	public EditUserDTO(Long id, String name, String email, String password, String phones) {
+	public EditUserDTO(Long id, String name, String email, String password, String phones, Integer validator) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
+		this.validator = validator;
 	}
 	
 	public EditUserDTO(User entity) {
@@ -43,6 +33,7 @@ public class EditUserDTO implements Serializable {
 		email = entity.getEmail();
 		password = entity.getPassword();
 		phones = entity.getPhones();
+		validator = entity.getValidator();
 	}
 
 	public Long getId() {
@@ -61,8 +52,6 @@ public class EditUserDTO implements Serializable {
 		this.name = name;
 	}
 	
-	@NotNull
-	@Column(unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -87,4 +76,12 @@ public class EditUserDTO implements Serializable {
 		this.phones = phones;
 	}
 
+	public Integer getValidator() {
+		return validator;
+	}
+
+	public void setValidator(Integer validator) {
+		this.validator = validator;
+	}
+	
 }

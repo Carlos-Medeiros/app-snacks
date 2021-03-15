@@ -1,7 +1,5 @@
 package com.leo.snacks.resources;
 
-import java.util.Random;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +22,11 @@ public class UserResource {
 	@Autowired
 	private EmailServiceImpl emailService;
 
-	@GetMapping("/emailValidator")
-	public ResponseEntity<Void> sendEmailValidator(@Valid @RequestBody EditUserDTO dto) {
-		Random random = new Random();
-		Integer numberRandom = random.nextInt(1000000 - 100000);
-		while (numberRandom > 1000000 || numberRandom < 100000) {
-			numberRandom = random.nextInt(1000000 - 100000);
-		}
-		
-		emailService.sendValidation(dto.getEmail(), "teste", String.valueOf(numberRandom));
-		
-		return ResponseEntity.noContent().build();
+	@PostMapping("/emailValidator")
+	public ResponseEntity<EditUserDTO> sendEmailValidator(@Valid @RequestBody EditUserDTO dto) {
+		dto = service.emailValidator(dto);
+		emailService.sendValidation(dto.getEmail(), "teste", String.valueOf(dto.getValidator()));
+		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PostMapping("/register")
