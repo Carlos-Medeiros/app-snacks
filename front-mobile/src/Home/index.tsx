@@ -12,6 +12,10 @@ export default function Home() {
         navigation.navigate('Register')
     }
 
+    const handleOnPressEmail = () => {
+        navigation.navigate('EmailValidator')
+    }
+
     return ( 
         <>
             <View>
@@ -21,6 +25,9 @@ export default function Home() {
             <View>
             <RectButton onPress={handleOnPress}>
                 <Text>Cadastre-se</Text>
+            </RectButton>
+            <RectButton onPress={handleOnPressEmail}>
+                <Text>Valide seu email</Text>
             </RectButton>
             </View>
         </>

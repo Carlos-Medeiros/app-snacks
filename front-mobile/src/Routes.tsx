@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./Home";
 import Register from "./Register";
+import EmailValidator from './EmailValidator';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ function Routes() {
             >
                 <Stack.Screen name="Home" component={Home}></Stack.Screen>
                 <Stack.Screen name="Register" component={Register}></Stack.Screen>
+                <Stack.Screen name="EmailValidator" component={EmailValidator}></Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
 
