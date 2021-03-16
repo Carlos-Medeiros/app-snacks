@@ -22,18 +22,18 @@ public class UserResource {
 	@Autowired
 	private EmailServiceImpl emailService;
 
-	@PostMapping("/emailValidator")
+	/*@PostMapping("/emailValidator")
 	public ResponseEntity<Void> sendEmailValidator() {
 		emailService.sendValidation("alguemseila2k18@gmail.com", "teste", String.valueOf(123456));
 		return ResponseEntity.noContent().build();
-	}
+	}*/
 	
-	/*@PostMapping("/emailValidator")
-	public ResponseEntity<EditUserDTO> sendEmailValidator(@Valid @RequestBody EditUserDTO dto) {
+	@PostMapping("/emailValidator")
+	public ResponseEntity<Void> sendEmailValidator(@Valid @RequestBody EditUserDTO dto) {
 		dto = service.emailValidator(dto);
 		emailService.sendValidation(dto.getEmail(), "teste", String.valueOf(dto.getValidator()));
-		return ResponseEntity.ok().body(dto);
-	}*/
+		return ResponseEntity.noContent().build();
+	}
 	
 	@PostMapping("/register")
 	public ResponseEntity<EditUserDTO> register(@Valid @RequestBody EditUserDTO dto) {
