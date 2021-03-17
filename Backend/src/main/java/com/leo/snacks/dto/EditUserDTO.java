@@ -13,18 +13,16 @@ public class EditUserDTO implements Serializable {
 	private String email;
 	private String password;
 	private String phones;
-	private Integer validator;
 	
 	public EditUserDTO() {
 	}
 
-	public EditUserDTO(Long id, String name, String email, String password, String phones, Integer validator) {
+	public EditUserDTO(Long id, String name, String email, String password, String phones) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
-		this.validator = validator;
 	}
 	
 	public EditUserDTO(User entity) {
@@ -33,7 +31,6 @@ public class EditUserDTO implements Serializable {
 		email = entity.getEmail();
 		password = entity.getPassword();
 		phones = entity.getPhones();
-		validator = entity.getValidator();
 	}
 
 	public Long getId() {
@@ -74,14 +71,6 @@ public class EditUserDTO implements Serializable {
 
 	public void setPhones(String phones) {
 		this.phones = phones;
-	}
-
-	public Integer getValidator() {
-		return validator;
-	}
-
-	public void setValidator(Integer validator) {
-		this.validator = validator;
 	}
 	
 }

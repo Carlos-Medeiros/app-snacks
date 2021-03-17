@@ -21,19 +21,16 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private String phones;
-	private Integer validator;
 		
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, String phones, Integer validator) {
+	public User(Long id, String name, String email, String password, String phones) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
-		this.validator = validator;
-
 	}
 
 	public Long getId() {
@@ -74,14 +71,6 @@ public class User implements Serializable {
 
 	public void setPhones(String phones) {
 		this.phones = phones;
-	}
-
-	public Integer getValidator() {
-		return validator;
-	}
-
-	public void setValidator(Integer validator) {
-		this.validator = validator;
 	}
 
 	@Override
