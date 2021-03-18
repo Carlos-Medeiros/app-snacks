@@ -24,7 +24,6 @@ public class OrderDTO implements Serializable {
 
 	private List<ProductDTO> products = new ArrayList<>();
 	private List<UserDTO> users = new ArrayList<>();
-	/*private List<OrderItemDTO> orderItem = new ArrayList<>();*/
 	
 	public OrderDTO() {
 	}

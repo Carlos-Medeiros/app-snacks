@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.leo.snacks.domain.User;
 import com.leo.snacks.dto.EditUserDTO;
 import com.leo.snacks.dto.UserDTO;
+import com.leo.snacks.dto.UserValidationDTO;
 import com.leo.snacks.repositories.UserRepository;
 import com.leo.snacks.services.exceptions.IntegrityConstraintViolationException;
 import com.leo.snacks.util.Util;
@@ -35,20 +36,20 @@ public class UserService {
 		return new UserDTO(user);
 	}
 	
-	/*@Transactional
-	public EditUserDTO emailValidator(EditUserDTO dto) {
-		User user = new User(null, null, dto.getEmail(), null, null, dto.getValidator());
-		
-		return new EditUserDTO(null);
-	}*/
+	@Transactional
+	public UserValidationDTO emailValidator(UserValidationDTO dto) {
+		User user = new User(null, null, dto.getEmail(), null, null);
+		if (repository.findByEmailEquals(dto.getEmail()) == null) {
+			return new UserValidationDTO(user);
+		}
+		return new UserValidationDTO(null);
+	}
 	
 	
 	@Transactional
 	public EditUserDTO register(EditUserDTO dto) {
 		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones());	
-		if (repository.findByEmailEquals(dto.getEmail()) == null) {
-			return new EditUserDTO(user);
-		}
+		user = repository.save(user);
 		return new EditUserDTO(user);
 	}
 	

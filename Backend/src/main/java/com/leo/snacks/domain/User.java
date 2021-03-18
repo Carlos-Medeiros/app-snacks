@@ -1,6 +1,7 @@
 package com.leo.snacks.domain;
 
 import java.io.Serializable;
+import java.util.Random;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -73,6 +74,15 @@ public class User implements Serializable {
 		this.phones = phones;
 	}
 
+	public Integer getNumberValidation() {
+		Random random = new Random();
+		Integer numberRandom = random.nextInt(1000000 - 100000);
+		while (numberRandom > 1000000 || numberRandom < 100000) {
+			numberRandom = random.nextInt(1000000 - 100000);
+		}
+		return numberRandom;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
