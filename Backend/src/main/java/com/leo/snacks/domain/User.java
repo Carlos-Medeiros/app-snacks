@@ -26,13 +26,12 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, String phones, Integer numberValidation) {
+	public User(Long id, String name, String email, String password, String phones) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
-		this.numberValidation = numberValidation;
 	}
 
 	public Long getId() {

@@ -38,7 +38,8 @@ public class UserService {
 	
 	@Transactional
 	public UserValidationDTO emailValidator(UserValidationDTO dto) {
-		User user = new User(null, null, dto.getEmail(), null, null, dto.getNumberValidation());
+		User user = new User(null, null, dto.getEmail(), null, null);
+		user.setNumberValidation(dto.getNumberValidation());
 		if (repository.findByEmailEquals(dto.getEmail()) == null) {
 			return new UserValidationDTO(user);
 		}
@@ -47,7 +48,7 @@ public class UserService {
 	
 	@Transactional
 	public EditUserDTO register(EditUserDTO dto) {
-		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones(), null);	
+		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones());	
 		user = repository.save(user);
 		return new EditUserDTO(user);
 	}
