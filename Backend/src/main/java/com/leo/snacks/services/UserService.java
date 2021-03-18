@@ -38,17 +38,16 @@ public class UserService {
 	
 	@Transactional
 	public UserValidationDTO emailValidator(UserValidationDTO dto) {
-		User user = new User(null, null, dto.getEmail(), null, null);
+		User user = new User(null, null, dto.getEmail(), null, null, dto.getNumberValidation());
 		if (repository.findByEmailEquals(dto.getEmail()) == null) {
 			return new UserValidationDTO(user);
 		}
 		return new UserValidationDTO(null);
 	}
 	
-	
 	@Transactional
 	public EditUserDTO register(EditUserDTO dto) {
-		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones());	
+		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones(), null);	
 		user = repository.save(user);
 		return new EditUserDTO(user);
 	}

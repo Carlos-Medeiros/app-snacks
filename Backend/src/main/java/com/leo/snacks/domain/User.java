@@ -1,7 +1,6 @@
 package com.leo.snacks.domain;
 
 import java.io.Serializable;
-import java.util.Random;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,16 +21,18 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private String phones;
-		
+	private Integer numberValidation;	
+	
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, String phones) {
+	public User(Long id, String name, String email, String password, String phones, Integer numberValidation) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
+		this.numberValidation = numberValidation;
 	}
 
 	public Long getId() {
@@ -73,16 +74,15 @@ public class User implements Serializable {
 	public void setPhones(String phones) {
 		this.phones = phones;
 	}
-
-	public Integer getNumberValidation() {
-		Random random = new Random();
-		Integer numberRandom = random.nextInt(1000000 - 100000);
-		while (numberRandom > 1000000 || numberRandom < 100000) {
-			numberRandom = random.nextInt(1000000 - 100000);
-		}
-		return numberRandom;
-	}
 	
+	public Integer getNumberValidation() {
+		return numberValidation;
+	}
+
+	public void setNumberValidation(Integer numberValidation) {
+		this.numberValidation = numberValidation;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

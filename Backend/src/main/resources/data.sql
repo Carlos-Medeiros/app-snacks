@@ -31,7 +31,7 @@ INSERT INTO tb_category_product (category_id, product_id) VALUES (6 , 1);
 INSERT INTO tb_category_product (category_id, product_id) VALUES (7 , 7);
 INSERT INTO tb_category_product (category_id, product_id) VALUES (7 , 5);
 
-INSERT INTO tb_client (name, email, password, phones) VALUES ('Joãozinho','email@gmail.com', '12345', '(88) 9 9876-5432');
+INSERT INTO tb_client (name, email, password, phones, number_validation) VALUES ('Joãozinho','email@gmail.com', '12345', '(88) 9 9876-5432', null);
 
 
 INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T10:00:00Z', 0, true);
