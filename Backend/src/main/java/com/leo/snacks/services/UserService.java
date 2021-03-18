@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.leo.snacks.domain.EmailValidation;
 import com.leo.snacks.domain.User;
 import com.leo.snacks.dto.EditUserDTO;
 import com.leo.snacks.dto.UserDTO;
@@ -38,10 +39,9 @@ public class UserService {
 	
 	@Transactional
 	public UserValidationDTO emailValidator(UserValidationDTO dto) {
-		User user = new User(null, null, dto.getEmail(), null, null);
-		user.setNumberValidation(dto.getNumberValidation());
+		EmailValidation emailValidation = new EmailValidation(dto.getEmail(), dto.getNumberValidation());
 		if (repository.findByEmailEquals(dto.getEmail()) == null) {
-			return new UserValidationDTO(user);
+			return new UserValidationDTO(emailValidation);
 		}
 		return new UserValidationDTO(null);
 	}

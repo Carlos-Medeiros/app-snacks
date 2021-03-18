@@ -21,7 +21,6 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private String phones;
-	private Integer numberValidation;	
 	
 	public User() {
 	}
@@ -74,14 +73,6 @@ public class User implements Serializable {
 		this.phones = phones;
 	}
 	
-	public Integer getNumberValidation() {
-		return numberValidation;
-	}
-
-	public void setNumberValidation(Integer numberValidation) {
-		this.numberValidation = numberValidation;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -2,37 +2,26 @@ package com.leo.snacks.dto;
 
 import java.io.Serializable;
 
-import com.leo.snacks.domain.User;
+import com.leo.snacks.domain.EmailValidation;
 
 public class UserValidationDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
 	private String email;
 	private Integer numberValidation;	
 	
 	public UserValidationDTO() {
 	}
 
-	public UserValidationDTO(Long id, String email, Integer numberValidation) {
-		this.id = id;
+	public UserValidationDTO(String email, Integer numberValidation) {
 		this.email = email;
 		this.numberValidation = numberValidation;
 	}
 	
-	public UserValidationDTO(User entity) {
-		id = entity.getId();
+	public UserValidationDTO(EmailValidation entity) {
 		email = entity.getEmail();
 		numberValidation = entity.getNumberValidation();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getEmail() {
