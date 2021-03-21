@@ -1,7 +1,7 @@
 import { HeaderHeightContext } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, InteractionManager } from 'react-native';
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 import API from '../api';
 import Header from '../Header/header';
@@ -9,21 +9,32 @@ import Header from '../Header/header';
 export default function EmailValidator() {
 
     const [email, setEmail] = useState('');
-    const [validator, setValidator] = useState(0);
+    {/*const [validator, setValidator] = useState();*/}
 
-    const [validatorInput, setValidatorInput] = useState(1);
+    const [validatorInput, setValidatorInput] = useState('');
 
     async function sendEmail() {
         let response = await API.post('/emailValidator', {
             email: email,
-            validator: validator
+            numberValidation: numberRandom()
         })
     }
 
+    
+
+    function numberRandom() {
+        let number = Math.floor(Math.random() * (999999 - 100000) + 100000);
+        return number
+    }
+
+    let number = 123456
+
     const navigation = useNavigation();
 
+    console.log(numberRandom())
+
     const handleOnPress = () => {
-        if (validator == validatorInput) {
+        if (number == validatorInput) {
             navigation.navigate('Register')
         }
         else {
@@ -36,12 +47,11 @@ export default function EmailValidator() {
             <Header />
             <View style={styles.container}>
                 <TextInput placeholder="Seu email..." style={styles.textInput} onChangeText={text=>setEmail(text)}/>
-                <TextInput placeholder="Digit o código de validação" style={styles.textInput} onChangeText={text=>setValidator(0)}/>
-
-
                 <TouchableOpacity onPress={()=>sendEmail()}>
                     <Text style={styles.textButton}>Envia Email</Text>
                 </TouchableOpacity>
+                <TextInput placeholder="Digit o código de validação" style={styles.textInput} onChangeText={text=>setValidatorInput(text)}/>
+
                 <RectButton onPress={handleOnPress}>
                     <Text style={styles.textButton}>Verificar</Text>
                 </RectButton>

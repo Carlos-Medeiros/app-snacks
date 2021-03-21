@@ -4,22 +4,22 @@ import java.io.Serializable;
 
 import com.leo.snacks.domain.EmailValidation;
 
-public class UserValidationDTO implements Serializable {
+public class UserEmailValidationDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private String email;
-	private Integer numberValidation;	
-	
-	public UserValidationDTO() {
+	private Integer numberValidation;
+		
+	public UserEmailValidationDTO() {
 	}
 
-	public UserValidationDTO(String email, Integer numberValidation) {
+	public UserEmailValidationDTO(String email, Integer numberValidation) {
 		this.email = email;
 		this.numberValidation = numberValidation;
 	}
 	
-	public UserValidationDTO(EmailValidation entity) {
+	public UserEmailValidationDTO(EmailValidation entity) {
 		email = entity.getEmail();
 		numberValidation = entity.getNumberValidation();
 	}
@@ -39,5 +39,5 @@ public class UserValidationDTO implements Serializable {
 	public void setNumberValidation(Integer numberValidation) {
 		this.numberValidation = numberValidation;
 	}
-
+	
 }
