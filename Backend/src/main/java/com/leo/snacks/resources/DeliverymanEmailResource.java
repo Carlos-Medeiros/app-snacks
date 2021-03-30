@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,11 +20,11 @@ public class DeliverymanEmailResource {
 	@Autowired
 	private DeliverymanEmailService emailService;
 	
-	@GetMapping("/deliverymanEmailValidator/{email}")
-	public ResponseEntity<DeliverymanEmailValidationDTO> find(@PathVariable String email) {
-		DeliverymanEmailValidationDTO dto = emailService.searchEmail(email);
+	@PostMapping("/deliverymanKeyValidation")
+	public ResponseEntity<DeliverymanEmailValidationDTO> keyValidation(@RequestBody DeliverymanEmailValidationDTO dto) {
+		dto = emailService.keyValidation(dto);
 		return ResponseEntity.ok().body(dto);
-	}	
+	}
 	
 	@PostMapping("/deliverymanEmailValidator")
 	public ResponseEntity<DeliverymanEmailValidationDTO> EmailValidator(@Valid @RequestBody DeliverymanEmailValidationDTO dto) {
@@ -40,6 +40,10 @@ public class DeliverymanEmailResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	
+	@DeleteMapping("/deliverymanEmailDelete/{email}")
+	public ResponseEntity<Void> delete(@PathVariable String email) {
+		emailService.delete(email);
+		return ResponseEntity.noContent().build();
+	}
 
 }

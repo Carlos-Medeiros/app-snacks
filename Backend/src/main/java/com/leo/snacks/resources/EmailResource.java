@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,17 +20,11 @@ public class EmailResource {
 	@Autowired
 	private EmailService emailService;
 	
-	@GetMapping("/emailValidator/{email}")
-	public ResponseEntity<UserEmailValidationDTO> find(@PathVariable String email) {
-		UserEmailValidationDTO dto = emailService.searchEmail(email);
+	@PostMapping("/keyValidation")
+	public ResponseEntity<UserEmailValidationDTO> keyValidation(@RequestBody UserEmailValidationDTO dto) {
+		dto = emailService.keyValidation(dto);
 		return ResponseEntity.ok().body(dto);
 	}
-	
-	@GetMapping("/forgotYourPassword/{email}")
-	public ResponseEntity<UserEmailValidationDTO> forgouYourPassword(@PathVariable String email) {
-		UserEmailValidationDTO dto = emailService.searchEmail(email);
-		return ResponseEntity.ok().body(dto);
-	}	
 	
 	@PostMapping("/emailValidator")
 	public ResponseEntity<UserEmailValidationDTO> EmailValidator(@Valid @RequestBody UserEmailValidationDTO dto) {
@@ -46,6 +40,10 @@ public class EmailResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	
+	@DeleteMapping("/emailDelete/{email}")
+	public ResponseEntity<Void> delete(@PathVariable String email) {
+		emailService.delete(email);
+		return ResponseEntity.noContent().build();
+	}
 
 }

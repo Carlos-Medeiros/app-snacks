@@ -73,7 +73,6 @@ public class UserService {
 	public void delete(String email) {
 		User user = repository.findByEmail(email);
 		repository.deleteById(user.getId());
-
 	}
 	
 }

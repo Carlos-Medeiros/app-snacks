@@ -33,6 +33,17 @@ public class EmailService {
 		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
 		return new UserEmailValidationDTO(emailValidation);
 	}
+	
+	@Transactional
+	public UserEmailValidationDTO keyValidation(UserEmailValidationDTO dto) {
+		EmailValidation emailValidation = this.emailValidationRepository.findByEmailAndNumberValidation(dto.getEmail(), dto.getNumberValidation());;
+		if (emailValidation != null) {
+			return new UserEmailValidationDTO(emailValidation);
+		}
+		else {
+			return new UserEmailValidationDTO(null);
+		}
+	}
     
 	@Transactional
 	public UserEmailValidationDTO emailValidator(UserEmailValidationDTO dto) {
@@ -60,5 +71,10 @@ public class EmailService {
 		emailValidation.setNumberValidation(numberRandom);
 		emailValidation = emailValidationRepository.save(emailValidation);
 		return new UserEmailValidationDTO(emailValidation);
+	}
+	
+	@Transactional
+	public void delete(String email) {
+		emailValidationRepository.deleteById(email);
 	}
 }

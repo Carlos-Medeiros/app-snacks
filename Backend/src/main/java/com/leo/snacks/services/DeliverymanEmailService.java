@@ -27,11 +27,22 @@ public class DeliverymanEmailService {
         message.setText(topic);
         emailSender.send(message);
     }
-	
+
 	@Transactional(readOnly = true)
 	public DeliverymanEmailValidationDTO searchEmail(String email) {
 		DeliverymanEmailValidation emailValidation = repository.findByEmail(email);
 		return new DeliverymanEmailValidationDTO(emailValidation);
+	}
+	
+	@Transactional
+	public DeliverymanEmailValidationDTO keyValidation(DeliverymanEmailValidationDTO dto) {
+		DeliverymanEmailValidation emailValidation = this.repository.findByEmailAndNumberValidation(dto.getEmail(), dto.getNumberValidation());;
+		if (emailValidation != null) {
+			return new DeliverymanEmailValidationDTO(emailValidation);
+		}
+		else {
+			return new DeliverymanEmailValidationDTO(null);
+		}
 	}
     
 	@Transactional
@@ -60,5 +71,10 @@ public class DeliverymanEmailService {
 		emailValidation.setNumberValidation(numberRandom);
 		emailValidation = repository.save(emailValidation);
 		return new DeliverymanEmailValidationDTO(emailValidation);
+	}
+	
+	@Transactional
+	public void delete(String email) {
+		repository.deleteById(email);
 	}
 }

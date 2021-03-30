@@ -6,6 +6,8 @@ import com.leo.snacks.domain.DeliverymanEmailValidation;
 
 public interface DeliverymanEmailValidationRepository extends JpaRepository<DeliverymanEmailValidation, String> {
 	
+	DeliverymanEmailValidation findByEmailAndNumberValidation(String email, Integer numberValidation);
+	
 	DeliverymanEmailValidation findByEmailEquals(String email);
 	
 	DeliverymanEmailValidation findByEmail(String email);
