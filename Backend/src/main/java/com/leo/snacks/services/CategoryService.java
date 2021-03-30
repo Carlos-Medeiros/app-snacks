@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -18,7 +17,6 @@ import com.leo.snacks.dto.OnlyCategoryDTO;
 import com.leo.snacks.dto.ProductDTO;
 import com.leo.snacks.repositories.CategoryRepository;
 import com.leo.snacks.repositories.ProductRepository;
-import com.leo.snacks.services.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class CategoryService {
@@ -68,12 +66,7 @@ public class CategoryService {
 	@Transactional
 	public void delete(Long id) {
 		search(id);
-		try {
-			repository.deleteById(id);
-		}
-		catch (DataIntegrityViolationException e ) {
-			throw new IntegrityConstraintViolationException("Não é possivel excluir uma categoria que tem produtos");
-		}
+		repository.deleteById(id);
 	}
 	
 	public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {

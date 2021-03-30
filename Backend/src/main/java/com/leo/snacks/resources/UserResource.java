@@ -1,9 +1,8 @@
 package com.leo.snacks.resources;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,21 +19,45 @@ public class UserResource {
 	private UserService service;
 	
 	@PostMapping("/register")
-	public ResponseEntity<EditUserDTO> register(@Valid @RequestBody EditUserDTO dto) {
+	public ResponseEntity<EditUserDTO> register(@RequestBody EditUserDTO dto) {
 		dto = service.register(dto);
 		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<EditUserDTO> login(@Valid @RequestBody EditUserDTO dto) {
+	public ResponseEntity<EditUserDTO> login(@RequestBody EditUserDTO dto) {
 		dto = service.login(dto);
 		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PutMapping("/forgotYourPassword/{email}")
-	public ResponseEntity<EditUserDTO> forgotYourPassword(@Valid @RequestBody EditUserDTO dto, @PathVariable String email) {
+	public ResponseEntity<EditUserDTO> forgotYourPassword(@RequestBody EditUserDTO dto, @PathVariable String email) {
 		dto = service.forgotYourPassword(dto, email);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping("/editName/{email}")
+	public ResponseEntity<EditUserDTO> editName(@RequestBody EditUserDTO dto, @PathVariable String email) {
+		dto = service.editName(dto, email);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping("/editPhoneNumber/{email}")
+	public ResponseEntity<EditUserDTO> editPhoneNumber(@RequestBody EditUserDTO dto, @PathVariable String email) {
+		dto = service.editPhoneNumber(dto, email);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping("/editPassword/{email}")
+	public ResponseEntity<EditUserDTO> editPassword(@RequestBody EditUserDTO dto, @PathVariable String email) {
+		dto = service.editPassword(dto, email);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@DeleteMapping("/delete/{email}")
+	public ResponseEntity<Void> delete(@PathVariable String email) {
+		service.delete(email);
+		return ResponseEntity.noContent().build();
 	}
 
 }

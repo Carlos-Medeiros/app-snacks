@@ -3,25 +3,48 @@ package com.leo.snacks.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_email_validation")
-public class EmailValidation implements Serializable {
+@Table(name = "tb_owner")
+public class Owner implements Serializable {
 
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String email;
-	private Integer numberValidation;
-		
-	public EmailValidation() {
+	private String name;
+	private String password;
+	
+	public Owner() {
 	}
 
-	public EmailValidation(String email, Integer numberValidation) {
+	public Owner(Long id, String name, String email, String password) {
+		this.id = id;
+		this.name = name;
 		this.email = email;
-		this.numberValidation = numberValidation;
+		this.password = password;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -32,14 +55,14 @@ public class EmailValidation implements Serializable {
 		this.email = email;
 	}
 
-	public Integer getNumberValidation() {
-		return numberValidation;
-	}
-	
-	public void setNumberValidation(Integer numberValidation) {
-		this.numberValidation = numberValidation;
+	public String getPassword() {
+		return password;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -56,7 +79,7 @@ public class EmailValidation implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EmailValidation other = (EmailValidation) obj;
+		Owner other = (Owner) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -64,7 +87,5 @@ public class EmailValidation implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 	
 }

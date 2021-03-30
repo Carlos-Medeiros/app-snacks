@@ -6,18 +6,18 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.leo.snacks.domain.EmailValidation;
-import com.leo.snacks.dto.UserEmailValidationDTO;
-import com.leo.snacks.repositories.EmailValidationRepository;
+import com.leo.snacks.domain.DeliverymanEmailValidation;
+import com.leo.snacks.dto.DeliverymanEmailValidationDTO;
+import com.leo.snacks.repositories.DeliverymanEmailValidationRepository;
 
 @Service
-public class EmailService {
+public class DeliverymanEmailService {
 
     @Autowired
     private JavaMailSender emailSender;
     
 	@Autowired
-	private EmailValidationRepository emailValidationRepository;
+	private DeliverymanEmailValidationRepository repository;
     
     public void sendValidation(String to, String body, String topic) {
         SimpleMailMessage message = new SimpleMailMessage(); 
@@ -29,36 +29,36 @@ public class EmailService {
     }
 	
 	@Transactional(readOnly = true)
-	public UserEmailValidationDTO searchEmail(String email) {
-		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
-		return new UserEmailValidationDTO(emailValidation);
+	public DeliverymanEmailValidationDTO searchEmail(String email) {
+		DeliverymanEmailValidation emailValidation = repository.findByEmail(email);
+		return new DeliverymanEmailValidationDTO(emailValidation);
 	}
     
 	@Transactional
-	public UserEmailValidationDTO emailValidator(UserEmailValidationDTO dto) {
+	public DeliverymanEmailValidationDTO emailValidator(DeliverymanEmailValidationDTO dto) {
 		Integer numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
 		while (numberRandom > 1000000 || numberRandom < 100000) {
 			numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
 		}
 		
-		EmailValidation emailValidation = new EmailValidation(dto.getEmail(), numberRandom);
-		if (emailValidationRepository.findByEmailEquals(dto.getEmail()) == null) {
-			emailValidation = emailValidationRepository.save(emailValidation);
-			return new UserEmailValidationDTO(emailValidation);
+		DeliverymanEmailValidation emailValidation = new DeliverymanEmailValidation(dto.getEmail(), "alguemseila2k18@gmail.com", numberRandom);
+		if (repository.findByEmailEquals(dto.getEmail()) == null) {
+			emailValidation = repository.save(emailValidation);
+			return new DeliverymanEmailValidationDTO(emailValidation);
 		}
-		return new UserEmailValidationDTO(null);
+		return new DeliverymanEmailValidationDTO(null);
 	}
 	
 	@Transactional
-	public UserEmailValidationDTO update(String email) {
+	public DeliverymanEmailValidationDTO update(String email) {
 		Integer numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
 		while (numberRandom > 1000000 || numberRandom < 100000) {
 			numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
 		}
 
-		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
+		DeliverymanEmailValidation emailValidation = repository.findByEmail(email);
 		emailValidation.setNumberValidation(numberRandom);
-		emailValidation = emailValidationRepository.save(emailValidation);
-		return new UserEmailValidationDTO(emailValidation);
+		emailValidation = repository.save(emailValidation);
+		return new DeliverymanEmailValidationDTO(emailValidation);
 	}
 }

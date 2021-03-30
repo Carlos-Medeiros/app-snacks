@@ -1,17 +1,15 @@
-import { HeaderHeightContext } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, InteractionManager } from 'react-native';
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 import API from '../api';
 import Header from '../Header/header';
 
-export default function EmailValidator() {
+export default function EmailValidator({navigation}) {
 
     const [email, setEmail] = useState('');
     {/*const [validator, setValidator] = useState();*/}
 
-    const [validatorInput, setValidatorInput] = useState('');
+    const [validatorInput, setValidatorInput] = useState(0);
 
     async function sendEmail() {
         let response = await API.post('/emailValidator', {
@@ -29,12 +27,11 @@ export default function EmailValidator() {
 
     let number = 123456
 
-    const navigation = useNavigation();
 
     console.log(numberRandom())
 
     const handleOnPress = () => {
-        if (number == validatorInput) {
+        if (emailValidation.numberValidation === validatorInput) {
             navigation.navigate('Register')
         }
         else {
@@ -50,7 +47,7 @@ export default function EmailValidator() {
                 <TouchableOpacity onPress={()=>sendEmail()}>
                     <Text style={styles.textButton}>Envia Email</Text>
                 </TouchableOpacity>
-                <TextInput placeholder="Digit o código de validação" style={styles.textInput} onChangeText={text=>setValidatorInput(text)}/>
+                <TextInput placeholder="Digit o código de validação" style={styles.textInput} onChangeText={text=>setValidatorInput(0)}/>
 
                 <RectButton onPress={handleOnPress}>
                     <Text style={styles.textButton}>Verificar</Text>

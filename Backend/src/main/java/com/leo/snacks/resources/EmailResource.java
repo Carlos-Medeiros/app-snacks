@@ -23,28 +23,29 @@ public class EmailResource {
 	@GetMapping("/emailValidator/{email}")
 	public ResponseEntity<UserEmailValidationDTO> find(@PathVariable String email) {
 		UserEmailValidationDTO dto = emailService.searchEmail(email);
-		emailService.sendValidation(dto.getEmail(), "Register", String.valueOf(dto.getNumberValidation()));
 		return ResponseEntity.ok().body(dto);
 	}
 	
 	@GetMapping("/forgotYourPassword/{email}")
 	public ResponseEntity<UserEmailValidationDTO> forgouYourPassword(@PathVariable String email) {
 		UserEmailValidationDTO dto = emailService.searchEmail(email);
-		emailService.sendValidation(dto.getEmail(), "Forgot Your Password", String.valueOf(dto.getNumberValidation()));
 		return ResponseEntity.ok().body(dto);
-	}
-	
+	}	
 	
 	@PostMapping("/emailValidator")
 	public ResponseEntity<UserEmailValidationDTO> EmailValidator(@Valid @RequestBody UserEmailValidationDTO dto) {
 		dto = emailService.emailValidator(dto);
+		emailService.sendValidation(dto.getEmail(), "Register", String.valueOf(dto.getNumberValidation()));
 		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PutMapping("/emailValidator/{email}")
 	public ResponseEntity<UserEmailValidationDTO> update(@PathVariable String email ) {
 		UserEmailValidationDTO dto = emailService.update(email);
+		emailService.sendValidation(dto.getEmail(), "Register", String.valueOf(dto.getNumberValidation()));
 		return ResponseEntity.ok().body(dto);
 	}
+	
+	
 
 }

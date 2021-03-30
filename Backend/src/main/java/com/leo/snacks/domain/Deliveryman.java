@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_client")
-public class User implements Serializable {
+@Table(name = "tb_deliveryman")
+public class Deliveryman implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -22,10 +22,10 @@ public class User implements Serializable {
 	private String password;
 	private Long phones;
 	
-	public User() {
+	public Deliveryman() {
 	}
 
-	public User(Long id, String name, String email, String password, Long phones) {
+	public Deliveryman(Long id, String name, String email, String password, Long phones) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -89,7 +89,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Deliveryman other = (Deliveryman) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;

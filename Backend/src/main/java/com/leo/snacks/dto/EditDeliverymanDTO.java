@@ -2,9 +2,9 @@ package com.leo.snacks.dto;
 
 import java.io.Serializable;
 
-import com.leo.snacks.domain.User;
+import com.leo.snacks.domain.Deliveryman;
 
-public class EditUserDTO implements Serializable {
+public class EditDeliverymanDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -14,10 +14,10 @@ public class EditUserDTO implements Serializable {
 	private String password;
 	private Long phones;
 	
-	public EditUserDTO() {
+	public EditDeliverymanDTO() {
 	}
 
-	public EditUserDTO(Long id, String name, String email, String password, Long phones) {
+	public EditDeliverymanDTO(Long id, String name, String email, String password, Long phones) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -25,7 +25,7 @@ public class EditUserDTO implements Serializable {
 		this.phones = phones;
 	}
 	
-	public EditUserDTO(User entity) {
+	public EditDeliverymanDTO(Deliveryman entity) {
 		id = entity.getId();
 		name = entity.getName();
 		email = entity.getEmail();

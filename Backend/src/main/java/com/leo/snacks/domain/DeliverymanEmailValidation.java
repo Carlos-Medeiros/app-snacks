@@ -7,20 +7,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_email_validation")
-public class EmailValidation implements Serializable {
+@Table(name="tb_delivaryman_email_validation")
+public class DeliverymanEmailValidation implements Serializable {
 
 	private static final long serialVersionUID = 1l;
 	
 	@Id
 	private String email;
+	private String emailMaster;
 	private Integer numberValidation;
 		
-	public EmailValidation() {
+	public DeliverymanEmailValidation() {
 	}
 
-	public EmailValidation(String email, Integer numberValidation) {
+	public DeliverymanEmailValidation(String email, String emailMaster, Integer numberValidation) {
 		this.email = email;
+		this.emailMaster = emailMaster;
 		this.numberValidation = numberValidation;
 	}
 
@@ -30,6 +32,14 @@ public class EmailValidation implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getEmailMaster() {
+		return emailMaster;
+	}
+
+	public void setEmailMaster(String emailMaster) {
+		this.emailMaster = emailMaster;
 	}
 
 	public Integer getNumberValidation() {
@@ -56,7 +66,7 @@ public class EmailValidation implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EmailValidation other = (EmailValidation) obj;
+		DeliverymanEmailValidation other = (DeliverymanEmailValidation) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;

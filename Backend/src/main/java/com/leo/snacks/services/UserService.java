@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.leo.snacks.domain.User;
 import com.leo.snacks.dto.EditUserDTO;
-import com.leo.snacks.dto.UserDTO;
 import com.leo.snacks.repositories.UserRepository;
 import com.leo.snacks.util.Util;
 
@@ -16,17 +15,15 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	@Transactional(readOnly = true)
-	public UserDTO search(Long id) {
-		User user = repository.getOne(id);
-		return new UserDTO(user);
-	}
-	
 	@Transactional
 	public EditUserDTO register(EditUserDTO dto) {
 		User user = new User(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()), dto.getPhones());	
-		user = repository.save(user);
-		return new EditUserDTO(user);
+		if (repository.findByEmailEquals(dto.getEmail()) == null) {
+			user = repository.save(user);
+			return new EditUserDTO(user);
+
+		}
+		return new EditUserDTO(null);
 	}
 	
 	@Transactional
@@ -46,13 +43,36 @@ public class UserService {
 		user.setPassword(Util.md5(dto.getPassword()));
 		user = repository.save(user);
 		return new EditUserDTO(user);
-	
 	}
 	
 	@Transactional
-	public void delete(Long id) {
-		search(id);
-		repository.deleteById(id);
+	public EditUserDTO editName(EditUserDTO dto, String email) {
+		User user = repository.findByEmail(email);
+		user.setName(dto.getName());
+		user = repository.save(user);
+		return new EditUserDTO(user);
+	}
+	
+	@Transactional
+	public EditUserDTO editPhoneNumber(EditUserDTO dto, String email) {
+		User user = repository.findByEmail(email);
+		user.setPhones(dto.getPhones());
+		user = repository.save(user);
+		return new EditUserDTO(user);
+	}
+	
+	@Transactional
+	public EditUserDTO editPassword(EditUserDTO dto, String email) {
+		User user = repository.findByEmail(email);
+		user.setPassword(Util.md5(dto.getPassword()));
+		user = repository.save(user);
+		return new EditUserDTO(user);
+	}
+	
+	@Transactional
+	public void delete(String email) {
+		User user = repository.findByEmail(email);
+		repository.deleteById(user.getId());
 
 	}
 	
