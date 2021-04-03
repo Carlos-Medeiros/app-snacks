@@ -5,7 +5,7 @@ import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 import API from '../api';
 import Header from '../Header/header';
 
-export default function Register({ navigation }) {
+export default function RegisterDeliveryman({ navigation }) {
 
     const [email, setEmail] = useState('');
     const [menssage, setMenssage] = useState('');
@@ -19,8 +19,10 @@ export default function Register({ navigation }) {
     };
 
     const handlePut = () => {
-        API.put(`/emailValidator/${email}`, {
-        }).then(codeValidation)
+        API.post(`/emailValidator/${email}`, {
+            email: email,
+        }).then( ({data}) => console.log(data) )
+        .then(handleGet)
         .catch(setMenssage('Este e-mail já está cadastrado, quer logar?'))
     };
 
@@ -43,7 +45,7 @@ export default function Register({ navigation }) {
             </View>
             <View style={styles.container}>
 
-                <Text style={styles.textH1}>Hello, welcome to Snack! :) </Text>
+                <Text style={styles.textH1}>Hello, welcome to Snack! :) Deliveryman</Text>
                 <Text style={styles.textH2}>Enter your email</Text>
                 <TextInput style={styles.Input} placeholder="Seu email..." onChangeText={text=>setEmail(text)}/>
                 <Text>{menssage}</Text>
@@ -54,10 +56,10 @@ export default function Register({ navigation }) {
                         <Text style={styles.textRoute}>quer logar?</Text>
                     </TouchableOpacity>
     </View>*/}
-                <Text style={styles.textInvi}></Text>
-                <TouchableOpacity style={styles.button} onPress={()=>handlePost()}>
+
+                <RectButton style={styles.button} onPress={()=>handlePost()}>
                     <Text style={styles.textButton}>Prosseguir</Text>
-                </TouchableOpacity>
+                </RectButton>
             </View>
         </>
     );
@@ -120,9 +122,6 @@ const styles = StyleSheet.create({
         marginTop: 55,
         marginLeft: '6.4%'
     },
-    textInvi: {
-        marginTop: '60%'
-    },
     button: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -130,7 +129,8 @@ const styles = StyleSheet.create({
         width: 350,
         height: 60,
         borderRadius: 15,
-        marginLeft: '7%'
+        marginLeft: '7%',
+        marginTop: '65%'
     },
     textButton: {
         color: 'white',

@@ -2,20 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-export default function Header({navigation}) {
+export default function Header({ navigation }) {
 
-    const handleOnPress = () => {
-        navigation.navigate('Home')
-    }
-
-    const login = () => {
+    const handleLogin = () => {
         navigation.navigate('Login')
     }
 
     return (   
         <View style={styles.containerHeader}>
-            <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=> login()}>
-                <Image source={require('../img/arrow.jpg')} ></Image>
+            <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>handleLogin()}>
+                <Image source={require('../img/arrow1x.png')} ></Image>
             </TouchableWithoutFeedback>
             <Text style={styles.textRegister}>Register</Text>
         </View>

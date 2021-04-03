@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.leo.snacks.domain.Order;
-import com.leo.snacks.domain.enums.OrderStatus;
+import com.leo.snacks.domain.OrderStatus;
 
 public class OrderDTO implements Serializable {
 
@@ -53,8 +53,6 @@ public class OrderDTO implements Serializable {
 		products = entity.getProduct().stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
 	}
 	
-	/// Esconder a senha e o email do usuario na hora de mostrar no pedido
-
 	public Long getId() {
 		return id;
 	}

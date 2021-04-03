@@ -16,8 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.leo.snacks.domain.enums.OrderStatus;
-
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
@@ -33,7 +31,6 @@ public class Order implements Serializable {
 	private Instant moment;
 	private boolean paymantToCard;
 	private OrderStatus status;
-
 	
 	@ManyToMany
 	@JoinTable(name = "tb_order_user",
@@ -53,11 +50,11 @@ public class Order implements Serializable {
 	
 	public Order(Long id, String address, Double latitude, Double longitude,
 			Instant moment, boolean paymantToCard, OrderStatus status) {
-		super();
 		this.id = id;
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.moment = moment;
 		this.paymantToCard = paymantToCard;
 		this.status = status;
 	}

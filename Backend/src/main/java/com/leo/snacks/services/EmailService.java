@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.leo.snacks.domain.EmailValidation;
 import com.leo.snacks.dto.UserEmailValidationDTO;
 import com.leo.snacks.repositories.EmailValidationRepository;
+import com.leo.snacks.repositories.UserRepository;
 
 @Service
 public class EmailService {
@@ -19,6 +20,9 @@ public class EmailService {
 	@Autowired
 	private EmailValidationRepository emailValidationRepository;
     
+	@Autowired
+	private UserRepository userRepository;
+	
     public void sendValidation(String to, String body, String topic) {
         SimpleMailMessage message = new SimpleMailMessage(); 
         message.setFrom("josecarlosdemedeirosfilho@gmail.com");
@@ -55,6 +59,15 @@ public class EmailService {
 		EmailValidation emailValidation = new EmailValidation(dto.getEmail(), numberRandom);
 		if (emailValidationRepository.findByEmailEquals(dto.getEmail()) == null) {
 			emailValidation = emailValidationRepository.save(emailValidation);
+			return new UserEmailValidationDTO(emailValidation);
+		}
+		return new UserEmailValidationDTO(null);
+	}
+	
+	@Transactional
+	public UserEmailValidationDTO userValidator(UserEmailValidationDTO dto) {
+		EmailValidation emailValidation = new EmailValidation(dto.getEmail(), null);
+		if (userRepository.findByEmailEquals(dto.getEmail()) == null) {
 			return new UserEmailValidationDTO(emailValidation);
 		}
 		return new UserEmailValidationDTO(null);

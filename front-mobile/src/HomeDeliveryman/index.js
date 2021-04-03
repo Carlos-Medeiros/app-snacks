@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function Home({ route, navigation }) {
+export default function HomeDeliveryman({ route, navigation }) {
    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,7 +18,7 @@ export default function Home({ route, navigation }) {
     return ( 
         <>
             <View>
-                <Text style={styles.textBemVindo}>Bem vindo, {route.params.userEmail}</Text>
+                <Text style={styles.textBemVindo}>Bem vindo, deliveryman {route.params.userEmail}</Text>
             </View>
         </>
     );

@@ -1,7 +1,5 @@
 package com.leo.snacks.resources;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,11 +25,18 @@ public class EmailResource {
 	}
 	
 	@PostMapping("/emailValidator")
-	public ResponseEntity<UserEmailValidationDTO> EmailValidator(@Valid @RequestBody UserEmailValidationDTO dto) {
+	public ResponseEntity<UserEmailValidationDTO> EmailValidator(@RequestBody UserEmailValidationDTO dto) {
 		dto = emailService.emailValidator(dto);
 		emailService.sendValidation(dto.getEmail(), "Register", String.valueOf(dto.getNumberValidation()));
 		return ResponseEntity.ok().body(dto);
 	}
+	
+	@PostMapping("/userValidator")
+	public ResponseEntity<UserEmailValidationDTO> userValidator(@RequestBody UserEmailValidationDTO dto) {
+		dto = emailService.userValidator(dto);
+		return ResponseEntity.ok().body(dto);
+	}
+	
 	
 	@PutMapping("/emailValidator/{email}")
 	public ResponseEntity<UserEmailValidationDTO> update(@PathVariable String email ) {

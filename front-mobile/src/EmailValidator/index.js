@@ -18,18 +18,6 @@ export default function EmailValidator({navigation}) {
         })
     }
 
-    
-
-    function numberRandom() {
-        let number = Math.floor(Math.random() * (999999 - 100000) + 100000);
-        return number
-    }
-
-    let number = 123456
-
-
-    console.log(numberRandom())
-
     const handleOnPress = () => {
         if (emailValidation.numberValidation === validatorInput) {
             navigation.navigate('Register')

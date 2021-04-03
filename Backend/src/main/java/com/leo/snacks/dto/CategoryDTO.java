@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
-
 import com.leo.snacks.domain.Category;
 
 public class CategoryDTO implements Serializable {
@@ -17,8 +13,6 @@ public class CategoryDTO implements Serializable {
 
 	private Long id;
 	
-	@NotEmpty(message="Preenchimento obrigatório")
-	@Length(min=4, max=80, message="O tamanho deve ser entre 4 e 80 caracteres")
 	private String name;
 	
 	private List<ProductDTO> products = new ArrayList<>();

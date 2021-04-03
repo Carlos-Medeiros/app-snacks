@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.leo.snacks.domain.Order;
 import com.leo.snacks.domain.Product;
 import com.leo.snacks.domain.User;
-import com.leo.snacks.domain.enums.OrderStatus;
+import com.leo.snacks.domain.OrderStatus;
 import com.leo.snacks.dto.OrderDTO;
 import com.leo.snacks.dto.ProductDTO;
 import com.leo.snacks.dto.UserDTO;
@@ -33,7 +33,7 @@ public class OrderService {
 	
 	@Transactional(readOnly = true)
 	public List<OrderDTO> findAll() {
-		List<Order> list = orderRepository.findAll();
+		List<Order> list = orderRepository.findOrdersWithProducts();
 		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
 	}
 	

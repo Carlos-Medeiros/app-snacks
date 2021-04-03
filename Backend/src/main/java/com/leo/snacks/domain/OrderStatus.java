@@ -1,4 +1,4 @@
-package com.leo.snacks.domain.enums;
+package com.leo.snacks.domain;
 
 public enum OrderStatus {
 	
