@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, AsyncStorage } from 'react-native';
-import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import API from '../api';
 import Header from '../Header/header';
@@ -9,23 +9,44 @@ export default function Register({ navigation }) {
 
     const [email, setEmail] = useState('');
     const [menssage, setMenssage] = useState('');
-
-    const handlePost = () => {
+    const [menssageRoute, setMenssageRoute] = useState('');
+    
+    const emailValidation = () => {
         API.post(`/emailValidator`, {
             email: email,
-        }).then( ({data}) => console.log(data) )
+        }).then(setMenssage(''), setMenssageRoute(''))
         .then(codeValidation)
-        .catch(handlePut)
+        .catch(userValidation)
     };
 
-    const handlePut = () => {
+    const userValidation = () => {
+        API.post(`/userValidator`, {
+            email: email,
+        }).then(setMenssage(''), setMenssageRoute(''))
+        .then(deliverymanValidation)
+        .catch(setMenssage('Este e-mail já está cadastrado, '), setMenssageRoute('quer logar?'))
+    };
+
+    const deliverymanValidation = () => {
+        API.post(`/deliverymanEmailValidator`, {
+            email: email,
+        }).then(setMenssage(''), setMenssageRoute(''))
+        .then(emailValidationPut)
+        .catch(setMenssage('Este e-mail já está cadastrado, '), setMenssageRoute('quer logar?'))
+    };
+
+    const emailValidationPut = () => {
         API.put(`/emailValidator/${email}`, {
-        }).then(codeValidation)
-        .catch(setMenssage('Este e-mail já está cadastrado, quer logar?'))
+        }).then(setMenssage(''), setMenssageRoute(''))
+        .then(codeValidation)
     };
 
     const codeValidation = () => {
         navigation.navigate('CodeValidation', {userEmail: email});
+    }
+
+    const choice = () => {
+        navigation.navigate('Choice')
     }
 
     const login = () => {
@@ -34,7 +55,12 @@ export default function Register({ navigation }) {
 
     return ( 
         <>
-            <Header/>
+            <View style={styles.containerHeader}>
+                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>choice()}>
+                    <Image source={require('../img/arrow1x.png')} ></Image>
+                </TouchableWithoutFeedback>
+                <Text style={styles.textRegister}>Register</Text>
+            </View>            
             <View style={styles.containerBarras}>
                 <Text style={styles.textBarra1}></Text>
                 <Text style={styles.textBarra2}></Text>
@@ -46,107 +72,115 @@ export default function Register({ navigation }) {
                 <Text style={styles.textH1}>Hello, welcome to Snack! :) </Text>
                 <Text style={styles.textH2}>Enter your email</Text>
                 <TextInput style={styles.Input} placeholder="Seu email..." onChangeText={text=>setEmail(text)}/>
-                <Text>{menssage}</Text>
 
-               {/*<View style={styles.containerError}>
-                    <Text style={styles.textVisible}>Este e-mail já está cadastrado, </Text>
-                    <TouchableOpacity style={styles.buttonVisible} onPress={() => login()}>
-                        <Text style={styles.textRoute}>quer logar?</Text>
+               <View style={styles.containerError}>
+                    <Text style={styles.textVisible}>{menssage}</Text>
+                    <TouchableOpacity style={styles.buttonVisible} onPress={()=>login()}>
+                        <Text style={styles.textRoute}>{menssageRoute}</Text>
                     </TouchableOpacity>
-    </View>*/}
-                <Text style={styles.textInvi}></Text>
-                <TouchableOpacity style={styles.button} onPress={()=>handlePost()}>
-                    <Text style={styles.textButton}>Prosseguir</Text>
-                </TouchableOpacity>
+                </View>
+                <View style={styles.containerButton}>
+                    <TouchableOpacity style={styles.button} onPress={()=>emailValidation()}>
+                        <Text style={styles.textButton}>Prosseguir</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </>
     );
 }
 
 const styles = StyleSheet.create({
+    containerHeader: {
+        height: 116,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    imgSeta: {
+        marginLeft: 13
+    },
+    textRegister: {
+        fontSize: 16,
+        marginLeft: '33%'
+    },
     containerBarras: {
         flexDirection: 'row',
         alignItems: 'center'
     },
     textBarra1: {
         backgroundColor: '#DB1020',
-        width: 70,
+        width: '17%',
         height: 4,
         borderRadius: 5,
-        marginLeft: '6.4%'
+        marginLeft: '6%'
     },
     textBarra2: {
         backgroundColor: '#F6F6F6',
-        width: 70,
+        width: '17%',
         height: 4,
         borderRadius: 5,
-        marginLeft: '6.4%'
+        marginLeft: '6%'
     },
     textBarra3: {
         backgroundColor: '#F6F6F6',
-        width: 70,
+        width: '17%',
         height: 4,
         borderRadius: 5,
-        marginLeft: '6.4%'
+        marginLeft: '6%'
     },
     textBarra4: {
         backgroundColor: '#F6F6F6',
-        width: 70,
+        width: '17%',
         height: 4,
         borderRadius: 5,
-        marginLeft: '6.4%'
+        marginLeft: '6%'
     },
     container: {
         height: '100%',
         backgroundColor: 'white',
     },
     textH1: {
-        marginTop: 55,
-        marginLeft: '6.4%',
+        marginTop: '15%',
+        marginLeft: '6%',
         fontSize: 18,
         fontWeight: 'bold'
     },
     textH2: {
-        marginTop: 6,
-        marginLeft: '6.4%',
+        marginTop: '2%',
+        marginLeft: '6%',
         fontSize: 16,
     },
     Input: {
-        width: 350,
+        width: '88%',
         height: 50,
         backgroundColor: '#F6F6F6',
         borderRadius: 15,
-        paddingLeft: 10,
-        marginTop: 55,
-        marginLeft: '6.4%'
+        paddingLeft: 15,
+        marginTop: '13%',
+        marginLeft: '6%'
     },
-    textInvi: {
-        marginTop: '60%'
+    containerButton: {
+        marginTop: '66%'
     },
     button: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#DB1020',
-        width: 350,
+        width: '88%',
         height: 60,
         borderRadius: 15,
-        marginLeft: '7%'
+        marginLeft: '6%'
     },
     textButton: {
         color: 'white',
         fontSize: 18
     },
     containerError: {
-        flexDirection: 'row'
-    },
-    buttonVisible: {
-        backgroundColor: 'white',
-        marginTop: 10,
+        flexDirection: 'row',
+        marginTop: '2%'
     },
     textVisible: {
         color: 'black',
-        marginTop: 10,
-        marginLeft: '7%'
+        marginLeft: '6%'
     },
     textRoute: {
         textDecorationLine: 'underline',

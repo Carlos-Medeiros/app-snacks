@@ -36,13 +36,13 @@ INSERT INTO tb_client (name, email, password, phones) VALUES ('Joãozinho','emai
 INSERT INTO tb_owner (name, email, password) VALUES ('Lanches da gê','lanchesdage@gmail.com', '27201307');
 
 
-INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-11T10:00:00Z', 0, true);
-INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-22.946779, -43.217753, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-02-10T15:00:00Z', 0, false);
-INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-25.439787, -49.237759, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-03-15T16:00:00Z', 0, true);
-INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-04-01T12:00:00Z', 1, false);
-INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-03-01T08:00:00Z', 0, false);
-INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-02-02T14:00:00Z', 1, true);
-INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-02-03T09:00:00Z', 0, false);
+INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T10:00:00Z', 0, true);
+INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-22.946779, -43.217753, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T15:00:00Z', 0, false);
+INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-25.439787, -49.237759, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T16:00:00Z', 0, true);
+INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T12:00:00Z', 1, false);
+INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T08:00:00Z', 0, false);
+INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T14:00:00Z', 1, true);
+INSERT INTO tb_order (latitude, longitude, address, moment, status, paymant_to_card) VALUES (-23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T09:00:00Z', 0, false);
 
 INSERT INTO tb_order_product (order_id, product_id) VALUES (1 , 1);
 INSERT INTO tb_order_product (order_id, product_id) VALUES (1 , 4);

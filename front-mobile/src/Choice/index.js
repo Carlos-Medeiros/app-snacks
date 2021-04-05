@@ -54,7 +54,7 @@ export default function Choice({ route, navigation }) {
 
 const styles = StyleSheet.create({
     containerHeader: {
-        height: 116,
+        height: '16%',
         flexDirection: 'row',
         alignItems: 'center'
     },

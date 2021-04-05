@@ -84,11 +84,11 @@ const styles = StyleSheet.create({
     },
     textBarra: {
         backgroundColor: '#DB1020',
-        width: 414,
+        width: '100%',
         height: 2
     },
     textH1: {
-        marginTop: 184,
+        marginTop: '40%',
         textAlign: 'center',
         color: '#DB1020',
         fontSize: 40,
@@ -96,18 +96,18 @@ const styles = StyleSheet.create({
     },
     textH2: {
         textAlign: 'center',
-        paddingTop: -100,
         color: '#DB1020',
         fontSize: 40,
         fontStyle: 'italic'
     },
     InputEmail: {
         backgroundColor: '#F6F6F6',
-        width: 350,
-        height: 50,
+        width:'85%',
+        height: '7.5%',
         borderRadius: 15,
         marginTop: '20%',
         marginLeft: '7%',
+        marginRight: '7%',
         paddingLeft: 15
     },
     textMenssage: {
@@ -116,11 +116,12 @@ const styles = StyleSheet.create({
     },
     InputPassword: {
         backgroundColor: '#F6F6F6',
-        width: 350,
-        height: 50,
+        width: '85%',
+        height: '7.5%',
         borderRadius: 15,
-        marginTop: 20,
+        marginTop: '5%',
         marginLeft: '7%',
+        marginRight: '7%',
         paddingLeft: 15
     },
     containerButton: {
