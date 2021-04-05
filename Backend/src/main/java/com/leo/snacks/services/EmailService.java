@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.leo.snacks.domain.EmailValidation;
 import com.leo.snacks.dto.UserEmailValidationDTO;
+import com.leo.snacks.repositories.DeliverymanRepository;
 import com.leo.snacks.repositories.EmailValidationRepository;
 import com.leo.snacks.repositories.UserRepository;
 
@@ -22,6 +23,9 @@ public class EmailService {
     
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private DeliverymanRepository deliverymanRepository;
 	
     public void sendValidation(String to, String body, String topic) {
         SimpleMailMessage message = new SimpleMailMessage(); 
@@ -65,15 +69,6 @@ public class EmailService {
 	}
 	
 	@Transactional
-	public UserEmailValidationDTO userValidator(UserEmailValidationDTO dto) {
-		EmailValidation emailValidation = new EmailValidation(dto.getEmail(), null);
-		if (userRepository.findByEmailEquals(dto.getEmail()) == null) {
-			return new UserEmailValidationDTO(emailValidation);
-		}
-		return new UserEmailValidationDTO(null);
-	}
-	
-	@Transactional
 	public UserEmailValidationDTO update(String email) {
 		Integer numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
 		while (numberRandom > 1000000 || numberRandom < 100000) {
@@ -81,9 +76,14 @@ public class EmailService {
 		}
 
 		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
-		emailValidation.setNumberValidation(numberRandom);
-		emailValidation = emailValidationRepository.save(emailValidation);
-		return new UserEmailValidationDTO(emailValidation);
+		if (userRepository.findByEmail(email) == null && deliverymanRepository.findByEmail(email) == null) {
+			emailValidation.setNumberValidation(numberRandom);
+			emailValidation = emailValidationRepository.save(emailValidation);
+			return new UserEmailValidationDTO(emailValidation);
+		}
+		else {
+			return new UserEmailValidationDTO(null);
+		}
 	}
 	
 	@Transactional

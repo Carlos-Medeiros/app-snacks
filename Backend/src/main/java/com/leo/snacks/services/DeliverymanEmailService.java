@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.leo.snacks.domain.DeliverymanEmailValidation;
 import com.leo.snacks.dto.DeliverymanEmailValidationDTO;
 import com.leo.snacks.repositories.DeliverymanEmailValidationRepository;
-import com.leo.snacks.repositories.DeliverymanRepository;
 
 @Service
 public class DeliverymanEmailService {
@@ -19,10 +18,7 @@ public class DeliverymanEmailService {
     
 	@Autowired
 	private DeliverymanEmailValidationRepository repository;
-	
-	@Autowired
-	private DeliverymanRepository deliverymanRepository;
-    
+
     public void sendValidation(String to, String body, String topic) {
         SimpleMailMessage message = new SimpleMailMessage(); 
         message.setFrom("josecarlosdemedeirosfilho@gmail.com");
@@ -59,15 +55,6 @@ public class DeliverymanEmailService {
 		DeliverymanEmailValidation emailValidation = new DeliverymanEmailValidation(dto.getEmail(), "alguemseila2k18@gmail.com", numberRandom);
 		if (repository.findByEmailEquals(dto.getEmail()) == null) {
 			emailValidation = repository.save(emailValidation);
-			return new DeliverymanEmailValidationDTO(emailValidation);
-		}
-		return new DeliverymanEmailValidationDTO(null);
-	}
-	
-	@Transactional
-	public DeliverymanEmailValidationDTO deliverymanValidator(DeliverymanEmailValidationDTO dto) {
-		DeliverymanEmailValidation emailValidation = new DeliverymanEmailValidation(dto.getEmail(), null, null);
-		if (deliverymanRepository.findByEmailEquals(dto.getEmail()) == null) {
 			return new DeliverymanEmailValidationDTO(emailValidation);
 		}
 		return new DeliverymanEmailValidationDTO(null);

@@ -31,13 +31,6 @@ public class EmailResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	@PostMapping("/userValidator")
-	public ResponseEntity<UserEmailValidationDTO> userValidator(@RequestBody UserEmailValidationDTO dto) {
-		dto = emailService.userValidator(dto);
-		return ResponseEntity.ok().body(dto);
-	}
-	
-	
 	@PutMapping("/emailValidator/{email}")
 	public ResponseEntity<UserEmailValidationDTO> update(@PathVariable String email ) {
 		UserEmailValidationDTO dto = emailService.update(email);

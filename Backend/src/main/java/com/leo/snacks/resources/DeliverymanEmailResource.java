@@ -33,12 +33,6 @@ public class DeliverymanEmailResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	@PostMapping("/deliverymanValidator")
-	public ResponseEntity<DeliverymanEmailValidationDTO> deliverymanValidator(@Valid @RequestBody DeliverymanEmailValidationDTO dto) {
-		dto = emailService.deliverymanValidator(dto);
-		return ResponseEntity.ok().body(dto);
-	}
-	
 	@PutMapping("/deliverymanEmailValidator/{email}")
 	public ResponseEntity<DeliverymanEmailValidationDTO> update(@PathVariable String email ) {
 		DeliverymanEmailValidationDTO dto = emailService.update(email);
