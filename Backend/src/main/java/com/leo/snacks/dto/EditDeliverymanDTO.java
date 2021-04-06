@@ -3,6 +3,7 @@ package com.leo.snacks.dto;
 import java.io.Serializable;
 
 import com.leo.snacks.domain.Deliveryman;
+import com.leo.snacks.domain.DeliverymanStatus;
 
 public class EditDeliverymanDTO implements Serializable {
 
@@ -13,16 +14,18 @@ public class EditDeliverymanDTO implements Serializable {
 	private String email;
 	private String password;
 	private Long phones;
+	private DeliverymanStatus status;
 	
 	public EditDeliverymanDTO() {
 	}
 
-	public EditDeliverymanDTO(Long id, String name, String email, String password, Long phones) {
+	public EditDeliverymanDTO(Long id, String name, String email, String password, Long phones, DeliverymanStatus status) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
+		this.status = status;
 	}
 	
 	public EditDeliverymanDTO(Deliveryman entity) {
@@ -31,6 +34,7 @@ public class EditDeliverymanDTO implements Serializable {
 		email = entity.getEmail();
 		password = entity.getPassword();
 		phones = entity.getPhones();
+		status = entity.getStatus();
 	}
 
 	public Long getId() {
@@ -71,6 +75,14 @@ public class EditDeliverymanDTO implements Serializable {
 
 	public void setPhones(Long phones) {
 		this.phones = phones;
+	}
+
+	public DeliverymanStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(DeliverymanStatus status) {
+		this.status = status;
 	}
 	
 }

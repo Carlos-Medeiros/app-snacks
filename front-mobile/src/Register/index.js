@@ -3,53 +3,51 @@ import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import API from '../api';
-import Header from '../Header/header';
 
-export default function Register({ navigation }) {
+export default function Register({ route, navigation }) {
 
     const [email, setEmail] = useState('');
     const [menssage, setMenssage] = useState('');
     const [menssageRoute, setMenssageRoute] = useState('');
+    const [deliverymanCod, setDeliverymanCod] = useState(route.params.deliverymanCod);
     
     const emailValidation = () => {
         API.post(`/emailValidator`, {
             email: email,
-        }).then(setMenssage(''), setMenssageRoute(''))
+        }).then(setMenssage(''))
+        .then(setMenssageRoute(''))
         .then(codeValidation)
-        .catch(userValidation)
-    };
-
-    const userValidation = () => {
-        API.post(`/userValidator`, {
-            email: email,
-        }).then(setMenssage(''), setMenssageRoute(''))
-        .then(deliverymanValidation)
-        .catch(setMenssage('Este e-mail já está cadastrado, '), setMenssageRoute('quer logar?'))
-    };
-
-    const deliverymanValidation = () => {
-        API.post(`/deliverymanEmailValidator`, {
-            email: email,
-        }).then(setMenssage(''), setMenssageRoute(''))
-        .then(emailValidationPut)
-        .catch(setMenssage('Este e-mail já está cadastrado, '), setMenssageRoute('quer logar?'))
+        .catch(emailValidationPut)
     };
 
     const emailValidationPut = () => {
         API.put(`/emailValidator/${email}`, {
-        }).then(setMenssage(''), setMenssageRoute(''))
+        }).then(setMenssage(''))
+        .then(setMenssageRoute(''))
         .then(codeValidation)
+        .catch(errorRegister)
     };
 
+    const errorRegister = () => {
+        setMenssage('Este e-mail já está cadastrado, ')
+        setMenssageRoute('quer logar?')
+    }
+
     const codeValidation = () => {
+        setMenssage('')
+        setMenssageRoute('')
         navigation.navigate('CodeValidation', {userEmail: email});
     }
 
     const choice = () => {
+        setMenssage('')
+        setMenssageRoute('')
         navigation.navigate('Choice')
     }
 
     const login = () => {
+        setMenssage('')
+        setMenssageRoute('')
         navigation.navigate('Login')
     }
 
@@ -71,7 +69,7 @@ export default function Register({ navigation }) {
 
                 <Text style={styles.textH1}>Hello, welcome to Snack! :) </Text>
                 <Text style={styles.textH2}>Enter your email</Text>
-                <TextInput style={styles.Input} placeholder="Seu email..." onChangeText={text=>setEmail(text)}/>
+                <TextInput style={styles.Input} placeholder="Seu email..." onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
 
                <View style={styles.containerError}>
                     <Text style={styles.textVisible}>{menssage}</Text>

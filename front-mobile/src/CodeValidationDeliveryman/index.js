@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image} from 'react-native';
-import {TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+
 import API from '../api';
 
-export default function CodeValidation({ route, navigation }) {
+export default function CodeValidationDeliveryman({ route,  navigation }) {
 
     const [email, setEmail] = useState('');
     const [menssage, setMenssage] = useState('');
     const [menssageRoute, setMenssageRoute] = useState('');
-    const [deliverymanCod, setDeliverymanCod] = useState(route.params.deliverymanCod);
     
     const emailValidation = () => {
         API.post(`/emailValidator`, {
@@ -66,15 +66,9 @@ export default function CodeValidation({ route, navigation }) {
             </View>
             <View style={styles.container}>
 
-                <Text style={styles.textH1}>Enter the code we sent you</Text>
-                <Text style={styles.textH2}>Insert the code</Text>
-                <TextInput style={styles.Input} placeholder="Seu cod..." onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
-
-                <View style={styles.containerResendCode}>
-                    <TouchableOpacity style={styles.buttonResendCode}>
-                        <Text style={styles.resendCode}>Reenviar código</Text>
-                    </TouchableOpacity>
-                </View>
+                <Text style={styles.textH1}>Hello, welcome to Snack! :) </Text>
+                <Text style={styles.textH2}>Enter your email</Text>
+                <TextInput style={styles.Input} placeholder="Seu email..." onChangeText={text=>setEmail(text)}/>
 
                <View style={styles.containerError}>
                     <Text style={styles.textVisible}>{menssage}</Text>
@@ -162,7 +156,7 @@ const styles = StyleSheet.create({
         marginLeft: '6%'
     },
     containerButton: {
-        marginTop: '50%'
+        marginTop: '66%'
     },
     button: {
         justifyContent: 'center',
@@ -188,13 +182,5 @@ const styles = StyleSheet.create({
     textRoute: {
         textDecorationLine: 'underline',
         color: '#DB1020'
-    },
-    containerResendCode: {
-        marginTop: '12%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonResendCode: {
-        width: '27%',
     }
 });

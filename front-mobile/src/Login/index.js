@@ -9,9 +9,6 @@ export default function Login({navigation}) {
     const [password, setPassword] = useState('');
     const [menssage, setMenssage] = useState('');
 
-    setTimeout(() => {
-    }, 5000);
-
     const handleLogin = () => {
         API.post(`/login`, {
             email: email,
@@ -54,9 +51,9 @@ export default function Login({navigation}) {
                 <Text style={styles.textH1}>LANCHES DA GÊ</Text>
                 <Text style={styles.textBarra}></Text>
                 <Text style={styles.textH2}>delivery</Text>
-                <TextInput style={styles.InputEmail} placeholder="Seu email..." onChangeText={text=>setEmail(text)}/>
+                <TextInput style={styles.InputEmail} placeholder="Seu email..." onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
                 <Text style={styles.textMenssage}>{menssage}</Text>
-                <TextInput style={styles.InputPassword} placeholder="Sua senha..." onChangeText={text=>setPassword(text)}/>
+                <TextInput secureTextEntry={true} style={styles.InputPassword} placeholder="Sua senha..." onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
                 
                 <View style={styles.containerButton}>
                     <TouchableOpacity style={styles.buttonOPacity} onPress={()=>forgotPassword()}>

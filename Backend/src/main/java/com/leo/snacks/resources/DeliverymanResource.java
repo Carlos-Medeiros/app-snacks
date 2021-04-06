@@ -1,8 +1,11 @@
 package com.leo.snacks.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +20,18 @@ public class DeliverymanResource {
 	
 	@Autowired
 	private DeliverymanService service;
+	
+	@GetMapping("/deliveryman")
+	public ResponseEntity<List<EditDeliverymanDTO>> findAll() {
+		List<EditDeliverymanDTO> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@GetMapping("/{email}/status")
+	public ResponseEntity<EditDeliverymanDTO> search(@PathVariable String email) {
+		EditDeliverymanDTO dto = service.search(email);
+		return ResponseEntity.ok().body(dto);
+	}
 	
 	@PostMapping("/register/deliveryman")
 	public ResponseEntity<EditDeliverymanDTO> register(@RequestBody EditDeliverymanDTO dto) {
@@ -59,5 +74,22 @@ public class DeliverymanResource {
 		service.delete(email);
 		return ResponseEntity.noContent().build();
 	}
-
+	
+	@PutMapping("/{email}/accepted")
+	public ResponseEntity<EditDeliverymanDTO> updateAccepted(@PathVariable String email) {
+		EditDeliverymanDTO dto = service.updateAccepted(email);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping("/{email}/rejected")
+	public ResponseEntity<EditDeliverymanDTO> updateRejected(@PathVariable String email) {
+		EditDeliverymanDTO dto = service.updateRejected(email);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping("/{email}/disabled")
+	public ResponseEntity<EditDeliverymanDTO> updateDisabled(@PathVariable String email) {
+		EditDeliverymanDTO dto = service.updateDisabled(email);
+		return ResponseEntity.ok().body(dto);
+	}
 }

@@ -9,8 +9,7 @@ import ForgotPassword from './ForgotPassword';
 import CodeValidation from './CodeValidation';
 import Choice from './Choice';
 import HomeDeliveryman from './HomeDeliveryman'
-import RegisterDeliveryman from './RegisterDeliveryman';
-
+import CodeValidationDeliveryman from './CodeValidationDeliveryman';
 
 const Stack = createStackNavigator();
 
@@ -30,7 +29,7 @@ function Routes() {
                 <Stack.Screen name="HomeDeliveryman" component={HomeDeliveryman}/>
                 <Stack.Screen name="Choice" component={Choice}/>
                 <Stack.Screen name="Register" component={Register}/>
-                <Stack.Screen name="RegisterDeliveryman" component={RegisterDeliveryman}/>
+                <Stack.Screen name="CodeValidationDeliveryman" component={CodeValidationDeliveryman}/>
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
                 <Stack.Screen name="CodeValidation" component={CodeValidation}/>
                 <Stack.Screen name="EmailValidator" component={EmailValidator}/>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import { RectButton, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-export default function Choice({ route, navigation }) {
+export default function Choice({ navigation }) {
 
 
     const login = () => {
@@ -10,11 +10,11 @@ export default function Choice({ route, navigation }) {
     }
 
     const register = () => {
-        navigation.navigate('Register')
+        navigation.navigate('Register', {deliverymanCod: 0})
     }
 
     const registerDeliveryman = () => {
-        navigation.navigate('RegisterDeliveryman')
+        navigation.navigate('Register', {deliverymanCod: 1})
     }
 
 

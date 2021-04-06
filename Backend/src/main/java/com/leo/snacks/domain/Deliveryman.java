@@ -21,16 +21,18 @@ public class Deliveryman implements Serializable {
 	private String name;
 	private String password;
 	private Long phones;
+	private DeliverymanStatus status;
 	
 	public Deliveryman() {
 	}
 
-	public Deliveryman(Long id, String name, String email, String password, Long phones) {
+	public Deliveryman(Long id, String name, String email, String password, Long phones, DeliverymanStatus status) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
+		this.status = status;
 	}
 	
 	public Long getId() {
@@ -71,6 +73,14 @@ public class Deliveryman implements Serializable {
 
 	public void setPhones(Long phones) {
 		this.phones = phones;
+	}
+	
+	public DeliverymanStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(DeliverymanStatus status) {
+		this.status = status;
 	}
 
 	@Override
