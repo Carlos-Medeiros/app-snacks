@@ -20,12 +20,12 @@ public class User implements Serializable {
 	private String email;
 	private String name;
 	private String password;
-	private Long phones;
+	private String phones;
 	
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, Long phones) {
+	public User(Long id, String name, String email, String password, String phones) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -65,11 +65,11 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
-	public Long getPhones() {
+	public String getPhones() {
 		return phones;
 	}
 
-	public void setPhones(Long phones) {
+	public void setPhones(String phones) {
 		this.phones = phones;
 	}
 

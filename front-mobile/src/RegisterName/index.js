@@ -2,58 +2,24 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-import API from '../api';
+export default function RegisterName({ route, navigation }) {
 
-export default function Register({ route, navigation }) {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
 
-    const [email, setEmail] = useState('');
-    const [menssage, setMenssage] = useState('');
-    const [menssageRoute, setMenssageRoute] = useState('');
-    
-    const emailValidation = () => {
-        API.post(`/emailValidator`, {
-            email: email,
-        }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
-        .then(codeValidation)
-        .catch(emailValidationPut)
-    };
-
-    const emailValidationPut = () => {
-        API.put(`/emailValidator/${email}`, {
-        }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
-        .then(codeValidation)
-        .catch(errorRegister)
-    };
-
-    const errorRegister = () => {
-        setMenssage('Este e-mail já está cadastrado, ')
-        setMenssageRoute('quer logar?')
+    const validationComplete = () => {
+        navigation.navigate('ValidationComplete')
     }
 
-    const codeValidation = () => {
-        setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('CodeValidation', {userEmail: email, deliverymanCod: route.params.deliverymanCod});
-    }
-
-    const choice = () => {
-        setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('Choice')
-    }
-
-    const login = () => {
-        setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('Login')
+    const registerPhoneNumber = () => {
+        navigation.navigate('RegisterPhoneNumber', {userName: firstName + ' ' + lastName, 
+        userEmail: route.params.userEmail, deliverymanCod: route.params.deliverymanCod})
     }
 
     return ( 
         <>
             <View style={styles.containerHeader}>
-                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>choice()}>
+                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>validationComplete()}>
                     <Image source={require('../img/arrow1x.png')} ></Image>
                 </TouchableWithoutFeedback>
                 <Text style={styles.textRegister}>Register</Text>
@@ -66,18 +32,15 @@ export default function Register({ route, navigation }) {
             </View>
             <View style={styles.container}>
 
-                <Text style={styles.textH1}>Hello, welcome to Snack! :) </Text>
-                <Text style={styles.textH2}>Enter your email</Text>
-                <TextInput style={styles.Input} placeholder="Seu email..." onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
-
-               <View style={styles.containerError}>
-                    <Text style={styles.textVisible}>{menssage}</Text>
-                    <TouchableOpacity style={styles.buttonVisible} onPress={()=>login()}>
-                        <Text style={styles.textRoute}>{menssageRoute}</Text>
-                    </TouchableOpacity>
+                <Text style={styles.textH1}>How do you want to be called?</Text>
+                <Text style={styles.textH2}>Enter your name</Text>
+                <View style={styles.containerInputs}>
+                    <TextInput style={styles.inputFirstName} placeholder="Nome" onChangeText={text=>setFirstName(text)} autoCapitalize="none"/>
+                    <TextInput style={styles.inputLastName} placeholder="Sobrenome" onChangeText={text=>setLastName(text)} autoCapitalize="none"/>
                 </View>
+
                 <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={()=>emailValidation()}>
+                    <TouchableOpacity style={styles.button} onPress={()=>registerPhoneNumber()}>
                         <Text style={styles.textButton}>Prosseguir</Text>
                     </TouchableOpacity>
                 </View>
@@ -111,7 +74,7 @@ const styles = StyleSheet.create({
         marginLeft: '6%'
     },
     textBarra2: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#DB1020',
         width: '17%',
         height: 4,
         borderRadius: 5,
@@ -146,8 +109,20 @@ const styles = StyleSheet.create({
         marginLeft: '6%',
         fontSize: 16,
     },
-    Input: {
-        width: '88%',
+    containerInputs: {
+        flexDirection: 'row'
+    },
+    inputFirstName: {
+        width: '41%',
+        height: 50,
+        backgroundColor: '#F6F6F6',
+        borderRadius: 15,
+        paddingLeft: 15,
+        marginTop: '13%',
+        marginLeft: '6%'
+    },
+    inputLastName: {
+        width: '41%',
         height: 50,
         backgroundColor: '#F6F6F6',
         borderRadius: 15,
@@ -170,17 +145,5 @@ const styles = StyleSheet.create({
     textButton: {
         color: 'white',
         fontSize: 18
-    },
-    containerError: {
-        flexDirection: 'row',
-        marginTop: '2%'
-    },
-    textVisible: {
-        color: 'black',
-        marginLeft: '6%'
-    },
-    textRoute: {
-        textDecorationLine: 'underline',
-        color: '#DB1020'
     }
 });

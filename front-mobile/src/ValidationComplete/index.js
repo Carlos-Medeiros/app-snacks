@@ -1,59 +1,21 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-import API from '../api';
+export default function ValidationComplete({ route, navigation }) {
 
-export default function CodeValidationDeliveryman({ route,  navigation }) {
-
-    const [email, setEmail] = useState('');
-    const [menssage, setMenssage] = useState('');
-    const [menssageRoute, setMenssageRoute] = useState('');
-    
-    const emailValidation = () => {
-        API.post(`/emailValidator`, {
-            email: email,
-        }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
-        .then(codeValidation)
-        .catch(emailValidationPut)
-    };
-
-    const emailValidationPut = () => {
-        API.put(`/emailValidator/${email}`, {
-        }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
-        .then(codeValidation)
-        .catch(errorRegister)
-    };
-
-    const errorRegister = () => {
-        setMenssage('Este e-mail já está cadastrado, ')
-        setMenssageRoute('quer logar?')
-    }
-
-    const codeValidation = () => {
-        setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('CodeValidation', {userEmail: email});
-    }
-
-    const choice = () => {
-        setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('Choice')
+    const registerName = () => {
+        navigation.navigate('RegisterName')
     }
 
     const login = () => {
-        setMenssage('')
-        setMenssageRoute('')
         navigation.navigate('Login')
     }
 
     return ( 
         <>
             <View style={styles.containerHeader}>
-                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>choice()}>
+                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>login()}>
                     <Image source={require('../img/arrow1x.png')} ></Image>
                 </TouchableWithoutFeedback>
                 <Text style={styles.textRegister}>Register</Text>
@@ -66,18 +28,18 @@ export default function CodeValidationDeliveryman({ route,  navigation }) {
             </View>
             <View style={styles.container}>
 
-                <Text style={styles.textH1}>Hello, welcome to Snack! :) </Text>
-                <Text style={styles.textH2}>Enter your email</Text>
-                <TextInput style={styles.Input} placeholder="Seu email..." onChangeText={text=>setEmail(text)}/>
+                <Text style={styles.textH1}>SEU EMAIL JA FOI VALIDADO</Text>
+                <Text style={styles.textH2}>Aperte Prosseguir para continuar</Text>
+                <TextInput style={styles.Input} placeholder="Seu email..." onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
 
                <View style={styles.containerError}>
-                    <Text style={styles.textVisible}>{menssage}</Text>
+                    <Text style={styles.textVisible}>{}</Text>
                     <TouchableOpacity style={styles.buttonVisible} onPress={()=>login()}>
-                        <Text style={styles.textRoute}>{menssageRoute}</Text>
+                        <Text style={styles.textRoute}>{}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={()=>emailValidation()}>
+                    <TouchableOpacity style={styles.button} onPress={()=>registerName()}>
                         <Text style={styles.textButton}>Prosseguir</Text>
                     </TouchableOpacity>
                 </View>
@@ -156,14 +118,14 @@ const styles = StyleSheet.create({
         marginLeft: '6%'
     },
     containerButton: {
-        marginTop: '66%'
+        marginTop: '59%'
     },
     button: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#DB1020',
         width: '88%',
-        height: 60,
+        height: '51%',
         borderRadius: 15,
         marginLeft: '6%'
     },

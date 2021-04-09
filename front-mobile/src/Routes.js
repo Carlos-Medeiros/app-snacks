@@ -9,7 +9,11 @@ import ForgotPassword from './ForgotPassword';
 import CodeValidation from './CodeValidation';
 import Choice from './Choice';
 import HomeDeliveryman from './HomeDeliveryman'
-import CodeValidationDeliveryman from './CodeValidationDeliveryman';
+import DeliverymanStatus from './DeliverymanStatus';
+import RegisterName from "./RegisterName";
+import ValidationComplete from "./ValidationComplete";
+import RegisterPhoneNumber from './RegisterPhoneNumber';
+import RegisterPassword from './RegisterPassword';
 
 const Stack = createStackNavigator();
 
@@ -29,10 +33,14 @@ function Routes() {
                 <Stack.Screen name="HomeDeliveryman" component={HomeDeliveryman}/>
                 <Stack.Screen name="Choice" component={Choice}/>
                 <Stack.Screen name="Register" component={Register}/>
-                <Stack.Screen name="CodeValidationDeliveryman" component={CodeValidationDeliveryman}/>
+                <Stack.Screen name="RegisterName" component={RegisterName}/>
+                <Stack.Screen name="RegisterPhoneNumber" component={RegisterPhoneNumber}/>
+                <Stack.Screen name="RegisterPassword" component={RegisterPassword}/>
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
                 <Stack.Screen name="CodeValidation" component={CodeValidation}/>
                 <Stack.Screen name="EmailValidator" component={EmailValidator}/>
+                <Stack.Screen name="DeliverymanStatus" component={DeliverymanStatus}/>
+                <Stack.Screen name="ValidationComplete" component={ValidationComplete}/>
             </Stack.Navigator>
         </NavigationContainer>
 

@@ -20,13 +20,13 @@ public class Deliveryman implements Serializable {
 	private String email;
 	private String name;
 	private String password;
-	private Long phones;
+	private String phones;
 	private DeliverymanStatus status;
 	
 	public Deliveryman() {
 	}
 
-	public Deliveryman(Long id, String name, String email, String password, Long phones, DeliverymanStatus status) {
+	public Deliveryman(Long id, String name, String email, String password, String phones, DeliverymanStatus status) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -67,11 +67,11 @@ public class Deliveryman implements Serializable {
 		this.password = password;
 	}
 	
-	public Long getPhones() {
+	public String getPhones() {
 		return phones;
 	}
 
-	public void setPhones(Long phones) {
+	public void setPhones(String phones) {
 		this.phones = phones;
 	}
 	

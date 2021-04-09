@@ -10,13 +10,13 @@ public class UserDTO implements Serializable {
 
 	private Long id;
 	private String name;
-	private Long phones;
+	private String phones;
 	
 	
 	public UserDTO() {
 	}
 
-	public UserDTO(Long id, String name, Long phones) {
+	public UserDTO(Long id, String name, String phones) {
 		this.id = id;
 		this.name = name;
 		this.phones = phones;
@@ -44,11 +44,11 @@ public class UserDTO implements Serializable {
 		this.name = name;
 	}
 
-	public Long getPhones() {
+	public String getPhones() {
 		return phones;
 	}
 
-	public void setPhones(Long phones) {
+	public void setPhones(String phones) {
 		this.phones = phones;
 	}
 	

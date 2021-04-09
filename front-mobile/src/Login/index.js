@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import API from '../api';
@@ -23,16 +24,21 @@ export default function Login({navigation}) {
             email: email,
             password: password
         }).then(setMenssage(''))
-        .then(homeDeliveryman)
-        .catch(setMenssage('email ou senha invalidos'))
+        .then(deliverymanStatus)
+        .catch(errorRegister)
     };
+
+
+    const errorRegister = () => {
+        setMenssage('email ou senha invalidos');
+    }
 
     const home = () => {
         navigation.navigate('Home', {userEmail: email})
     }
 
-    const homeDeliveryman = () => {
-        navigation.navigate('HomeDeliveryman', {userEmail: email})
+    const deliverymanStatus = () => {
+        navigation.navigate('DeliverymanStatus', {userEmail: email})
     }
 
     const choice = () => {

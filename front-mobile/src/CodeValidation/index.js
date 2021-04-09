@@ -5,55 +5,42 @@ import API from '../api';
 
 export default function CodeValidation({ route, navigation }) {
 
-    const [email, setEmail] = useState('');
     const [menssage, setMenssage] = useState('');
-    const [menssageRoute, setMenssageRoute] = useState('');
-    const [deliverymanCod, setDeliverymanCod] = useState(route.params.deliverymanCod);
-    
-    const emailValidation = () => {
-        API.post(`/emailValidator`, {
-            email: email,
-        }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
-        .then(codeValidation)
-        .catch(emailValidationPut)
-    };
+    const [numberKey, setNumberKey] = useState(0);
+
 
     const emailValidationPut = () => {
-        API.put(`/emailValidator/${email}`, {
+        API.put(`/emailValidator/${route.params.userEmail}`, {
         }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
-        .then(codeValidation)
+    };
+
+    const keyValidation = () => {
+        API.post(`/keyValidation`, {
+            email: route.params.userEmail,
+            numberValidation: numberKey
+        }).then(setMenssage(''))
+        .then(registerName)
         .catch(errorRegister)
     };
 
     const errorRegister = () => {
-        setMenssage('Este e-mail já está cadastrado, ')
-        setMenssageRoute('quer logar?')
+        setMenssage('Código invalido')
     }
 
-    const codeValidation = () => {
+    const register = () => {
         setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('CodeValidation', {userEmail: email});
+        navigation.navigate('Register')
     }
 
-    const choice = () => {
+    const registerName = () => {
         setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('Choice')
-    }
-
-    const login = () => {
-        setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('Login')
+        navigation.navigate('RegisterName', {userEmail: route.params.userEmail, deliverymanCod: route.params.deliverymanCod })
     }
 
     return ( 
         <>
             <View style={styles.containerHeader}>
-                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>choice()}>
+                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>register()}>
                     <Image source={require('../img/arrow1x.png')} ></Image>
                 </TouchableWithoutFeedback>
                 <Text style={styles.textRegister}>Register</Text>
@@ -68,22 +55,20 @@ export default function CodeValidation({ route, navigation }) {
 
                 <Text style={styles.textH1}>Enter the code we sent you</Text>
                 <Text style={styles.textH2}>Insert the code</Text>
-                <TextInput style={styles.Input} placeholder="Seu cod..." onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
+                <TextInput style={styles.input} placeholder="Seu cod..." onChangeText={val=>setNumberKey(val)} autoCapitalize="none"/>
+
+                <View style={styles.containerError}>
+                    <Text style={styles.textVisible}>{menssage}</Text>
+                </View>
 
                 <View style={styles.containerResendCode}>
-                    <TouchableOpacity style={styles.buttonResendCode}>
+                    <TouchableOpacity style={styles.buttonResendCode} onPress={()=>emailValidationPut()}>
                         <Text style={styles.resendCode}>Reenviar código</Text>
                     </TouchableOpacity>
                 </View>
 
-               <View style={styles.containerError}>
-                    <Text style={styles.textVisible}>{menssage}</Text>
-                    <TouchableOpacity style={styles.buttonVisible} onPress={()=>login()}>
-                        <Text style={styles.textRoute}>{menssageRoute}</Text>
-                    </TouchableOpacity>
-                </View>
                 <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={()=>emailValidation()}>
+                    <TouchableOpacity style={styles.button} onPress={()=>keyValidation()}>
                         <Text style={styles.textButton}>Prosseguir</Text>
                     </TouchableOpacity>
                 </View>
@@ -152,7 +137,7 @@ const styles = StyleSheet.create({
         marginLeft: '6%',
         fontSize: 16,
     },
-    Input: {
+    input: {
         width: '88%',
         height: 50,
         backgroundColor: '#F6F6F6',
@@ -162,7 +147,7 @@ const styles = StyleSheet.create({
         marginLeft: '6%'
     },
     containerButton: {
-        marginTop: '50%'
+        marginTop: '48%'
     },
     button: {
         justifyContent: 'center',
@@ -182,7 +167,7 @@ const styles = StyleSheet.create({
         marginTop: '2%'
     },
     textVisible: {
-        color: 'black',
+        color: '#DB1020',
         marginLeft: '6%'
     },
     textRoute: {
@@ -190,11 +175,14 @@ const styles = StyleSheet.create({
         color: '#DB1020'
     },
     containerResendCode: {
-        marginTop: '12%',
+        marginTop: '6%',
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonResendCode: {
         width: '27%',
+    },
+    resendCode: {
+        color: '#848484'
     }
 });
