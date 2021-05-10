@@ -38,14 +38,6 @@ public class EmailResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	@PutMapping("/retrieveAccount/{email}")
-	public ResponseEntity<UserEmailValidationDTO> retrieveAccount(@PathVariable String email ) {
-		UserEmailValidationDTO dto = emailService.retrieveAccount(email);
-		emailService.sendValidation(dto.getEmail(), "recuperar conta", String.valueOf(dto.getNumberValidation()));
-		return ResponseEntity.ok().body(dto);
-	}
-	
-	
 	@DeleteMapping("/emailDelete/{email}")
 	public ResponseEntity<Void> delete(@PathVariable String email) {
 		emailService.delete(email);
