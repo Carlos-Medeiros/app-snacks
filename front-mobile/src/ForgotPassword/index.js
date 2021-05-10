@@ -12,7 +12,7 @@ export default function ForgotPassword({navigation}) {
 
     const emailValidationPut = () => {
         setLoading(false);
-        API.put(`/emailValidator/${email}`, {
+        API.put(`/retrieveAccount/${email}`, {
         }).then(setMenssage(''))
         .then(codeValidation)
         .catch(errorRegister)
