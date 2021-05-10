@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
-import { RectButton, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {widthToDP, heightToDP} from '../Responsive';
+import "@expo/match-media";
+
 
 export default function Choice({ navigation }) {
 
@@ -20,22 +23,24 @@ export default function Choice({ navigation }) {
 
     return ( 
         <>
-            <View style={styles.containerHeader}>
-                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>login()}>
-                    <Image source={require('../img/arrow1x.png')} ></Image>
-                </TouchableWithoutFeedback>
-                <Text style={styles.textRegister}>Register</Text>
-            </View>
-            <View style={styles.containerBarras}>
-                <Text style={styles.textBarra}></Text>
-                <Text style={styles.textBarra}></Text>
-                <Text style={styles.textBarra}></Text>
-                <Text style={styles.textBarra}></Text>
-            </View>
-            <View style={styles.container}>
-
-                <Text style={styles.textH1}>Hello, welcome to Snack! :)</Text>
-                <Text style={styles.textH2}>Are you a delivery man or customer?</Text>
+            <View style={styles.container}>   
+                <View style={styles.containerHeader}>
+                    <View style={styles.containerSeta}>
+                        <TouchableOpacity style={styles.imgSeta} onPress={()=>login()}>
+                            <Image source={require('../img/arrow1x.png')} ></Image>
+                        </TouchableOpacity>
+                    </View>
+                    
+                    <Text style={styles.textRegister}>Cadastro</Text>
+                </View>
+                <View style={styles.containerBarras}>
+                    <Text style={styles.textBarra}></Text>
+                    <Text style={styles.textBarra}></Text>
+                    <Text style={styles.textBarra}></Text>
+                    <Text style={styles.textBarra}></Text>
+                </View>
+                <Text style={styles.textH1}>Olá, bem-vindo ao Lanches da Gê!</Text>
+                <Text style={styles.textH2}>Você é entregador ou cliente?</Text>
                 
                 <View style={styles.containerButtonClient}>
                     <TouchableOpacity style={styles.buttonClient} onPress={()=>register()} >
@@ -53,17 +58,28 @@ export default function Choice({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        height: '100%',
+        height: '100%',
+        backgroundColor: 'white',
+    },
     containerHeader: {
-        height: '16%',
+        width: widthToDP('100%'),
+        height: widthToDP('26%'),
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     imgSeta: {
-        marginLeft: 13
+        width: widthToDP('12%'),
+        height: widthToDP('10%'),
+        paddingLeft: widthToDP('3%'),
+        justifyContent: 'center',
+        marginTop: heightToDP('2%')
     },
     textRegister: {
         fontSize: 16,
-        marginLeft: '33%'
+        marginLeft: widthToDP('29%'),
+        marginTop: heightToDP('2%'),
     },
     containerBarras: {
         flexDirection: 'row',
@@ -71,65 +87,53 @@ const styles = StyleSheet.create({
     },
     textBarra: {
         backgroundColor: '#F6F6F6',
-        width: 70,
+        width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
-        marginLeft: '6.4%'
-    },
-    container: {
-        height: '100%',
-        backgroundColor: 'white',
+        marginLeft: widthToDP('6.4%')
     },
     textH1: {
-        marginTop: 55,
-        marginLeft: '6.4%',
+        marginTop: heightToDP('7%'),
+        marginLeft: widthToDP('6.4%'),
         fontSize: 18,
         fontWeight: 'bold'
     },
     textH2: {
-        marginTop: 6,
-        marginLeft: '6.4%',
-        fontSize: 16,
-    },
-    Input: {
-        width: 350,
-        height: 50,
-        backgroundColor: '#F6F6F6',
-        borderRadius: 15,
-        paddingLeft: 10,
-        marginTop: 55,
-        marginLeft: '6.4%'
+        marginTop: heightToDP('0.5%'),
+        marginLeft: widthToDP('6.4%'),
+        fontSize: 16
     },
     containerButtonClient: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 124,
+        marginTop: heightToDP('17%'),
     },
     buttonClient: {
         backgroundColor: 'white',
         borderWidth: 2,
         borderColor: '#DB1020',
-        width: 350,
-        height: 60,
+        width: widthToDP('85%'),
+        height: widthToDP('16%'),
         borderRadius: 15,
+        justifyContent: 'center'
     },
     containerButtonDeliveryman: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 50,
+        marginTop: heightToDP('6%'),
     },
     buttonDeliveryman:{
-        width: 350,
-        height: 60,
+        width: widthToDP('85%'),
+        height: widthToDP('16%'),
         alignItems: 'center',
         backgroundColor: 'white',
         borderWidth: 2,
         borderColor: '#DB1020',
         borderRadius: 15,
+        justifyContent: 'center'
     },
     textButton: {
         textAlign: 'center',
-        marginTop: 12,
         color: '#DB1020',
         fontSize: 18
     }

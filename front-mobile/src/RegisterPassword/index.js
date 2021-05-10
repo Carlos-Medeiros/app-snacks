@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
 
 export default function RegisterPassword({ route, navigation }) {
@@ -59,7 +60,7 @@ export default function RegisterPassword({ route, navigation }) {
                 <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>registerPhoneNumber()}>
                     <Image source={require('../img/arrow1x.png')} ></Image>
                 </TouchableWithoutFeedback>
-                <Text style={styles.textRegister}>Register</Text>
+                <Text style={styles.textRegister}>Cadastro</Text>
             </View>            
             <View style={styles.containerBarras}>
                 <Text style={styles.textBarra1}></Text>
@@ -69,8 +70,8 @@ export default function RegisterPassword({ route, navigation }) {
             </View>
             <View style={styles.container}>
 
-                <Text style={styles.textH1}>And finally, create a password! :)</Text>
-                <Text style={styles.textH2}>Type your password {typeof password}</Text>
+                <Text style={styles.textH1}>E finalmente, crie uma senha!</Text>
+                <Text style={styles.textH2}>Digite sua senha</Text>
                 <TextInput style={styles.inputPassword} placeholder="Insira sua senha" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
                 <TextInput style={styles.inputRepeatPassword} placeholder="Repita sua senha" onChangeText={text=>setRepeatPassword(text)} autoCapitalize="none"/>
 
@@ -87,17 +88,27 @@ export default function RegisterPassword({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
     containerHeader: {
-        height: '16%',
+        width: widthToDP('100%'),
+        height: widthToDP('26%'),
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     imgSeta: {
-        marginLeft: 13
+        width: widthToDP('12%'),
+        height: widthToDP('10%'),
+        paddingLeft: widthToDP('3%'),
+        justifyContent: 'center',
+        marginTop: heightToDP('2%')
     },
     textRegister: {
         fontSize: 16,
-        marginLeft: '33%'
+        marginLeft: widthToDP('28%'),
+        marginTop: heightToDP('2%')
     },
     containerBarras: {
         flexDirection: 'row',
@@ -105,82 +116,78 @@ const styles = StyleSheet.create({
     },
     textBarra1: {
         backgroundColor: '#DB1020',
-        width: '17%',
-        height: '20%',
+        width: widthToDP('17%'),
+        height: 4,
         borderRadius: 5,
-        marginLeft: '6%'
+        marginLeft: widthToDP('6%')
     },
     textBarra2: {
         backgroundColor: '#DB1020',
-        width: '17%',
-        height: '20%',
+        width: widthToDP('17%'),
+        height: 4,
         borderRadius: 5,
-        marginLeft: '6%'
+        marginLeft: widthToDP('6%')
     },
     textBarra3: {
         backgroundColor: '#DB1020',
-        width: '17%',
-        height: '20%',
+        width: widthToDP('17%'),
+        height: 4,
         borderRadius: 5,
-        marginLeft: '6%'
+        marginLeft: widthToDP('6%')
     },
     textBarra4: {
         backgroundColor: '#DB1020',
-        width: '17%',
-        height: '20%',
+        width: widthToDP('17%'),
+        height: 4,
         borderRadius: 5,
-        marginLeft: '6%'
-    },
-    container: {
-        height: '100%',
-        backgroundColor: 'white',
+        marginLeft: widthToDP('6%')
     },
     textH1: {
-        marginTop: '15%',
-        marginLeft: '6%',
+        marginTop: widthToDP('15%'),
+        marginLeft: widthToDP('6%'),
         fontSize: 18,
         fontWeight: 'bold'
     },
     textH2: {
-        marginTop: '2%',
-        marginLeft: '6%',
+        marginTop: heightToDP('0.5%'),
+        marginLeft: widthToDP('6%'),
         fontSize: 16,
     },
     inputPassword: {
-        width: '88%',
-        height: 50,
+        width: widthToDP('88%'),
+        height: widthToDP('13%'),
         backgroundColor: '#F6F6F6',
         borderRadius: 15,
         paddingLeft: 15,
-        marginTop: '13%',
-        marginLeft: '6%'
+        marginTop: heightToDP('7%'),
+        marginLeft: widthToDP('6%')
     },
     inputRepeatPassword: {
-        width: '88%',
-        height: 50,
+        width: widthToDP('88%'),
+        height: widthToDP('13%'),
         backgroundColor: '#F6F6F6',
         borderRadius: 15,
         paddingLeft: 15,
-        marginTop: '13%',
-        marginLeft: '6%'
+        marginTop: heightToDP('7%'),
+        marginLeft: widthToDP('6%')
     },
     containerButton: {
-        marginTop: '31%'
+        marginTop: heightToDP('27%')
     },
     button: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#DB1020',
-        width: '88%',
-        height: 60,
+        width: widthToDP('88%'),
+        height: widthToDP('15%'),
         borderRadius: 15,
-        marginLeft: '6%'
+        marginLeft: widthToDP('6%')
     },
     textButton: {
         color: 'white',
         fontSize: 18
     },
     textError: {
-        marginLeft: '6%'
+        marginLeft: widthToDP('6%')
     }
 });

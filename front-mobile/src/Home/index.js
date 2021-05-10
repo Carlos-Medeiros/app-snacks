@@ -7,8 +7,8 @@ export default function Home({ route, navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleOnPressLogin = () => {
-        navigation.navigate('Login')
+    const sair = () => {
+        navigation.replace('Login')
     }
 
     const handleOnPressEmail = () => {
@@ -19,6 +19,9 @@ export default function Home({ route, navigation }) {
         <>
             <View>
                 <Text style={styles.textBemVindo}>Bem vindo, {route.params.userEmail}</Text>
+                <TouchableOpacity onPress={()=>sair()}>
+                    <Text>SAIR</Text>
+                </TouchableOpacity>
             </View>
         </>
     );

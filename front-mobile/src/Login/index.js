@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Image, ActivityIndicator, Animated,Keyboard, LogBox } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {widthToDP, heightToDP} from '../Responsive';
+import "@expo/match-media";
 import API from '../api';
 
 export default function Login({navigation}) {
@@ -9,17 +10,23 @@ export default function Login({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [menssage, setMenssage] = useState('');
+    const [visible, setVisible] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const [logo] = useState(new Animated.ValueXY({x: widthToDP('100%'), y: heightToDP('30%')}));
 
     const handleLogin = () => {
+        setLoading(false);
         API.post(`/login`, {
             email: email,
             password: password
         }).then(setMenssage(''))
+        .then(setLoading(true))
         .then(home)
         .catch(handleLoginDeliveryman)
     };
 
     const handleLoginDeliveryman = () => {
+        setLoading(false);
         API.post(`/login/deliveryman`, {
             email: email,
             password: password
@@ -30,15 +37,16 @@ export default function Login({navigation}) {
 
 
     const errorRegister = () => {
-        setMenssage('email ou senha invalidos');
+        setLoading(true)
+        setMenssage('Email ou senha invalidos');
     }
 
     const home = () => {
-        navigation.navigate('Home', {userEmail: email})
+        navigation.replace('Home', {userEmail: email})
     }
 
     const deliverymanStatus = () => {
-        navigation.navigate('DeliverymanStatus', {userEmail: email})
+        navigation.replace('DeliverymanStatus', {userEmail: email})
     }
 
     const choice = () => {
@@ -51,28 +59,86 @@ export default function Login({navigation}) {
         navigation.navigate('ForgotPassword')
     }
 
+    function visiblePassword(){
+        if (visible == true) {
+            setVisible(false)
+        }
+        else {
+            setVisible(true)
+        }
+    }
+    
+    useEffect(() => {
+        LogBox.ignoreLogs(['Animated: useNativeDriver']);
+        keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
+        keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', keyboardDidHide);
+    
+    }, [])
+
+
+    function keyboardDidShow(){
+        Animated.parallel([
+            Animated.timing(logo.y, {
+                toValue: heightToDP('36%'),
+                duration: 100,
+            })
+        ]).start();
+    }
+    function keyboardDidHide(){
+        Animated.parallel([
+            Animated.timing(logo.y, {
+                toValue: heightToDP('30%'),
+                duration: 100,
+            })
+        ]).start();
+    }
+
     return ( 
         <>
             <View style={styles.container}>
-                <Text style={styles.textH1}>LANCHES DA GÊ</Text>
-                <Text style={styles.textBarra}></Text>
-                <Text style={styles.textH2}>delivery</Text>
-                <TextInput style={styles.InputEmail} placeholder="Seu email..." onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
+                <Animated.View style={{height: logo.y, width: logo.x, justifyContent: 'flex-end', alignItems: 'center'}}>
+                    <Image source={require(`../img/Logo.png`)} style={styles.logo}/>
+                </Animated.View>
+                <View style={styles.loadingSpinner}>
+                    {loading ? home : <ActivityIndicator size="large" color="#DB1020"/>}
+                </View>
+                <View style={styles.containerEmail}>
+                    <TextInput style={styles.InputEmail} placeholder="Email" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
+                    <Image source={require('../img/Message.png')} style={styles.iconMessage} ></Image>
+                </View>
                 <Text style={styles.textMenssage}>{menssage}</Text>
-                <TextInput secureTextEntry={true} style={styles.InputPassword} placeholder="Sua senha..." onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
+                <View style={styles.containerPassword}>
+                    <TextInput secureTextEntry={visible} style={styles.InputPassword} placeholder="Senha" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
+                    <Image source={require('../img/Lock.png')} style={styles.iconLock} ></Image>
+                    <View style={styles.containerVisiblePassword}>
+                        <TouchableOpacity style={styles.visiblePassword} onPress={()=>visiblePassword()}>
+                            <View style={styles.containerVisible}>
+                                {visible ? <Image source={require(`../img/Visible.png`)}/> : <Image source={require('../img/Invisible.png')} style={styles.invisible}/>}
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 
                 <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.buttonOPacity} onPress={()=>forgotPassword()}>
-                        <Text style={styles.textOpacity}>Forgot password</Text>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.buttonEntrar} onPress={()=>handleLogin()}>
-                        <Text style={styles.textEntrar}>Entrar</Text>
-                    </TouchableOpacity>
+                    <View style={styles.containerButtonOpacity}>
+                        <TouchableOpacity style={styles.buttonOPacity} onPress={()=>forgotPassword()}>
+                            <Text style={styles.textOpacity}>Esqueceu a senha?</Text>
+                        </TouchableOpacity>
+                    </View>
+                    
+
+                    <View style={styles.containerEntrar}>
+                        <TouchableOpacity style={styles.buttonEntrar} onPress={()=>handleLogin()}>
+                            <Text style={styles.textEntrar}>Entrar</Text>
+                        </TouchableOpacity>
+                    </View>
                 
-                    <TouchableOpacity style={styles.buttonCadastrese} onPress={()=>choice()}>
-                        <Text style={styles.textCadastrese}>Cadastre-se</Text>
-                    </TouchableOpacity>
+                    <View style={styles.containerCadastrese}>
+                        <TouchableOpacity style={styles.buttonCadastrese} onPress={()=>choice()}>
+                            <Text style={styles.textCadastrese}>Cadastre-se</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 
             </View>
@@ -81,61 +147,86 @@ export default function Login({navigation}) {
 }
 
 const styles = StyleSheet.create({
+
     container: {
+        flex: 1,
         backgroundColor: 'white',
         justifyContent: 'center',
     },
-    textBarra: {
-        backgroundColor: '#DB1020',
-        width: '100%',
-        height: 2
+    loadingSpinner: {
+        marginTop: 15,
+        width: widthToDP('100%'),
+        height: heightToDP('5%')
     },
-    textH1: {
-        marginTop: '40%',
-        textAlign: 'center',
-        color: '#DB1020',
-        fontSize: 40,
-        fontWeight: 'bold'
-    },
-    textH2: {
-        textAlign: 'center',
-        color: '#DB1020',
-        fontSize: 40,
-        fontStyle: 'italic'
+    containerEmail: {
+        marginTop: heightToDP('2%')
     },
     InputEmail: {
         backgroundColor: '#F6F6F6',
-        width:'85%',
-        height: '7.5%',
+        width: widthToDP('85%'),
+        height: widthToDP('13%'),
         borderRadius: 15,
-        marginTop: '20%',
-        marginLeft: '7%',
-        marginRight: '7%',
-        paddingLeft: 15
-    },
+        marginLeft: widthToDP('7%'),
+        marginRight: widthToDP('7%'),
+        paddingLeft: 45
+    },  
+    iconMessage: {
+        marginLeft: widthToDP('11%'),
+        marginTop: widthToDP('-8.5%')
+    },  
     textMenssage: {
         color: '#DB1020',
-        marginLeft: '7%'
+        marginLeft: widthToDP('7%'),
+        marginTop: widthToDP('4%')
+    },
+    containerPassword: {
+        marginTop: widthToDP('8%')
     },
     InputPassword: {
         backgroundColor: '#F6F6F6',
-        width: '85%',
-        height: '7.5%',
+        width: widthToDP('85%'),
+        height: widthToDP('13%'),
         borderRadius: 15,
-        marginTop: '5%',
-        marginLeft: '7%',
-        marginRight: '7%',
-        paddingLeft: 15
+        marginLeft: widthToDP('7%'),
+        marginRight: widthToDP('7%'),
+        paddingLeft: 45
     },
-    containerButton: {
+    iconLock: {
+        marginLeft: widthToDP('11%'),
+        marginTop: widthToDP('-9.5%')
+    },
+    containerVisiblePassword: {
+        width: 40,
+        height: 40,
+        marginLeft: widthToDP('79%'),
+        marginTop: -30,
+        padding: 2,
+        alignItems: 'center',
+    },
+    visiblePassword: {
+        width: 40,
+        height: 40,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    buttonOPacity: {
-        marginTop: '3%'
+    containerVisible: {
+        marginTop: widthToDP('6%'),
+        marginLeft: widthToDP('4%'),
+        width: 40,
+        height: 40,
+    },
+    invisible: {
+        marginTop: widthToDP('-0.5%')
+    },
+    containerButton: {
+        alignItems: 'center',
+    },
+    containerButtonOpacity: {
+        marginTop: widthToDP('5%')
+
     },
     textOpacity: {
-        fontSize: 12,
+        fontSize: 16,
         color: '#848484'
     },
     textEntrar: {
@@ -143,21 +234,23 @@ const styles = StyleSheet.create({
         color: '#DB1020',
         fontSize: 18
     }, 
+    containerEntrar: {
+        marginTop: heightToDP('5%'),
+    },  
     buttonEntrar: {
         justifyContent: 'center',
-        height: 50,
-        width: 260,
-        marginTop: '7%',
+        height: widthToDP('13%'),
+        width: widthToDP('64%'),
         borderRadius: 15,
         backgroundColor: 'white',
         borderWidth: 2,
         borderColor: '#DB1020',
     },
-    buttonCadastrese: {
-        marginTop: '9%'
+    containerCadastrese: {
+        marginTop: heightToDP('3%')
     },
     textCadastrese: {
         color: '#DB1020',
-        fontSize: 16
+        fontSize: 18
     }, 
 });

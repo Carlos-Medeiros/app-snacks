@@ -6,7 +6,7 @@ import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-
 import API from '../api';
 
 const CELL_COUNT = 6;
-export default function CodeValidation({ route, navigation }) {
+export default function ForgotPasswordCode({ route, navigation }) {
 
     const [menssage, setMenssage] = useState('');
     const [numberKey, setNumberKey] = useState('');
@@ -35,9 +35,9 @@ export default function CodeValidation({ route, navigation }) {
         setMenssage('Código invalido')
     }
 
-    const register = () => {
+    const forgotPassword = () => {
         setMenssage('')
-        navigation.navigate('Register')
+        navigation.navigate('ForgotPassword')
     }
 
     const registerName = () => {
@@ -50,11 +50,11 @@ export default function CodeValidation({ route, navigation }) {
             <View>
                 <View style={styles.containerHeader}>
                     <View style={styles.containerSeta}>
-                            <TouchableOpacity style={styles.imgSeta} onPress={()=>register()}>
+                            <TouchableOpacity style={styles.imgSeta} onPress={()=>forgotPassword()}>
                                 <Image source={require('../img/arrow1x.png')} ></Image>
                             </TouchableOpacity>
                     </View>
-                    <Text style={styles.textRegister}>Cadastro</Text>
+                    <Text style={styles.textRegister}>Recuperação</Text>
                 </View>            
                 <View style={styles.containerBarras}>
                     <Text style={styles.textBarra1}></Text>

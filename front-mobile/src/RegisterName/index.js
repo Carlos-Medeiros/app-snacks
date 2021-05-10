@@ -1,43 +1,81 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import {widthToDP, heightToDP} from '../Responsive';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default function RegisterName({ route, navigation }) {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [menssage, setMenssage] = useState('')
+    const [showAlert, setShowAlert] = useState(false)
 
     const validationComplete = () => {
-        navigation.navigate('ValidationComplete')
+        setShowAlert(true)
+    }
+
+    const candelarCadastro = () => {
+        navigation.navigate('Login')
     }
 
     const registerPhoneNumber = () => {
-        navigation.navigate('RegisterPhoneNumber', {userName: firstName + ' ' + lastName, 
-        userEmail: route.params.userEmail, deliverymanCod: route.params.deliverymanCod})
+        if(firstName === '' && lastName === '') {
+            setMenssage('Insira seu Nome e Sobrenome')
+        }
+        else {
+            setMenssage('')
+            navigation.navigate('RegisterPhoneNumber', {userName: firstName + ' ' + lastName, 
+            userEmail: route.params.userEmail, deliverymanCod: route.params.deliverymanCod})
+        }
     }
 
     return ( 
         <>
-            <View style={styles.containerHeader}>
-                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>validationComplete()}>
-                    <Image source={require('../img/arrow1x.png')} ></Image>
-                </TouchableWithoutFeedback>
-                <Text style={styles.textRegister}>Register</Text>
-            </View>            
-            <View style={styles.containerBarras}>
-                <Text style={styles.textBarra1}></Text>
-                <Text style={styles.textBarra2}></Text>
-                <Text style={styles.textBarra3}></Text>
-                <Text style={styles.textBarra4}></Text>
-            </View>
             <View style={styles.container}>
+                <View style={styles.containerHeader}>
+                    <View style={styles.containerSeta}>
+                        <TouchableOpacity style={styles.imgSeta} onPress={()=>validationComplete()}>
+                            <Image source={require('../img/arrow1x.png')} ></Image>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={styles.textRegister}>Cadastro</Text>
+                </View>            
+                <View style={styles.containerBarras}>
+                    <Text style={styles.textBarra1}></Text>
+                    <Text style={styles.textBarra2}></Text>
+                    <Text style={styles.textBarra3}></Text>
+                    <Text style={styles.textBarra4}></Text>
+                </View>
 
-                <Text style={styles.textH1}>How do you want to be called?</Text>
-                <Text style={styles.textH2}>Enter your name</Text>
+                <Text style={styles.textH1}>Como você quer ser chamado?</Text>
+                <Text style={styles.textH2}>Digite seu nome</Text>
                 <View style={styles.containerInputs}>
                     <TextInput style={styles.inputFirstName} placeholder="Nome" onChangeText={text=>setFirstName(text)} autoCapitalize="none"/>
                     <TextInput style={styles.inputLastName} placeholder="Sobrenome" onChangeText={text=>setLastName(text)} autoCapitalize="none"/>
                 </View>
+                <AwesomeAlert
+                    show={showAlert}
+                    showProgress={false}
+                    title="Alerta"
+                    message="Falta pouco para finalizar seu cadastro"
+                    closeOnTouchOutside={true}
+                    closeOnHardwareBackPress={false}
+                    showCancelButton={true}
+                    showConfirmButton={true}
+                    confirmText="Continuar cadastro"
+                    cancelText="Candelar cadastro"
+                    confirmButtonColor="#DB1020"
+                    onConfirmPressed={() => {
+                        setShowAlert(false)
+                    }}
+                    onCancelPressed={() => {
+                        candelarCadastro();
+                    }}
+
+                />
+
+                <Text style={styles.menssageError}>{menssage}</Text>
 
                 <View style={styles.containerButton}>
                     <TouchableOpacity style={styles.button} onPress={()=>registerPhoneNumber()}>
@@ -50,17 +88,27 @@ export default function RegisterName({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
     containerHeader: {
-        height: 116,
+        width: widthToDP('100%'),
+        height: widthToDP('26%'),
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     imgSeta: {
-        marginLeft: 13
+        width: widthToDP('12%'),
+        height: widthToDP('10%'),
+        paddingLeft: widthToDP('3%'),
+        justifyContent: 'center',
+        marginTop: heightToDP('2%')
     },
     textRegister: {
         fontSize: 16,
-        marginLeft: '33%'
+        marginLeft: widthToDP('28%'),
+        marginTop: heightToDP('2%')
     },
     containerBarras: {
         flexDirection: 'row',
@@ -68,82 +116,84 @@ const styles = StyleSheet.create({
     },
     textBarra1: {
         backgroundColor: '#DB1020',
-        width: '17%',
+        width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
-        marginLeft: '6%'
+        marginLeft: widthToDP('6%')
     },
     textBarra2: {
         backgroundColor: '#DB1020',
-        width: '17%',
+        width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
-        marginLeft: '6%'
+        marginLeft: widthToDP('6%')
     },
     textBarra3: {
         backgroundColor: '#F6F6F6',
-        width: '17%',
+        width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
-        marginLeft: '6%'
+        marginLeft: widthToDP('6%')
     },
     textBarra4: {
         backgroundColor: '#F6F6F6',
-        width: '17%',
+        width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
-        marginLeft: '6%'
-    },
-    container: {
-        height: '100%',
-        backgroundColor: 'white',
+        marginLeft: widthToDP('6%')
     },
     textH1: {
-        marginTop: '15%',
-        marginLeft: '6%',
+        marginTop: widthToDP('15%'),
+        marginLeft: widthToDP('6%'),
         fontSize: 18,
         fontWeight: 'bold'
     },
     textH2: {
-        marginTop: '2%',
-        marginLeft: '6%',
-        fontSize: 16,
+        marginTop: heightToDP('0.5%'),
+        marginLeft: widthToDP('6%'),
+        fontSize:16,
     },
     containerInputs: {
         flexDirection: 'row'
     },
     inputFirstName: {
-        width: '41%',
-        height: 50,
+        width: widthToDP('41%'),
+        height: widthToDP('12%'),
         backgroundColor: '#F6F6F6',
         borderRadius: 15,
         paddingLeft: 15,
-        marginTop: '13%',
-        marginLeft: '6%'
+        marginTop: heightToDP('5%'),
+        marginLeft: widthToDP('6%')
     },
     inputLastName: {
-        width: '41%',
-        height: 50,
+        width: widthToDP('41%'),
+        height: widthToDP('12%'),
         backgroundColor: '#F6F6F6',
         borderRadius: 15,
         paddingLeft: 15,
-        marginTop: '13%',
-        marginLeft: '6%'
+        marginTop: heightToDP('5%'),
+        marginLeft: widthToDP('6%')
     },
+    menssageError:{
+        color: '#DB1020',
+        fontSize: 14,
+        marginLeft: widthToDP('6%'),
+        marginTop: heightToDP('0.5%')
+    },  
     containerButton: {
-        marginTop: '66%'
+        marginTop: heightToDP('43%')
     },
     button: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#DB1020',
-        width: '88%',
-        height: 60,
+        width: widthToDP('88%'),
+        height: widthToDP('15%'),
         borderRadius: 15,
-        marginLeft: '6%'
+        marginLeft: widthToDP('6%')
     },
     textButton: {
         color: 'white',
-        fontSize: 18
+        fontSize: widthToDP('4.5%')
     }
 });
