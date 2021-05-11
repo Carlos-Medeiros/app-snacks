@@ -87,24 +87,6 @@ public class EmailService {
 	}
 	
 	@Transactional
-	public UserEmailValidationDTO retrieveAccount(String email) {
-		Integer numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
-		while (numberRandom > 1000000 || numberRandom < 100000) {
-			numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
-		}
-
-		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
-		if (userRepository.findByEmail(email) != null || deliverymanRepository.findByEmail(email) != null) {
-			emailValidation.setNumberValidation(numberRandom);
-			emailValidation = emailValidationRepository.save(emailValidation);
-			return new UserEmailValidationDTO(emailValidation);
-		}
-		else {
-			return new UserEmailValidationDTO(null);
-		}
-	}
-	
-	@Transactional
 	public void delete(String email) {
 		emailValidationRepository.deleteById(email);
 	}
