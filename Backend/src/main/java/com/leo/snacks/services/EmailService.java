@@ -78,17 +78,26 @@ public class EmailService {
 		}
 
 		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
-		if (userRepository.findByEmail(email) == null && deliverymanRepository.findByEmail(email) == null && numberKey == 0) {
-			emailValidation.setNumberValidation(numberRandom);
-			emailValidation = emailValidationRepository.save(emailValidation);
-			return new UserEmailValidationDTO(emailValidation);
-		}
-		if (userRepository.findByEmail(email) != null || deliverymanRepository.findByEmail(email) != null && numberKey == 1) {
-			emailValidation.setNumberValidation(numberRandom);
-			emailValidation = emailValidationRepository.save(emailValidation);
-			return new UserEmailValidationDTO(emailValidation);
-		}
-		else {
+		switch (numberKey) {
+		case 0:
+			if (userRepository.findByEmail(email) == null && deliverymanRepository.findByEmail(email) == null) {
+				emailValidation.setNumberValidation(numberRandom);
+				emailValidation = emailValidationRepository.save(emailValidation);
+				return new UserEmailValidationDTO(emailValidation);
+			}
+			else {
+				return new UserEmailValidationDTO(null);
+			}
+		case 1:
+			if (userRepository.findByEmail(email) != null || deliverymanRepository.findByEmail(email) != null) {
+				emailValidation.setNumberValidation(numberRandom);
+				emailValidation = emailValidationRepository.save(emailValidation);
+				return new UserEmailValidationDTO(emailValidation);
+			}
+			else {
+				return new UserEmailValidationDTO(null);
+			}
+		default:
 			return new UserEmailValidationDTO(null);
 		}
 	}
