@@ -61,22 +61,29 @@ public class EmailService {
 		}
 		
 		EmailValidation emailValidation = new EmailValidation(dto.getEmail(), numberRandom);
-		if (emailValidationRepository.findByEmailEquals(dto.getEmail()) == null) {
+		if (emailValidationRepository.findByEmail(dto.getEmail()) == null) {
 			emailValidation = emailValidationRepository.save(emailValidation);
 			return new UserEmailValidationDTO(emailValidation);
 		}
-		return new UserEmailValidationDTO(null);
+		else {
+			return new UserEmailValidationDTO(null);
+		}
 	}
 	
 	@Transactional
-	public UserEmailValidationDTO update(String email) {
+	public UserEmailValidationDTO update(String email, Integer numberKey) {
 		Integer numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
 		while (numberRandom > 1000000 || numberRandom < 100000) {
 			numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
 		}
 
 		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
-		if (userRepository.findByEmail(email) == null && deliverymanRepository.findByEmail(email) == null) {
+		if (userRepository.findByEmail(email) == null && deliverymanRepository.findByEmail(email) == null && numberKey == 0) {
+			emailValidation.setNumberValidation(numberRandom);
+			emailValidation = emailValidationRepository.save(emailValidation);
+			return new UserEmailValidationDTO(emailValidation);
+		}
+		if (userRepository.findByEmail(email) != null || deliverymanRepository.findByEmail(email) != null && numberKey == 1) {
 			emailValidation.setNumberValidation(numberRandom);
 			emailValidation = emailValidationRepository.save(emailValidation);
 			return new UserEmailValidationDTO(emailValidation);
