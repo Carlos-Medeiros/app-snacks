@@ -63,7 +63,7 @@ public class EmailService {
 		EmailValidation emailValidation = new EmailValidation(dto.getEmail(), numberRandom);
 		if (emailValidationRepository.findByEmail(dto.getEmail()) == null) {
 			emailValidation = emailValidationRepository.save(emailValidation);
-			return new UserEmailValidationDTO(emailValidation);
+			return new UserEmailValidationDTO(emailValidationRepository.findByEmail(dto.getEmail()));
 		}
 		else {
 			return new UserEmailValidationDTO(null);
@@ -83,7 +83,7 @@ public class EmailService {
 			if (userRepository.findByEmail(email) == null && deliverymanRepository.findByEmail(email) == null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
-				return new UserEmailValidationDTO(emailValidation);
+				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));
 			}
 			else {
 				return new UserEmailValidationDTO(null);
@@ -92,7 +92,7 @@ public class EmailService {
 			if (userRepository.findByEmail(email) != null || deliverymanRepository.findByEmail(email) != null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
-				return new UserEmailValidationDTO(emailValidation);
+				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));
 			}
 			else {
 				return new UserEmailValidationDTO(null);
