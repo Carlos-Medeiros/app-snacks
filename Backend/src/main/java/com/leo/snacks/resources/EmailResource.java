@@ -27,7 +27,6 @@ public class EmailResource {
 	@PostMapping("/emailValidator")
 	public ResponseEntity<UserEmailValidationDTO> EmailValidator(@RequestBody UserEmailValidationDTO dto) {
 		dto = emailService.emailValidator(dto);
-		emailService.sendValidation(dto.getEmail(), "Register", String.valueOf(dto.getNumberValidation()));
 		return ResponseEntity.ok().body(dto);
 	}
 	
