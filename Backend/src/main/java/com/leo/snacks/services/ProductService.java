@@ -22,7 +22,7 @@ public class ProductService {
 		List<Product> list = repository.findAllByOrderByNameAsc();
 		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
 	}
-	
+
 	@Transactional(readOnly = true)
 	public ProductDTO search(Long id) {
 		Product product = repository.getOne(id);
@@ -31,7 +31,7 @@ public class ProductService {
 	
 	@Transactional
 	public ProductDTO insert(ProductDTO dto) {
-		Product product = new Product(null, dto.getName(), dto.getPrice(), dto.getDescription(), dto.getImageUri(), dto.isInventory());
+		Product product = new Product(null, dto.getName(), dto.getPrice(), dto.getDescription(), dto.getImageUri(), dto.isInventory(), dto.isDiscount());
 		product = repository.save(product);
 		return new ProductDTO(product);
 	}
@@ -39,7 +39,16 @@ public class ProductService {
 	@Transactional
 	public ProductDTO update(ProductDTO dto) {
 		search(dto.getId());
-		Product product = new Product(null, dto.getName(), dto.getPrice(), dto.getDescription(), dto.getImageUri(), dto.isInventory());
+		Product product = new Product(null, dto.getName(), dto.getPrice(), dto.getDescription(), dto.getImageUri(), dto.isInventory(), dto.isDiscount());
+		product = repository.save(product);
+		return new ProductDTO(product);
+	}
+	
+	@Transactional
+	public ProductDTO discount(ProductDTO dto, Long id) {
+		Product product = repository.getOne(id);
+		product.setPrice(dto.getPrice());
+		product.setDiscount(dto.isDiscount());
 		product = repository.save(product);
 		return new ProductDTO(product);
 	}

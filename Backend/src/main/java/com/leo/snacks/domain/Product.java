@@ -22,17 +22,19 @@ public class Product implements Serializable {
 	private String description;
 	private String imageUri;
 	private boolean inventory;
+	private boolean discount;
 	
 	public Product() {
 	}
 
-	public Product(Long id, String name, Double price, String description, String imageUri, boolean inventory) {
+	public Product(Long id, String name, Double price, String description, String imageUri, boolean inventory, boolean discount) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.imageUri = imageUri;
 		this.inventory = inventory;
+		this.discount = discount;
 	}
 
 	public Long getId() {
@@ -81,6 +83,14 @@ public class Product implements Serializable {
 
 	public void setInventory(boolean inventory) {
 		this.inventory = inventory;
+	}
+
+	public boolean isDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(boolean discount) {
+		this.discount = discount;
 	}
 
 	@Override

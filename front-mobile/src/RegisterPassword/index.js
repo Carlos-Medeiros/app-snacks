@@ -17,21 +17,15 @@ export default function RegisterPassword({ route, navigation }) {
         navigation.navigate('RegisterPhoneNumber')
     }
 
-    const completedSuccessfully = () => {
+    const completedClient = () => {
         navigation.navigate('Home')
+    }
 
+    const completedDeliveryman = () => {
+        navigation.navigate('HomeDeliverymanStatus')
     }
 
     const completeRegister = () => {
-
-        API.post(`/register/deliveryman`, {
-            name: name,
-            email: email,
-            password: password,
-            phones: phoneNumber
-        }).then(setMenssage(''))
-        .then(completedSuccessfully)
-        .catch(console.log(Error))
 
         if (route.params.deliverymanCod == 0) {
             if (password == repeatPassword) {
@@ -41,14 +35,22 @@ export default function RegisterPassword({ route, navigation }) {
                     password: password,
                     phones: route.params.userPhoneNumber
                 }).then(setMenssage(''))
-                .then(completedSuccessfully)
+                .then(completedClient)
                 .catch(console.log(Error))
             }
             setMenssage('Senhas não coincidem')
         }
+
         if (route.params.deliverymanCod == 1) {
             if (password == repeatPassword) {
-                
+                API.post(`/register/deliveryman`, {
+                    name: name,
+                    email: email,
+                    password: password,
+                    phones: phoneNumber
+                }).then(setMenssage(''))
+                .then(completedDeliveryman)
+                .catch(console.log(Error))
             }
             setMenssage('Senhas não coincidem')
         }

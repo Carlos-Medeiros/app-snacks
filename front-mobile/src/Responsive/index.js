@@ -14,7 +14,7 @@ const heightToDP = number => {
       return PixelRatio.roundToNearestPixel((height * (givenHeigth * (height / 731))) / 100);
     }
     if (parseInt(height) <= 731) {
-      return PixelRatio.roundToNearestPixel((height * (givenHeigth * (height / 731))) / 100);
+      return PixelRatio.roundToNearestPixel((height * (givenHeigth * (731 / height))) / 100);
     }
 };
 

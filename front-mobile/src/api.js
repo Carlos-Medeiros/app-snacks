@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL:'https://app-snacks.herokuapp.com'
+    baseURL:'https://lanchonete-da-ge.herokuapp.com'
 });
 
 export default API;

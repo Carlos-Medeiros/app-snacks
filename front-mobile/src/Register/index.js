@@ -23,7 +23,7 @@ export default function Register({ route, navigation }) {
 
     const emailValidationPut = () => {
         setLoading(false);
-        API.put(`/emailValidator/${email}`, {
+        API.put(`/emailValidator/${email}/0`, {
         }).then(setMenssage(''))
         .then(setMenssageRoute(''))
         .then(codeValidation)

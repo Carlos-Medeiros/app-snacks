@@ -51,6 +51,13 @@ public class ProductResource {
 		return ResponseEntity.noContent().build(); 
 	}
 	
+	@PutMapping("/discount/{id}")
+	public ResponseEntity<ProductDTO> discount(@RequestBody ProductDTO dto, @PathVariable Long id) {
+		dto.setId(id);
+		dto = service.discount(dto, id);
+		return ResponseEntity.noContent().build(); 
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);

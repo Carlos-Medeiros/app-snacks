@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image} from 'react-native';
 import {TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
@@ -15,6 +15,16 @@ export default function CodeValidation({ route, navigation }) {
         numberKey,
       setNumberKey,
     });
+
+    useEffect(() => {
+        if (parseInt(numberKey) >= 100000) {
+            API.post(`/keyValidation`, {
+                email: route.params.userEmail,
+                numberValidation: parseInt(numberKey)
+            }).then(setMenssage(''))
+            .then(registerName)
+        }
+    }, [numberKey]);
 
 
     const emailValidationPut = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image} from 'react-native';
 import {TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
@@ -16,9 +16,19 @@ export default function ForgotPasswordCode({ route, navigation }) {
       setNumberKey,
     });
 
+    useEffect(() => {
+        if (parseInt(numberKey) >= 100000) {
+            API.post(`/keyValidation`, {
+                email: route.params.userEmail,
+                numberValidation: parseInt(numberKey)
+            }).then(setMenssage(''))
+            .then(password)
+            .catch(errorRegister)
+        }
+    }, [numberKey]);
 
     const emailValidationPut = () => {
-        API.put(`/emailValidator/${route.params.userEmail}`, {
+        API.put(`/emailValidator/${route.params.userEmail}/1`, {
         }).then(setMenssage(''))
     };
 
@@ -27,7 +37,7 @@ export default function ForgotPasswordCode({ route, navigation }) {
             email: route.params.userEmail,
             numberValidation: parseInt(numberKey)
         }).then(setMenssage(''))
-        .then(registerName)
+        .then(password)
         .catch(errorRegister)
     };
 
@@ -40,9 +50,9 @@ export default function ForgotPasswordCode({ route, navigation }) {
         navigation.navigate('ForgotPassword')
     }
 
-    const registerName = () => {
+    const password = () => {
         setMenssage('')
-        navigation.navigate('RegisterName', {userEmail: route.params.userEmail, deliverymanCod: route.params.deliverymanCod })
+        navigation.navigate('RegisterPassword', {userEmail: route.params.userEmail})
     }
 
     return ( 
@@ -125,7 +135,7 @@ const styles = StyleSheet.create({
     },
     textRegister: {
         fontSize: 16,
-        marginLeft: widthToDP('29%'),
+        marginLeft: widthToDP('25%'),
         marginTop: heightToDP('2%')
     },
     containerBarras: {
@@ -210,7 +220,7 @@ const styles = StyleSheet.create({
         color: '#848484'
     },
     containerButton: {
-        marginTop: heightToDP('36%')
+        marginTop: heightToDP('34%')
     },
     button: {
         justifyContent: 'center',
