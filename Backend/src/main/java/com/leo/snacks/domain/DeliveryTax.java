@@ -1,43 +1,32 @@
 package com.leo.snacks.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="tb_category")
-public class Category implements Serializable {
+@Table(name="tb_delivery_tax")
+public class DeliveryTax implements Serializable {
 
 	private static final long serialVersionUID = 1l;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
-	private String name;
+	@NotNull
+	private Double deliveryTax;
 	
-	@ManyToMany
-	@JoinTable(name = "tb_category_product",
-			joinColumns = @JoinColumn(name = "category_id"),
-			inverseJoinColumns = @JoinColumn(name = "product_id"))
-	private Set<Product> products = new HashSet<>();
-	
-	public Category() {
+	public DeliveryTax() {
 	}
 
-	public Category(Long id, String name) {
+	public DeliveryTax(Long id, Double deliveryTax) {
 		this.id = id;
-		this.name = name;
+		this.deliveryTax = deliveryTax;
 	}
 
 	public Long getId() {
@@ -48,20 +37,12 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Double getDeliveryTax() {
+		return deliveryTax;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Set<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(Set<Product> products) {
-		this.products = products;
+	public void setDeliveryTax(Double deliveryTax) {
+		this.deliveryTax = deliveryTax;
 	}
 
 	@Override
@@ -80,7 +61,7 @@ public class Category implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		DeliveryTax other = (DeliveryTax) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

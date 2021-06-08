@@ -22,7 +22,7 @@ export default function ForgotPasswordCode({ route, navigation }) {
                 email: route.params.userEmail,
                 numberValidation: parseInt(numberKey)
             }).then(setMenssage(''))
-            .then(password)
+            .then(forgotPassword)
             .catch(errorRegister)
         }
     }, [numberKey]);
@@ -37,7 +37,7 @@ export default function ForgotPasswordCode({ route, navigation }) {
             email: route.params.userEmail,
             numberValidation: parseInt(numberKey)
         }).then(setMenssage(''))
-        .then(password)
+        .then(forgotPassword)
         .catch(errorRegister)
     };
 
@@ -45,14 +45,14 @@ export default function ForgotPasswordCode({ route, navigation }) {
         setMenssage('Código invalido')
     }
 
-    const forgotPassword = () => {
+    const forgotPasswordHome = () => {
         setMenssage('')
-        navigation.navigate('ForgotPassword')
+        navigation.navigate('ForgotPasswordHome')
     }
 
-    const password = () => {
+    const forgotPassword = () => {
         setMenssage('')
-        navigation.navigate('RegisterPassword', {userEmail: route.params.userEmail})
+        navigation.navigate('ForgotPassword', {userEmail: route.params.userEmail})
     }
 
     return ( 
@@ -60,7 +60,7 @@ export default function ForgotPasswordCode({ route, navigation }) {
             <View>
                 <View style={styles.containerHeader}>
                     <View style={styles.containerSeta}>
-                            <TouchableOpacity style={styles.imgSeta} onPress={()=>forgotPassword()}>
+                            <TouchableOpacity style={styles.imgSeta} onPress={()=>forgotPasswordHome()}>
                                 <Image source={require('../img/arrow1x.png')} ></Image>
                             </TouchableOpacity>
                     </View>
@@ -70,7 +70,6 @@ export default function ForgotPasswordCode({ route, navigation }) {
                     <Text style={styles.textBarra1}></Text>
                     <Text style={styles.textBarra2}></Text>
                     <Text style={styles.textBarra3}></Text>
-                    <Text style={styles.textBarra4}></Text>
                 </View>
                 <Text style={styles.textH1}>Insira o código que enviamos a você</Text>
                 <Text style={styles.textH2}>Insira o código</Text>
@@ -135,7 +134,7 @@ const styles = StyleSheet.create({
     },
     textRegister: {
         fontSize: 16,
-        marginLeft: widthToDP('25%'),
+        marginLeft: widthToDP('25.5%'),
         marginTop: heightToDP('2%')
     },
     containerBarras: {
@@ -144,28 +143,21 @@ const styles = StyleSheet.create({
     },
     textBarra1: {
         backgroundColor: '#DB1020',
-        width: widthToDP('17%'),
+        width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra2: {
-        backgroundColor: '#F6F6F6',
-        width: widthToDP('17%'),
+        backgroundColor: '#DB1020',
+        width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra3: {
         backgroundColor: '#F6F6F6',
-        width: widthToDP('17%'),
-        height: 4,
-        borderRadius: 5,
-        marginLeft: widthToDP('6%')
-    },
-    textBarra4: {
-        backgroundColor: '#F6F6F6',
-        width: widthToDP('17%'),
+        width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')

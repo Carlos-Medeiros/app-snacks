@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="tb_product")
@@ -17,17 +19,22 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank
 	private String name;
+	@NotNull
 	private Double price;
+	@NotBlank
 	private String description;
+	@NotBlank
 	private String imageUri;
 	private boolean inventory;
 	private boolean discount;
+	private Double percentageDiscount;
 	
 	public Product() {
 	}
 
-	public Product(Long id, String name, Double price, String description, String imageUri, boolean inventory, boolean discount) {
+	public Product(Long id, String name, Double price, String description, String imageUri, boolean inventory, boolean discount, Double percentageDiscount) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -35,6 +42,7 @@ public class Product implements Serializable {
 		this.imageUri = imageUri;
 		this.inventory = inventory;
 		this.discount = discount;
+		this.percentageDiscount = percentageDiscount;
 	}
 
 	public Long getId() {
@@ -91,6 +99,14 @@ public class Product implements Serializable {
 
 	public void setDiscount(boolean discount) {
 		this.discount = discount;
+	}
+
+	public Double getPercentageDiscount() {
+		return percentageDiscount;
+	}
+
+	public void setPercentageDiscount(Double percentageDiscount) {
+		this.percentageDiscount = percentageDiscount;
 	}
 
 	@Override

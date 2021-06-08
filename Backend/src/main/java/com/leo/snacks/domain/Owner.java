@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_owner")
@@ -17,8 +20,12 @@ public class Owner implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Email
 	private String email;
+	@NotBlank
 	private String name;
+	@NotBlank
+	@Size(min=8)
 	private String password;
 	
 	public Owner() {

@@ -6,6 +6,7 @@ import Register from "./Register";
 import EmailValidator from './EmailValidator';
 import Login from './Login';
 import ForgotPassword from './ForgotPassword';
+import ForgotPasswordHome from './ForgotPasswordHome';
 import ForgotPasswordCode from './ForgotPasswordCode';
 import CodeValidation from './CodeValidation';
 import Choice from './Choice';
@@ -38,6 +39,7 @@ function Routes() {
                 <Stack.Screen name="RegisterPhoneNumber" component={RegisterPhoneNumber}/>
                 <Stack.Screen name="RegisterPassword" component={RegisterPassword}/>
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
+                <Stack.Screen name="ForgotPasswordHome" component={ForgotPasswordHome}/>
                 <Stack.Screen name="ForgotPasswordCode" component={ForgotPasswordCode}/>
                 <Stack.Screen name="CodeValidation" component={CodeValidation}/>
                 <Stack.Screen name="EmailValidator" component={EmailValidator}/>

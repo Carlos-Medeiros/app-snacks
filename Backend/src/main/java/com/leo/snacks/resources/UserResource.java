@@ -30,12 +30,6 @@ public class UserResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	@PutMapping("/forgotYourPassword/{email}")
-	public ResponseEntity<EditUserDTO> forgotYourPassword(@RequestBody EditUserDTO dto, @PathVariable String email) {
-		dto = service.forgotYourPassword(dto, email);
-		return ResponseEntity.ok().body(dto);
-	}
-	
 	@PutMapping("/editName/{email}")
 	public ResponseEntity<EditUserDTO> editName(@RequestBody EditUserDTO dto, @PathVariable String email) {
 		dto = service.editName(dto, email);

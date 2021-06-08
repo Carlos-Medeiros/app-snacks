@@ -38,14 +38,6 @@ public class UserService {
 	}
 	
 	@Transactional
-	public EditUserDTO forgotYourPassword(EditUserDTO dto, String email) {
-		User user = repository.findByEmail(email);
-		user.setPassword(Util.md5(dto.getPassword()));
-		user = repository.save(user);
-		return new EditUserDTO(user);
-	}
-	
-	@Transactional
 	public EditUserDTO editName(EditUserDTO dto, String email) {
 		User user = repository.findByEmail(email);
 		user.setName(dto.getName());

@@ -2,7 +2,9 @@ package com.leo.snacks.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +22,17 @@ public class OwnerResource {
 		dto = service.login(dto);
 		return ResponseEntity.ok().body(dto);
 	}
-
+	
+	@PostMapping("/register/owner")
+	public ResponseEntity<OwnerDTO> register(@RequestBody OwnerDTO dto) {
+		dto = service.register(dto);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping("/editPassword/owner/{email}")
+	public ResponseEntity<OwnerDTO> editPassword(@RequestBody OwnerDTO dto, @PathVariable String email) {
+		dto = service.editPassword(dto, email);
+		return ResponseEntity.ok().body(dto);
+	}
+	
 }

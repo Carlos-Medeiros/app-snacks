@@ -10,6 +10,7 @@ import com.leo.snacks.domain.EmailValidation;
 import com.leo.snacks.dto.UserEmailValidationDTO;
 import com.leo.snacks.repositories.DeliverymanRepository;
 import com.leo.snacks.repositories.EmailValidationRepository;
+import com.leo.snacks.repositories.OwnerRepository;
 import com.leo.snacks.repositories.UserRepository;
 
 @Service
@@ -26,6 +27,9 @@ public class EmailService {
 	
 	@Autowired
 	private DeliverymanRepository deliverymanRepository;
+	
+	@Autowired
+	private OwnerRepository ownerRepository;
 	
     public void sendValidation(String to, String body, String topic) {
         SimpleMailMessage message = new SimpleMailMessage(); 
@@ -80,7 +84,7 @@ public class EmailService {
 		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
 		switch (numberKey) {
 		case 0:
-			if (userRepository.findByEmail(email) == null && deliverymanRepository.findByEmail(email) == null) {
+			if (userRepository.findByEmail(email) == null && deliverymanRepository.findByEmail(email) == null && ownerRepository.findByEmail(email) == null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
 				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));
@@ -89,7 +93,7 @@ public class EmailService {
 				return new UserEmailValidationDTO(null);
 			}
 		case 1:
-			if (userRepository.findByEmail(email) != null || deliverymanRepository.findByEmail(email) != null) {
+			if (userRepository.findByEmail(email) != null || deliverymanRepository.findByEmail(email) != null || ownerRepository.findByEmail(email) != null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
 				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));

@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_order")
@@ -25,12 +27,20 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank
+	private String clientEmail;
+	@NotBlank
 	private String address;
+	@NotNull
 	private Double latitude;
+	@NotNull
 	private Double longitude;
 	private Instant moment;
 	private boolean paymantToCard;
+	private boolean delivery;
+	private boolean coupon;
 	private OrderStatus status;
+	private OrderStatusClient statusClient;
 	
 	@ManyToMany
 	@JoinTable(name = "tb_order_user",
@@ -45,18 +55,34 @@ public class Order implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> product = new ArrayList<>();
 	
+	@ManyToMany
+	@JoinTable(name = "tb_order_discount_coupon",
+			joinColumns = @JoinColumn(name = "order_id"),
+			inverseJoinColumns = @JoinColumn(name = "discount_coupon_id"))
+	private Set<DiscountCoupon> discountCoupon = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(name = "tb_order_delivery_tax",
+			joinColumns = @JoinColumn(name = "order_id"),
+			inverseJoinColumns = @JoinColumn(name = "delivery_tax_id"))
+	private Set<DeliveryTax> deliveryTax = new HashSet<>();
+	
 	public Order() {
 	}
 	
-	public Order(Long id, String address, Double latitude, Double longitude,
-			Instant moment, boolean paymantToCard, OrderStatus status) {
+	public Order(Long id, String clientEmail, String address, Double latitude, Double longitude,
+			Instant moment, boolean paymantToCard, boolean delivery, boolean coupon, OrderStatus status, OrderStatusClient statusClient) {
 		this.id = id;
+		this.clientEmail = clientEmail;
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.moment = moment;
 		this.paymantToCard = paymantToCard;
+		this.delivery = delivery;
+		this.coupon = coupon;
 		this.status = status;
+		this.statusClient = statusClient;
 	}
 
 	public Long getId() {
@@ -65,6 +91,14 @@ public class Order implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getClientEmail() {
+		return clientEmail;
+	}
+
+	public void setClientEmail(String clientEmail) {
+		this.clientEmail = clientEmail;
 	}
 
 	public String getAddress() {
@@ -130,11 +164,68 @@ public class Order implements Serializable {
 	public void setProduct(List<Product> product) {
 		this.product = product;
 	}
+
+	public Set<DiscountCoupon> getDiscountCoupon() {
+		return discountCoupon;
+	}
+
+	public void setDiscountCoupon(Set<DiscountCoupon> discountCoupon) {
+		this.discountCoupon = discountCoupon;
+	}
+
+	public Set<DeliveryTax> getDeliveryTax() {
+		return deliveryTax;
+	}
+
+	public void setDeliveryTax(Set<DeliveryTax> deliveryTax) {
+		this.deliveryTax = deliveryTax;
+	}
+
+	public boolean isDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(boolean delivery) {
+		this.delivery = delivery;
+	}
+
+	public boolean isCoupon() {
+		return coupon;
+	}
+
+	public void setCoupon(boolean coupon) {
+		this.coupon = coupon;
+	}
 	
+	public OrderStatusClient getStatusClient() {
+		return statusClient;
+	}
+
+	public void setStatusClient(OrderStatusClient statusClient) {
+		this.statusClient = statusClient;
+	}
+
 	public Double getTotal() {
 		double sum = 0.0;
 		for (Product p : product) {
 			sum += p.getPrice();
+		}
+		for (DiscountCoupon d : discountCoupon) {
+			if (d.getMinimunDiscountAmount() <= sum) {
+				sum -= d.getDiscountAmount();
+			}
+			else {
+				this.setCoupon(false);
+				sum += 0.0;
+			}
+		}
+		if (this.isDelivery() == true) {
+			for (DeliveryTax dt : deliveryTax) {
+				sum += dt.getDeliveryTax();
+			}
+		}
+		else {
+			sum += 0.0;
 		}
 		return sum;
 	}

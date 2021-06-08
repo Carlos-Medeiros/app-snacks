@@ -25,4 +25,22 @@ public class OwnerService {
 			return new OwnerDTO(null);
 		}
 	}
+	
+	@Transactional
+	public OwnerDTO register(OwnerDTO dto) {
+		Owner owner = new Owner(null, dto.getName(), dto.getEmail(), Util.md5(dto.getPassword()));	
+		if (repository.findByEmailEquals(dto.getEmail()) == null) {
+			owner = repository.save(owner);
+			return new OwnerDTO(owner);
+		}
+		return new OwnerDTO(null);
+	}
+	
+	@Transactional
+	public OwnerDTO editPassword(OwnerDTO dto, String email) {
+		Owner owner = repository.findByEmail(email);
+		owner.setPassword(Util.md5(dto.getPassword()));
+		owner = repository.save(owner);
+		return new OwnerDTO(owner);
+	}
 }

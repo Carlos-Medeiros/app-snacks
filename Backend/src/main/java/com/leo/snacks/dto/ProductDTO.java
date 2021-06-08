@@ -15,11 +15,12 @@ public class ProductDTO implements Serializable {
 	private String imageUri;
 	private boolean inventory;
 	private boolean discount;
+	private Double percentageDiscount;
 	
 	public ProductDTO() {
 	}
 
-	public ProductDTO(Long id, String name, Double price, String description, String imageUri, boolean inventory, boolean discount) {
+	public ProductDTO(Long id, String name, Double price, String description, String imageUri, boolean inventory, boolean discount, Double percentageDiscount) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -27,6 +28,7 @@ public class ProductDTO implements Serializable {
 		this.imageUri = imageUri;
 		this.inventory = inventory;
 		this.discount = discount;
+		this.percentageDiscount = percentageDiscount;
 	}
 	
 	public ProductDTO(Product entity) {
@@ -37,6 +39,7 @@ public class ProductDTO implements Serializable {
 		imageUri = entity.getImageUri();
 		inventory = entity.isInventory();
 		discount = entity.isDiscount();
+		percentageDiscount = entity.getPercentageDiscount();
 	}
 
 	public Long getId() {
@@ -93,6 +96,14 @@ public class ProductDTO implements Serializable {
 
 	public void setDiscount(boolean discount) {
 		this.discount = discount;
+	}
+
+	public Double getPercentageDiscount() {
+		return percentageDiscount;
+	}
+
+	public void setPercentageDiscount(Double percentageDiscount) {
+		this.percentageDiscount = percentageDiscount;
 	}
 	
 }

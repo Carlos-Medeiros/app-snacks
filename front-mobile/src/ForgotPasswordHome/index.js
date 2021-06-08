@@ -4,54 +4,33 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive'
 import API from '../api';
 
-export default function Register({ route, navigation }) {
+export default function ForgotPasswordHome({navigation}) {
 
     const [email, setEmail] = useState('');
     const [menssage, setMenssage] = useState('');
-    const [menssageRoute, setMenssageRoute] = useState('');
     const [loading, setLoading] = useState(true);
-
-    const emailValidation = () => {
-        setLoading(false);
-        API.post(`/emailValidator`, {
-            email: email,
-        }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
-        .then(codeValidation)
-        .catch(emailValidationPut)
-    };
 
     const emailValidationPut = () => {
         setLoading(false);
-        API.put(`/emailValidator/${email}/0`, {
+        API.put(`/emailValidator/${email}/1`, {
         }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
         .then(codeValidation)
         .catch(errorRegister)
     };
 
     const errorRegister = () => {
         setLoading(true);
-        setMenssage('Este e-mail já está cadastrado, ')
-        setMenssageRoute('quer logar?')
+        setMenssage('Este e-mail não esta cadastrado')
     }
 
     const codeValidation = () => {
         setLoading(true);
         setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('CodeValidation', {userEmail: email, deliverymanCod: route.params.deliverymanCod});
-    }
-
-    const choice = () => {
-        setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('Choice')
+        navigation.navigate('ForgotPasswordCode', {userEmail: email});
     }
 
     const login = () => {
         setMenssage('')
-        setMenssageRoute('')
         navigation.navigate('Login')
     }
 
@@ -60,17 +39,16 @@ export default function Register({ route, navigation }) {
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
                     <View style={styles.containerSeta}>
-                        <TouchableOpacity style={styles.imgSeta} onPress={()=>choice()}>
+                        <TouchableOpacity style={styles.imgSeta} onPress={()=>login()}>
                             <Image source={require('../img/arrow1x.png')} ></Image>
                         </TouchableOpacity>
                     </View>
-                    <Text style={styles.textRegister}>Cadastro</Text>
+                    <Text style={styles.textRegister}>Recuperação</Text>
                 </View>
                 <View style={styles.containerBarras}>
                     <Text style={styles.textBarra1}></Text>
                     <Text style={styles.textBarra2}></Text>
                     <Text style={styles.textBarra3}></Text>
-                    <Text style={styles.textBarra4}></Text>
                 </View>
 
                 <Text style={styles.textH1}>Olá, bem-vindo ao Lanches da Gê!</Text>
@@ -83,12 +61,9 @@ export default function Register({ route, navigation }) {
 
                 <View style={styles.containerError}>
                     <Text style={styles.textVisible}>{menssage}</Text>
-                    <TouchableOpacity style={styles.buttonVisible} onPress={()=>login()}>
-                        <Text style={styles.textRoute}>{menssageRoute}</Text>
-                    </TouchableOpacity>
                 </View>
                 <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={()=>emailValidation()}>
+                    <TouchableOpacity style={styles.button} onPress={()=>emailValidationPut()}>
                         <Text style={styles.textButton}>Prosseguir</Text>
                     </TouchableOpacity>
                 </View>
@@ -118,7 +93,7 @@ const styles = StyleSheet.create({
     },
     textRegister: {
         fontSize: 16,
-        marginLeft: widthToDP('29%'),
+        marginLeft: widthToDP('25.5%'),
         marginTop: heightToDP('2%')
     },
     containerBarras: {
@@ -127,28 +102,21 @@ const styles = StyleSheet.create({
     },
     textBarra1: {
         backgroundColor: '#DB1020',
-        width: widthToDP('17%'),
+        width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra2: {
         backgroundColor: '#F6F6F6',
-        width: widthToDP('17%'),
+        width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra3: {
         backgroundColor: '#F6F6F6',
-        width: widthToDP('17%'),
-        height: 4,
-        borderRadius: 5,
-        marginLeft: widthToDP('6%')
-    },
-    textBarra4: {
-        backgroundColor: '#F6F6F6',
-        width: widthToDP('17%'),
+        width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
@@ -174,7 +142,7 @@ const styles = StyleSheet.create({
         height: widthToDP('13%'),
         backgroundColor: '#F6F6F6',
         borderRadius: 15,
-        paddingLeft: 45,
+        paddingLeft: 50,
         marginTop: heightToDP('1%'),
         marginLeft: widthToDP('6%')
     },
@@ -183,7 +151,7 @@ const styles = StyleSheet.create({
         marginTop: widthToDP('-8.5%')
     },  
     containerButton: {
-        marginTop: heightToDP('39%')
+        marginTop: heightToDP('37%')
     },
     button: {
         justifyContent: 'center',
@@ -203,11 +171,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%')
     },
     textVisible: {
-        color: 'black',
+        color: '#DB1020',
         marginLeft: widthToDP('6%')
-    },
-    textRoute: {
-        textDecorationLine: 'underline',
-        color: '#DB1020'
     }
 });

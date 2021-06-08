@@ -30,11 +30,29 @@ public class OrderResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@GetMapping("/{email}")
+	public ResponseEntity<List<OrderDTO>> findAllEmail(@PathVariable String email) {
+		List<OrderDTO> list = service.findAllEmail(email);
+		return ResponseEntity.ok().body(list);
+	}
+	
 	@PostMapping
 	public ResponseEntity<OrderDTO> insert(@RequestBody OrderDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
+	}
+	
+	@PutMapping("/{id}/production")
+	public ResponseEntity<OrderDTO> setProduction(@PathVariable Long id) {
+		OrderDTO dto = service.setProduction(id);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping("/{id}/traffic")
+	public ResponseEntity<OrderDTO> setTraffic(@PathVariable Long id) {
+		OrderDTO dto = service.setTraffic(id);
+		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PutMapping("/{id}/delivered")

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, ActivityIndicator, Animated,Keyboard, LogBox } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
-import "@expo/match-media";
 import API from '../api';
 
 export default function Login({navigation}) {
@@ -35,7 +34,6 @@ export default function Login({navigation}) {
         .catch(errorRegister)
     };
 
-
     const errorRegister = () => {
         setLoading(true)
         setMenssage('Email ou senha invalidos');
@@ -54,9 +52,9 @@ export default function Login({navigation}) {
         navigation.navigate('Choice', {userEmail: email})
     }
 
-    const forgotPassword = () => {
+    const forgotPasswordHome = () => {
         setMenssage('')
-        navigation.navigate('ForgotPassword')
+        navigation.navigate('ForgotPasswordHome')
     }
 
     function visiblePassword(){
@@ -122,7 +120,7 @@ export default function Login({navigation}) {
                 <View style={styles.containerButton}>
 
                     <View style={styles.containerButtonOpacity}>
-                        <TouchableOpacity style={styles.buttonOPacity} onPress={()=>forgotPassword()}>
+                        <TouchableOpacity style={styles.buttonOPacity} onPress={()=>forgotPasswordHome()}>
                             <Text style={styles.textOpacity}>Esqueceu a senha?</Text>
                         </TouchableOpacity>
                     </View>
