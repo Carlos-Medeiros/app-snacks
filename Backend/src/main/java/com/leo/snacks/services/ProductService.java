@@ -30,11 +30,16 @@ public class ProductService {
 		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
 	}
 
-
 	@Transactional(readOnly = true)
 	public ProductDTO search(Long id) {
 		Product product = repository.getOne(id);
 		return new ProductDTO(product);
+	}
+	
+	@Transactional
+	public List<ProductDTO> findByName(String name) {
+		List<Product> list = repository.findByNameContains(name);
+		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
 	}
 	
 	@Transactional

@@ -75,6 +75,20 @@ public class EmailService {
 	}
 	
 	@Transactional
+	public UserEmailValidationDTO emailExisting(UserEmailValidationDTO dto) {		
+		if (emailValidationRepository.findByEmail(dto.getEmail()) != null 
+			|| userRepository.findByEmail(dto.getEmail()) != null 
+			|| deliverymanRepository.findByEmail(dto.getEmail()) != null 
+			|| ownerRepository.findByEmail(dto.getEmail()) != null) {
+			return new UserEmailValidationDTO(emailValidationRepository.findByEmail(dto.getEmail()));
+		}
+		else {
+			return new UserEmailValidationDTO(null);
+		}
+	}
+	
+	
+	@Transactional
 	public UserEmailValidationDTO update(String email, Integer numberKey) {
 		Integer numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
 		while (numberRandom > 1000000 || numberRandom < 100000) {

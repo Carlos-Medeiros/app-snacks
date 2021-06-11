@@ -43,6 +43,12 @@ public class ProductResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
+	@GetMapping("/findByName/{name}")
+	public ResponseEntity<List<ProductDTO>> findByName(@PathVariable String name) {
+		List<ProductDTO> list= service.findByName(name);
+		return ResponseEntity.ok().body(list);
+	}
+	
 	@PostMapping
 	public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto) {
 		dto = service.insert(dto);

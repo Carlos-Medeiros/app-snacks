@@ -1,11 +1,16 @@
 package com.leo.snacks.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -29,6 +34,12 @@ public class User implements Serializable {
 	private String password;
 	@NotBlank
 	private String phones;
+	
+	@ManyToMany
+	@JoinTable(name = "tb_user_product",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "product_id"))
+	private Set<Product> product = new HashSet<>();
 	
 	public User() {
 	}
@@ -81,6 +92,14 @@ public class User implements Serializable {
 		this.phones = phones;
 	}
 	
+	public Set<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(Set<Product> product) {
+		this.product = product;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

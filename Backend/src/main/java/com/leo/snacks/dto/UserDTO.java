@@ -1,6 +1,9 @@
 package com.leo.snacks.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.leo.snacks.domain.User;
 
@@ -12,7 +15,9 @@ public class UserDTO implements Serializable {
 	private String name;
 	private String email;
 	private String phones;
-		
+	
+	private List<ProductDTO> products = new ArrayList<>();
+	
 	public UserDTO() {
 	}
 
@@ -28,6 +33,7 @@ public class UserDTO implements Serializable {
 		name = entity.getName();
 		email = entity.getEmail();
 		phones = entity.getPhones();
+		products = entity.getProduct().stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
 	}
 
 	public Long getId() {
@@ -60,6 +66,14 @@ public class UserDTO implements Serializable {
 
 	public void setPhones(String phones) {
 		this.phones = phones;
+	}
+
+	public List<ProductDTO> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<ProductDTO> products) {
+		this.products = products;
 	}
 
 }

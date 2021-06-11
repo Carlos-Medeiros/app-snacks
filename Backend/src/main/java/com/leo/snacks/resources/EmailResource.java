@@ -31,6 +31,12 @@ public class EmailResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
+	@PostMapping("/emailExisting")
+	public ResponseEntity<UserEmailValidationDTO> emailExisting(@RequestBody UserEmailValidationDTO dto) {
+		dto = emailService.emailExisting(dto);
+		return ResponseEntity.ok().body(dto);
+	}
+	
 	@PutMapping("/emailValidator/{email}/{numberKey}")
 	public ResponseEntity<UserEmailValidationDTO> update(@PathVariable String email, @PathVariable Integer numberKey) {
 		UserEmailValidationDTO dto = emailService.update(email, numberKey);
