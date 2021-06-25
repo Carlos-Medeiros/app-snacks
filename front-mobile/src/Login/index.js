@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ActivityIndicator, Animated,Keyboard, LogBox } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, ActivityIndicator} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
@@ -11,7 +11,7 @@ export default function Login({navigation}) {
     const [menssage, setMenssage] = useState('');
     const [visible, setVisible] = useState(true);
     const [loading, setLoading] = useState(true);
-    const [logo] = useState(new Animated.ValueXY({x: widthToDP('100%'), y: heightToDP('30%')}));
+    /*const [logo] = useState(new Animated.ValueXY({x: widthToDP('100%'), y: heightToDP('30%')}));*/
 
     const handleLogin = () => {
         setLoading(false);
@@ -66,7 +66,7 @@ export default function Login({navigation}) {
         }
     }
     
-    useEffect(() => {
+   /* useEffect(() => {
         LogBox.ignoreLogs(['Animated: useNativeDriver']);
         keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
         keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', keyboardDidHide);
@@ -89,14 +89,14 @@ export default function Login({navigation}) {
                 duration: 100,
             })
         ]).start();
-    }
+    }*/
 
     return ( 
         <>
             <View style={styles.container}>
-                <Animated.View style={{height: logo.y, width: logo.x, justifyContent: 'flex-end', alignItems: 'center'}}>
-                    <Image source={require(`../img/Logo.png`)} style={styles.logo}/>
-                </Animated.View>
+                <View  style={styles.logo}>
+                    <Image source={require(`../img/Logo.png`)}/>
+                </View>
                 <View style={styles.loadingSpinner}>
                     {loading ? home : <ActivityIndicator size="large" color="#DB1020"/>}
                 </View>
@@ -150,6 +150,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         justifyContent: 'center',
+    },
+    logo: {
+        width: widthToDP('100%'),
+        height: heightToDP('30%'),
+        marginTop: heightToDP('4%'),
+        justifyContent: 'flex-end'
     },
     loadingSpinner: {
         marginTop: 15,

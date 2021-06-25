@@ -16,6 +16,8 @@ import RegisterName from "./RegisterName";
 import ValidationComplete from "./ValidationComplete";
 import RegisterPhoneNumber from './RegisterPhoneNumber';
 import RegisterPassword from './RegisterPassword';
+import ProductCard from './ProductCard';
+import Category from './Category';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +34,8 @@ function Routes() {
             >
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="Home" component={Home}/>
+                <Stack.Screen name="Category" component={Category}/>
+                <Stack.Screen name="ProductCard" component={ProductCard}/>
                 <Stack.Screen name="HomeDeliveryman" component={HomeDeliveryman}/>
                 <Stack.Screen name="Choice" component={Choice}/>
                 <Stack.Screen name="Register" component={Register}/>

@@ -10,8 +10,8 @@ export default function DeliverymanStatus({ route, navigation }) {
 
     useEffect(() => {
         API.get(`/${route.params.userEmail}/status`, {
-        }).then((response) => {setDeliverymanStatus(response.data)}
-        )}, []);
+        }).then((response) => {setDeliverymanStatus(response.data)})
+    }, []);
 
 
     useEffect(() => {
