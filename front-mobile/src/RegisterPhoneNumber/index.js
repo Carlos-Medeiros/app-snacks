@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 
-
 import { TextInputMask } from 'react-native-masked-text';
 
 export default function RegisterPhoneNumber({ route, navigation }) {
@@ -17,8 +16,7 @@ export default function RegisterPhoneNumber({ route, navigation }) {
 
     const registerPassword = () => {
         navigation.navigate('RegisterPassword', {userName: route.params.userName, 
-        userEmail: route.params.userEmail, deliverymanCod: route.params.deliverymanCod,
-        userPhoneNumber: phoneNumber})
+        userEmail: route.params.userEmail, userPhoneNumber: phoneNumber})
     }
 
     return ( 

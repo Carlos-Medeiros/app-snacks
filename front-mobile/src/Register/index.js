@@ -10,6 +10,21 @@ export default function Register({ route, navigation }) {
     const [menssage, setMenssage] = useState('');
     const [menssageRoute, setMenssageRoute] = useState('');
     const [loading, setLoading] = useState(true);
+    
+
+    const emailExisting = () => {
+        if (email != '') {
+            setLoading(false);
+            API.post(`/emailExisting`, {
+                email: email,
+            }).then(errorRegister)
+            .catch(emailValidation)
+        }
+        else {
+            setLoading(true);
+            setMenssage('Insira um e-mail válido')
+        }
+    };
 
     const emailValidation = () => {
         setLoading(false);
@@ -27,8 +42,14 @@ export default function Register({ route, navigation }) {
         }).then(setMenssage(''))
         .then(setMenssageRoute(''))
         .then(codeValidation)
-        .catch(errorRegister)
+        .catch(errorEmail)
     };
+
+    const errorEmail = () => {
+        setLoading(true);
+        setMenssage('Insira um e-mail válido')
+    }
+
 
     const errorRegister = () => {
         setLoading(true);
@@ -40,13 +61,7 @@ export default function Register({ route, navigation }) {
         setLoading(true);
         setMenssage('')
         setMenssageRoute('')
-        navigation.navigate('CodeValidation', {userEmail: email, deliverymanCod: route.params.deliverymanCod});
-    }
-
-    const choice = () => {
-        setMenssage('')
-        setMenssageRoute('')
-        navigation.navigate('Choice')
+        navigation.navigate('CodeValidation', {userEmail: email});
     }
 
     const login = () => {
@@ -60,7 +75,7 @@ export default function Register({ route, navigation }) {
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
                     <View style={styles.containerSeta}>
-                        <TouchableOpacity style={styles.imgSeta} onPress={()=>choice()}>
+                        <TouchableOpacity style={styles.imgSeta} onPress={()=>login()}>
                             <Image source={require('../img/arrow1x.png')} ></Image>
                         </TouchableOpacity>
                     </View>
@@ -88,7 +103,7 @@ export default function Register({ route, navigation }) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={()=>emailValidation()}>
+                    <TouchableOpacity style={styles.button} onPress={()=>emailExisting()}>
                         <Text style={styles.textButton}>Prosseguir</Text>
                     </TouchableOpacity>
                 </View>

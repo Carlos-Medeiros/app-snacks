@@ -11,20 +11,8 @@ export default function Login({navigation}) {
     const [menssage, setMenssage] = useState('');
     const [visible, setVisible] = useState(true);
     const [loading, setLoading] = useState(true);
-    /*const [logo] = useState(new Animated.ValueXY({x: widthToDP('100%'), y: heightToDP('30%')}));*/
 
     const handleLogin = () => {
-        setLoading(false);
-        API.post(`/login`, {
-            email: email,
-            password: password
-        }).then(setMenssage(''))
-        .then(setLoading(true))
-        .then(home)
-        .catch(handleLoginDeliveryman)
-    };
-
-    const handleLoginDeliveryman = () => {
         setLoading(false);
         API.post(`/login/deliveryman`, {
             email: email,
@@ -39,17 +27,13 @@ export default function Login({navigation}) {
         setMenssage('Email ou senha invalidos');
     }
 
-    const home = () => {
-        navigation.replace('Home', {userEmail: email})
-    }
-
     const deliverymanStatus = () => {
         navigation.replace('DeliverymanStatus', {userEmail: email})
     }
 
-    const choice = () => {
+    const register = () => {
         setMenssage('')
-        navigation.navigate('Choice', {userEmail: email})
+        navigation.navigate('Register');
     }
 
     const forgotPasswordHome = () => {
@@ -66,31 +50,6 @@ export default function Login({navigation}) {
         }
     }
     
-   /* useEffect(() => {
-        LogBox.ignoreLogs(['Animated: useNativeDriver']);
-        keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
-        keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', keyboardDidHide);
-    
-    }, [])
-
-
-    function keyboardDidShow(){
-        Animated.parallel([
-            Animated.timing(logo.y, {
-                toValue: heightToDP('36%'),
-                duration: 100,
-            })
-        ]).start();
-    }
-    function keyboardDidHide(){
-        Animated.parallel([
-            Animated.timing(logo.y, {
-                toValue: heightToDP('30%'),
-                duration: 100,
-            })
-        ]).start();
-    }*/
-
     return ( 
         <>
             <View style={styles.container}>
@@ -98,7 +57,7 @@ export default function Login({navigation}) {
                     <Image source={require(`../img/Logo.png`)}/>
                 </View>
                 <View style={styles.loadingSpinner}>
-                    {loading ? home : <ActivityIndicator size="large" color="#DB1020"/>}
+                    {loading ? deliverymanStatus : <ActivityIndicator size="large" color="#DB1020"/>}
                 </View>
                 <View style={styles.containerEmail}>
                     <TextInput style={styles.InputEmail} placeholder="Email" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
@@ -133,7 +92,7 @@ export default function Login({navigation}) {
                     </View>
                 
                     <View style={styles.containerCadastrese}>
-                        <TouchableOpacity style={styles.buttonCadastrese} onPress={()=>choice()}>
+                        <TouchableOpacity style={styles.buttonCadastrese} onPress={()=>register()}>
                             <Text style={styles.textCadastrese}>Cadastre-se</Text>
                         </TouchableOpacity>
                     </View>
@@ -155,6 +114,7 @@ const styles = StyleSheet.create({
         width: widthToDP('100%'),
         height: heightToDP('30%'),
         marginTop: heightToDP('4%'),
+        alignItems: 'center',
         justifyContent: 'flex-end'
     },
     loadingSpinner: {

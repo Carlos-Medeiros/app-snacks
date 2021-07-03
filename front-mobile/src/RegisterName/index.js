@@ -26,7 +26,7 @@ export default function RegisterName({ route, navigation }) {
         else {
             setMenssage('')
             navigation.navigate('RegisterPhoneNumber', {userName: firstName + ' ' + lastName, 
-            userEmail: route.params.userEmail, deliverymanCod: route.params.deliverymanCod})
+            userEmail: route.params.userEmail})
         }
     }
 

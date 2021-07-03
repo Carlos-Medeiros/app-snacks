@@ -20,6 +20,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-awesome-alerts": "^1.4.2",
     "react-native-confirmation-code-field": "^7.1.0",
+    "react-native-extended-stylesheet": "^0.12.0",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-masked-text": "^1.13.0",
     "react-native-media-queries": "^0.3.0",

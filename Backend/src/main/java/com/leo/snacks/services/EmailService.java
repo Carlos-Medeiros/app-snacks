@@ -11,7 +11,6 @@ import com.leo.snacks.dto.UserEmailValidationDTO;
 import com.leo.snacks.repositories.DeliverymanRepository;
 import com.leo.snacks.repositories.EmailValidationRepository;
 import com.leo.snacks.repositories.OwnerRepository;
-import com.leo.snacks.repositories.UserRepository;
 
 @Service
 public class EmailService {
@@ -21,9 +20,6 @@ public class EmailService {
     
 	@Autowired
 	private EmailValidationRepository emailValidationRepository;
-    
-	@Autowired
-	private UserRepository userRepository;
 	
 	@Autowired
 	private DeliverymanRepository deliverymanRepository;
@@ -77,7 +73,6 @@ public class EmailService {
 	@Transactional
 	public UserEmailValidationDTO emailExisting(UserEmailValidationDTO dto) {		
 		if (emailValidationRepository.findByEmail(dto.getEmail()) != null 
-			|| userRepository.findByEmail(dto.getEmail()) != null 
 			|| deliverymanRepository.findByEmail(dto.getEmail()) != null 
 			|| ownerRepository.findByEmail(dto.getEmail()) != null) {
 			return new UserEmailValidationDTO(emailValidationRepository.findByEmail(dto.getEmail()));
@@ -98,7 +93,7 @@ public class EmailService {
 		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
 		switch (numberKey) {
 		case 0:
-			if (userRepository.findByEmail(email) == null && deliverymanRepository.findByEmail(email) == null && ownerRepository.findByEmail(email) == null) {
+			if (deliverymanRepository.findByEmail(email) == null && ownerRepository.findByEmail(email) == null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
 				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));
@@ -107,7 +102,7 @@ public class EmailService {
 				return new UserEmailValidationDTO(null);
 			}
 		case 1:
-			if (userRepository.findByEmail(email) != null || deliverymanRepository.findByEmail(email) != null || ownerRepository.findByEmail(email) != null) {
+			if (deliverymanRepository.findByEmail(email) != null || ownerRepository.findByEmail(email) != null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
 				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));

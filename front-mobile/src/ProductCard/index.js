@@ -25,27 +25,24 @@ export default function ProductCard({ route, navigation }) {
 
 const styles = StyleSheet.create({
     productButton: {
-        width: 338,
-        height: 113, 
-        marginTop: 20,
-        marginLeft: 10,
+        width: widthToDP('82.5%'),
+        height: heightToDP('15.5%'), 
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 2,
         borderColor: '#E0DEDE',
         borderRadius: 19,
-        marginBottom: heightToDP('2%')
+        marginTop: heightToDP('2%'),
     },
     imgHb: {
-        width: 135,
-        height: 109,
+        width: widthToDP('33%'),
+        height: heightToDP('15%'),
         borderRadius: 18 
     },
     productName: {
         fontSize: 14,
         fontWeight: 'bold',
         marginLeft: 10,
-        marginTop: -5
     },
     productDescription: {
         width:150,
@@ -56,7 +53,7 @@ const styles = StyleSheet.create({
     productPrice: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginLeft: 100,
+        marginLeft: widthToDP('25%'),
         marginTop: 4
     },  
 });

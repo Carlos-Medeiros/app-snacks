@@ -20,45 +20,22 @@ export default function RegisterPassword({ route, navigation }) {
     }
 
     const completeRegister = () => {
-        if (route.params.deliverymanCod == 0) {
-            if (password == repeatPassword) {
-                API.post(`/register`, {
-                    name: name,
-                    email: email,
-                    password: password,
-                    phones: phoneNumber
-                }).then(setMenssage(''))
-                .then(completedClient)
-                .catch()
-            }
-            else {
-                setMenssage('Senhas não coincidem');
-            }
+        if (password == repeatPassword) {
+            API.post(`/register/deliveryman`, {
+                name: name,
+                email: email,
+                password: password,
+                phones: phoneNumber
+            }).then(setMenssage(''))
+            .then(completedDeliveryman)
+            .catch()
         }
-
-        if (route.params.deliverymanCod == 1) {
-            if (password == repeatPassword) {
-                API.post(`/register/deliveryman`, {
-                    name: name,
-                    email: email,
-                    password: password,
-                    phones: phoneNumber
-                }).then(setMenssage(''))
-                .then(completedDeliveryman)
-                .catch()
-            }
-            else {
-                setMenssage('Senhas não coincidem');
-            }
+        else {
+            setMenssage('Senhas não coincidem');
         }
     }
-
-    const completedClient = () => {
-        navigation.navigate('Home')
-    }
-
     const completedDeliveryman = () => {
-        navigation.navigate('HomeDeliverymanStatus')
+        navigation.navigate('DeliverymanStatus', {userEmail: email});
     }
 
     function visiblePassword(){

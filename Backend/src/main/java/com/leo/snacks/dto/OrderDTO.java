@@ -8,13 +8,13 @@ import java.util.stream.Collectors;
 
 import com.leo.snacks.domain.Order;
 import com.leo.snacks.domain.OrderStatus;
-import com.leo.snacks.domain.OrderStatusClient;
 
 public class OrderDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	private Integer code;
 	private String address;
 	private Double latitude;
 	private Double longitude;
@@ -22,21 +22,18 @@ public class OrderDTO implements Serializable {
 	private Instant moment;
 	private boolean paymantToCard;
 	private boolean delivery;
-	private boolean coupon;
 	private OrderStatus status;
-	private OrderStatusClient statusClient;
 
 	private List<ProductDTO> products = new ArrayList<>();
-	private List<UserDTO> users = new ArrayList<>();
-	private List<DiscountCouponDTO> discountCoupon = new ArrayList<>();
 	private List<DeliveryTaxDTO> deliveryTax = new ArrayList<>();
 	
 	public OrderDTO() {
 	}
 	
-	public OrderDTO(Long id, String address, Double latitude, Double longitude, Double total,
-			Instant moment, boolean paymantToCard, boolean delivery, boolean coupon, OrderStatus status, OrderStatusClient statusClient) {
+	public OrderDTO(Long id, Integer code, String address, Double latitude, Double longitude, Double total,
+			Instant moment, boolean paymantToCard, boolean delivery, OrderStatus status) {
 		this.id = id;
+		this.code = code;
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -44,13 +41,12 @@ public class OrderDTO implements Serializable {
 		this.moment = moment;
 		this.paymantToCard = paymantToCard;
 		this.delivery = delivery;
-		this.coupon = coupon;
 		this.status = status;
-		this.statusClient = statusClient;
 	}
 	
 	public OrderDTO(Order entity) {
 		id = entity.getId();
+		code = entity.getCode();
 		address = entity.getAddress();
 		latitude = entity.getLatitude();
 		longitude = entity.getLongitude();
@@ -58,13 +54,9 @@ public class OrderDTO implements Serializable {
 		moment = entity.getMoment();
 		paymantToCard = entity.isPaymantToCard();
 		delivery = entity.isDelivery();
-		coupon = entity.isCoupon();
 		status = entity.getStatus();
-		users = entity.getUser().stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 		products = entity.getProduct().stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
-		discountCoupon = entity.getDiscountCoupon().stream().map(x -> new DiscountCouponDTO(x)).collect(Collectors.toList());
 		deliveryTax = entity.getDeliveryTax().stream().map(x -> new DeliveryTaxDTO(x)).collect(Collectors.toList());
-		statusClient = entity.getStatusClient();
 	}
 	
 	public Long getId() {
@@ -73,6 +65,14 @@ public class OrderDTO implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Integer getCode() {
+		return code;
+	}
+
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 
 	public String getAddress() {
@@ -131,14 +131,6 @@ public class OrderDTO implements Serializable {
 		this.delivery = delivery;
 	}
 
-	public boolean isCoupon() {
-		return coupon;
-	}
-
-	public void setCoupon(boolean coupon) {
-		this.coupon = coupon;
-	}
-
 	public OrderStatus getStatus() {
 		return status;
 	}
@@ -147,28 +139,8 @@ public class OrderDTO implements Serializable {
 		this.status = status;
 	}
 
-	public OrderStatusClient getStatusClient() {
-		return statusClient;
-	}
-
-	public void setStatusClient(OrderStatusClient statusClient) {
-		this.statusClient = statusClient;
-	}
-
-	public List<UserDTO> getUsers() {
-		return users;
-	}
-
 	public List<ProductDTO> getProducts() {
 		return products;
-	}
-
-	public List<DiscountCouponDTO> getDiscountCoupon() {
-		return discountCoupon;
-	}
-
-	public void setDiscountCoupon(List<DiscountCouponDTO> discountCoupon) {
-		this.discountCoupon = discountCoupon;
 	}
 
 	public List<DeliveryTaxDTO> getDeliveryTax() {

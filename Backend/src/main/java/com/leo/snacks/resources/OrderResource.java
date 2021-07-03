@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,18 +25,36 @@ public class OrderResource {
 	@Autowired
 	private OrderService service;
 	
-	@GetMapping
-	public ResponseEntity<List<OrderDTO>> findAll() {
-		List<OrderDTO> list = service.findAll();
+	@GetMapping("/pending")
+	public ResponseEntity<List<OrderDTO>> findAllPending() {
+		List<OrderDTO> list = service.findAllPending();
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping("/{email}")
-	public ResponseEntity<List<OrderDTO>> findAllEmail(@PathVariable String email) {
-		List<OrderDTO> list = service.findAllEmail(email);
+	@GetMapping("/confirmed")
+	public ResponseEntity<List<OrderDTO>> findAllConfirmed() {
+		List<OrderDTO> list = service.findAllConfirmed();
+		return ResponseEntity.ok().body(list);
+	}
+
+	@GetMapping("/ready")
+	public ResponseEntity<List<OrderDTO>> findAllReady() {
+		List<OrderDTO> list = service.findAllReady();
+		return ResponseEntity.ok().body(list);
+	}
+
+	@GetMapping("/readyForDelivery")
+	public ResponseEntity<List<OrderDTO>> findAllReadyForDelivery() {
+		List<OrderDTO> list = service.findAllReadyForDelivery();
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@GetMapping("/delivered")
+	public ResponseEntity<List<OrderDTO>> findAllDelivered() {
+		List<OrderDTO> list = service.findAllDelivered();
+		return ResponseEntity.ok().body(list);
+	}
+
 	@PostMapping
 	public ResponseEntity<OrderDTO> insert(@RequestBody OrderDTO dto) {
 		dto = service.insert(dto);
@@ -43,15 +62,21 @@ public class OrderResource {
 		return ResponseEntity.created(uri).body(dto);
 	}
 	
-	@PutMapping("/{id}/production")
-	public ResponseEntity<OrderDTO> setProduction(@PathVariable Long id) {
-		OrderDTO dto = service.setProduction(id);
+	@PutMapping("/{id}/pending")
+	public ResponseEntity<OrderDTO> setPending(@PathVariable Long id) {
+		OrderDTO dto = service.setPending(id);
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	@PutMapping("/{id}/traffic")
-	public ResponseEntity<OrderDTO> setTraffic(@PathVariable Long id) {
-		OrderDTO dto = service.setTraffic(id);
+	@PutMapping("/{id}/confirmed")
+	public ResponseEntity<OrderDTO> setConfirmed(@PathVariable Long id) {
+		OrderDTO dto = service.setConfirmed(id);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping("/{id}/ready")
+	public ResponseEntity<OrderDTO> setReady(@PathVariable Long id) {
+		OrderDTO dto = service.setReady(id);
 		return ResponseEntity.ok().body(dto);
 	}
 	
@@ -59,5 +84,11 @@ public class OrderResource {
 	public ResponseEntity<OrderDTO> setDelivered(@PathVariable Long id) {
 		OrderDTO dto = service.setDelivered(id);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }

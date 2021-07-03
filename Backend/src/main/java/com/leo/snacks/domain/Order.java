@@ -27,8 +27,8 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
-	private String clientEmail;
+	@NotNull
+	private Integer code;
 	@NotBlank
 	private String address;
 	@NotNull
@@ -38,28 +38,13 @@ public class Order implements Serializable {
 	private Instant moment;
 	private boolean paymantToCard;
 	private boolean delivery;
-	private boolean coupon;
 	private OrderStatus status;
-	private OrderStatusClient statusClient;
-	
-	@ManyToMany
-	@JoinTable(name = "tb_order_user",
-			joinColumns = @JoinColumn(name = "order_id"),
-			inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private Set<User> user = new HashSet<>();
-	
 	
 	@ManyToMany
 	@JoinTable(name = "tb_order_product",
 			joinColumns = @JoinColumn(name = "order_id"),
 			inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> product = new ArrayList<>();
-	
-	@ManyToMany
-	@JoinTable(name = "tb_order_discount_coupon",
-			joinColumns = @JoinColumn(name = "order_id"),
-			inverseJoinColumns = @JoinColumn(name = "discount_coupon_id"))
-	private Set<DiscountCoupon> discountCoupon = new HashSet<>();
 	
 	@ManyToMany
 	@JoinTable(name = "tb_order_delivery_tax",
@@ -70,19 +55,17 @@ public class Order implements Serializable {
 	public Order() {
 	}
 	
-	public Order(Long id, String clientEmail, String address, Double latitude, Double longitude,
-			Instant moment, boolean paymantToCard, boolean delivery, boolean coupon, OrderStatus status, OrderStatusClient statusClient) {
+	public Order(Long id, Integer code, String address, Double latitude, Double longitude,
+			Instant moment, boolean paymantToCard, boolean delivery, OrderStatus status) {
 		this.id = id;
-		this.clientEmail = clientEmail;
+		this.code = code;
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.moment = moment;
 		this.paymantToCard = paymantToCard;
 		this.delivery = delivery;
-		this.coupon = coupon;
 		this.status = status;
-		this.statusClient = statusClient;
 	}
 
 	public Long getId() {
@@ -93,12 +76,12 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public String getClientEmail() {
-		return clientEmail;
+	public Integer getCode() {
+		return code;
 	}
 
-	public void setClientEmail(String clientEmail) {
-		this.clientEmail = clientEmail;
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 
 	public String getAddress() {
@@ -149,28 +132,8 @@ public class Order implements Serializable {
 		this.status = status;
 	}
 
-	public Set<User> getUser() {
-		return user;
-	}
-
-	public void setUser(Set<User> user) {
-		this.user = user;
-	}
-
 	public List<Product> getProduct() {
 		return product;
-	}
-
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
-
-	public Set<DiscountCoupon> getDiscountCoupon() {
-		return discountCoupon;
-	}
-
-	public void setDiscountCoupon(Set<DiscountCoupon> discountCoupon) {
-		this.discountCoupon = discountCoupon;
 	}
 
 	public Set<DeliveryTax> getDeliveryTax() {
@@ -189,35 +152,10 @@ public class Order implements Serializable {
 		this.delivery = delivery;
 	}
 
-	public boolean isCoupon() {
-		return coupon;
-	}
-
-	public void setCoupon(boolean coupon) {
-		this.coupon = coupon;
-	}
-	
-	public OrderStatusClient getStatusClient() {
-		return statusClient;
-	}
-
-	public void setStatusClient(OrderStatusClient statusClient) {
-		this.statusClient = statusClient;
-	}
-
 	public Double getTotal() {
 		double sum = 0.0;
 		for (Product p : product) {
 			sum += p.getPrice();
-		}
-		for (DiscountCoupon d : discountCoupon) {
-			if (d.getMinimunDiscountAmount() <= sum) {
-				sum -= d.getDiscountAmount();
-			}
-			else {
-				this.setCoupon(false);
-				sum += 0.0;
-			}
 		}
 		if (this.isDelivery() == true) {
 			for (DeliveryTax dt : deliveryTax) {

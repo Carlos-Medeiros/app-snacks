@@ -52,7 +52,7 @@ export default function CodeValidation({ route, navigation }) {
 
     const registerName = () => {
         setMenssage('')
-        navigation.navigate('RegisterName', {userEmail: route.params.userEmail, deliverymanCod: route.params.deliverymanCod })
+        navigation.navigate('RegisterName', {userEmail: route.params.userEmail})
     }
 
     return ( 
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonResendCode: {
-        width: widthToDP('27%'),
+        width: widthToDP('30%'),
     },
     resendCode: {
         color: '#848484'

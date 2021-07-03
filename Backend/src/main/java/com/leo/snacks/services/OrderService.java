@@ -9,24 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.leo.snacks.domain.DeliveryTax;
-import com.leo.snacks.domain.DiscountCoupon;
 import com.leo.snacks.domain.Order;
 import com.leo.snacks.domain.OrderStatus;
-import com.leo.snacks.domain.OrderStatusClient;
 import com.leo.snacks.domain.Product;
-import com.leo.snacks.domain.UsedCoupon;
-import com.leo.snacks.domain.User;
 import com.leo.snacks.dto.DeliveryTaxDTO;
-import com.leo.snacks.dto.DiscountCouponDTO;
 import com.leo.snacks.dto.OrderDTO;
 import com.leo.snacks.dto.ProductDTO;
-import com.leo.snacks.dto.UserDTO;
 import com.leo.snacks.repositories.DeliveryTaxRepository;
-import com.leo.snacks.repositories.DiscountCouponRepository;
 import com.leo.snacks.repositories.OrderRepository;
 import com.leo.snacks.repositories.ProductRepository;
-import com.leo.snacks.repositories.UsedCouponRepository;
-import com.leo.snacks.repositories.UserRepository;
 
 @Service
 public class OrderService {
@@ -38,60 +29,58 @@ public class OrderService {
 	private ProductRepository productRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private DiscountCouponRepository discountCouponRepository;
-	
-	@Autowired
-	private UsedCouponRepository repository;
-	
-	@Autowired
 	private DeliveryTaxRepository deliveryTaxRepository;
+
+	@Transactional(readOnly = true)
+	public OrderDTO search(Long id) {
+		Order order = orderRepository.getOne(id);
+		return new OrderDTO(order);
+	}
 	
 	@Transactional(readOnly = true)
-	public List<OrderDTO> findAll() {
-		List<Order> list = orderRepository.findOrdersWithProducts();
+	public List<OrderDTO> findAllPending() {
+		List<Order> list = orderRepository.findOrdersWithProductsPending();
 		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
 	}
 	
 	@Transactional(readOnly = true)
-	public List<OrderDTO> findAllEmail(String Email) {
-		List<Order> list = orderRepository.findOrdersWithProducts();
-		list = orderRepository.findByClientEmail(Email);
+	public List<OrderDTO> findAllConfirmed() {
+		List<Order> list = orderRepository.findOrdersWithProductsConfirmed();
+		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<OrderDTO> findAllReady() {
+		List<Order> list = orderRepository.findOrdersWithProductsReady();
+		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<OrderDTO> findAllReadyForDelivery() {
+		List<Order> list = orderRepository.findOrdersWithProductsReady();
+		list = orderRepository.findByOrder();
+		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<OrderDTO> findAllDelivered() {
+		List<Order> list = orderRepository.findOrdersWithProductsDelivered();
 		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
 	}
 	
 	@Transactional
 	public OrderDTO insert(OrderDTO dto) {
-		Order order = new Order(null, null, dto.getAddress(), dto.getLatitude(), dto.getLongitude(), Instant.now(), dto.isPaymantToCard(), dto.isDelivery(), dto.isCoupon(), OrderStatus.PENDING, OrderStatusClient.PENDING);
+		Integer numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
+		while (numberRandom > 1000000 || numberRandom < 100000 && orderRepository.findByCode(numberRandom) != null) {
+			numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
+		}
+		
+		Order order = new Order(null, numberRandom, dto.getAddress(), dto.getLatitude(), dto.getLongitude(), Instant.now(), dto.isPaymantToCard(), dto.isDelivery(), OrderStatus.PENDING);
 		for (ProductDTO p : dto.getProducts()) {
 			Product product = productRepository.getOne(p.getId());
 			order.getProduct().add(product);
 		}
-		String emailUser=  "";
-		for (UserDTO u : dto.getUsers()) {
-			User user = userRepository.findByEmail(u.getEmail());
-			emailUser = u.getEmail();
-			order.setClientEmail(emailUser);
-			order.getUser().add(user);
-		}
-		String codeCoupon = "";
-		for (DiscountCouponDTO d : dto.getDiscountCoupon()) {
-			DiscountCoupon discountCoupon = discountCouponRepository.findByCode(d.getCode());
-			codeCoupon = d.getCode();
-			order.setCoupon(true);
-			order.getDiscountCoupon().add(discountCoupon);
-		}
-		if (order.isCoupon() == true) {
-			UsedCoupon usedCoupon = new UsedCoupon(emailUser, codeCoupon);
-			if (repository.findByEmailAndUsedCode(emailUser, codeCoupon) == null) {
-				usedCoupon = repository.save(usedCoupon);
-			}
-			else {
-				usedCoupon = repository.save(null);
-			}
-		}
+		
 		if (order.isDelivery() == true) {
 			for (DeliveryTaxDTO dt : dto.getDeliveryTax()) {
 				DeliveryTax delieryTax = deliveryTaxRepository.getOne(dt.getId());
@@ -104,17 +93,25 @@ public class OrderService {
 	}
 	
 	@Transactional
-	public OrderDTO setProduction(Long id) {
+	public OrderDTO setPending(Long id) {
 		Order order = orderRepository.getOne(id);
-		order.setStatusClient(OrderStatusClient.PRODUCTION);
+		order.setStatus(OrderStatus.PENDING);
 		order = orderRepository.save(order);
 		return new OrderDTO(order);
 	}
 	
 	@Transactional
-	public OrderDTO setTraffic(Long id) {
+	public OrderDTO setConfirmed(Long id) {
 		Order order = orderRepository.getOne(id);
-		order.setStatusClient(OrderStatusClient.TRAFFIC);
+		order.setStatus(OrderStatus.CONFIRMED);
+		order = orderRepository.save(order);
+		return new OrderDTO(order);
+	}
+	
+	@Transactional
+	public OrderDTO setReady(Long id) {
+		Order order = orderRepository.getOne(id);
+		order.setStatus(OrderStatus.READY);
 		order = orderRepository.save(order);
 		return new OrderDTO(order);
 	}
@@ -123,8 +120,14 @@ public class OrderService {
 	public OrderDTO setDelivered(Long id) {
 		Order order = orderRepository.getOne(id);
 		order.setStatus(OrderStatus.DELIVERED);
-		order.setStatusClient(OrderStatusClient.DELIVERED);
 		order = orderRepository.save(order);
 		return new OrderDTO(order);
+	}
+	
+	
+	@Transactional
+	public void delete(Long id) {
+		search(id);
+		orderRepository.deleteById(id);
 	}
 }
