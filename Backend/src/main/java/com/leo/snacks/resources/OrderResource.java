@@ -36,16 +36,16 @@ public class OrderResource {
 		List<OrderDTO> list = service.findAllConfirmed();
 		return ResponseEntity.ok().body(list);
 	}
-
-	@GetMapping("/ready")
-	public ResponseEntity<List<OrderDTO>> findAllReady() {
-		List<OrderDTO> list = service.findAllReady();
-		return ResponseEntity.ok().body(list);
-	}
-
+	
 	@GetMapping("/readyForDelivery")
 	public ResponseEntity<List<OrderDTO>> findAllReadyForDelivery() {
 		List<OrderDTO> list = service.findAllReadyForDelivery();
+		return ResponseEntity.ok().body(list);
+	}
+
+	@GetMapping("/readyForPickup")
+	public ResponseEntity<List<OrderDTO>> findAllReadyForPickup() {
+		List<OrderDTO> list = service.findAllReadyForPickup();
 		return ResponseEntity.ok().body(list);
 	}
 	
@@ -79,6 +79,13 @@ public class OrderResource {
 		OrderDTO dto = service.setReady(id);
 		return ResponseEntity.ok().body(dto);
 	}
+	
+	@PutMapping("/{id}/pickup")
+	public ResponseEntity<OrderDTO> setPickup(@PathVariable Long id) {
+		OrderDTO dto = service.setPickup(id);
+		return ResponseEntity.ok().body(dto);
+	}
+	
 	
 	@PutMapping("/{id}/delivered")
 	public ResponseEntity<OrderDTO> setDelivered(@PathVariable Long id) {

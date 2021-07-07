@@ -2,21 +2,26 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
-import API from '../api';
 
 export default function HomeDeliveryman({ route, navigation }) {
+    const [valor, setValor] = useState('');
+
+    const [email, setEmail] = useState(route.params.userEmail);
 
     const login = () => {
         navigation.replace('Login')
     }
 
     const requests = () => {
-        navigation.replace('RequestsDeliveryman')
+        navigation.navigate('RequestsDeliveryman')
     }
 
+
+
     const editAccount = () => {
-        navigation.replace('EditAccount')
+        navigation.navigate('EditAccount')
     }
 
 
@@ -31,7 +36,7 @@ export default function HomeDeliveryman({ route, navigation }) {
                 </View>
                 <View style={styles.containerText}>
                     <Text style={styles.textStatus}>
-                        Acompanhe os pedidos e entregue no prazo! 
+                        Acompanhe os pedidos e entregue no prazo!{valor} 
                     </Text>
                     <Text style={styles.textInfo}>
                         Pilote com segurança, sua vida em primeiro lugar.

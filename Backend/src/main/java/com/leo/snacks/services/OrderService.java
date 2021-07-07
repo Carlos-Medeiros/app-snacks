@@ -50,15 +50,14 @@ public class OrderService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<OrderDTO> findAllReady() {
-		List<Order> list = orderRepository.findOrdersWithProductsReady();
+	public List<OrderDTO> findAllReadyForDelivery() {
+		List<Order> list = orderRepository.findOrdersWithProductsReadyForDelivered();
 		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
 	}
 	
 	@Transactional(readOnly = true)
-	public List<OrderDTO> findAllReadyForDelivery() {
-		List<Order> list = orderRepository.findOrdersWithProductsReady();
-		list = orderRepository.findByOrder();
+	public List<OrderDTO> findAllReadyForPickup() {
+		List<Order> list = orderRepository.findOrdersWithProductsReadyForPickup();
 		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
 	}
 	
@@ -112,6 +111,14 @@ public class OrderService {
 	public OrderDTO setReady(Long id) {
 		Order order = orderRepository.getOne(id);
 		order.setStatus(OrderStatus.READY);
+		order = orderRepository.save(order);
+		return new OrderDTO(order);
+	}
+	
+	@Transactional
+	public OrderDTO setPickup(Long id) {
+		Order order = orderRepository.getOne(id);
+		order.setStatus(OrderStatus.PICKUP);
 		order = orderRepository.save(order);
 		return new OrderDTO(order);
 	}

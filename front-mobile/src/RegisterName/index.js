@@ -34,7 +34,7 @@ export default function RegisterName({ route, navigation }) {
         <>
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
-                    <View style={styles.containerSeta}>
+                    <View>
                         <TouchableOpacity style={styles.imgSeta} onPress={()=>validationComplete()}>
                             <Image source={require('../img/arrow1x.png')} ></Image>
                         </TouchableOpacity>

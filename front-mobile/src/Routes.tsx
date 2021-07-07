@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import Register from "./Register";
 import Login from './Login';
 import ForgotPassword from './ForgotPassword';
@@ -15,6 +15,7 @@ import RegisterPassword from './RegisterPassword';
 import ProductCard from './ProductCard';
 import RequestsDeliveryman from './RequestsDeliveryman';
 import OrderCard from './OrderCard';
+import OrderDetails from './OrderDetails';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,7 @@ function Routes() {
                 <Stack.Screen name="DeliverymanStatus" component={DeliverymanStatus}/>
                 <Stack.Screen name="RequestsDeliveryman" component={RequestsDeliveryman}/>
                 <Stack.Screen name="OrderCard" component={OrderCard}/>
+                <Stack.Screen name="OrderDetails" component={OrderDetails}/>
             </Stack.Navigator>
         </NavigationContainer>
 

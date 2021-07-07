@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import API from '../api';
 
 export default function DeliverymanStatus({ route, navigation }) {
@@ -21,7 +22,7 @@ export default function DeliverymanStatus({ route, navigation }) {
             setStatus('Pendente')
         }
         if (deliverymanStatus.status === 'ACCEPTED') {
-            navigation.navigate('HomeDeliveryman', {deliverymanEmail: route.params.userEmail})
+            navigation.replace('HomeDeliveryman', {userEmail: route.params.userEmail})
         }
         if (deliverymanStatus.status === 'REJECTED') {
             setStatus('Rejeitado');

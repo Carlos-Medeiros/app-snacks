@@ -19,15 +19,16 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 	
 	@Query("SELECT DISTINCT obj FROM Order obj JOIN obj.product "
 			+ " WHERE obj.status = 2 ORDER BY obj.moment ASC")
-	List<Order> findOrdersWithProductsReady();
+	List<Order> findOrdersWithProductsReadyForDelivered();
 	
 	@Query("SELECT DISTINCT obj FROM Order obj JOIN obj.product "
 			+ " WHERE obj.status = 3 ORDER BY obj.moment ASC")
-	List<Order> findOrdersWithProductsDelivered();
+	List<Order> findOrdersWithProductsReadyForPickup();
 	
 	@Query("SELECT DISTINCT obj FROM Order obj JOIN obj.product "
-			+ " WHERE obj.delivery = true ORDER BY obj.moment ASC")
-	List<Order> findByOrder();
+			+ " WHERE obj.status = 4 ORDER BY obj.moment ASC")
+	List<Order> findOrdersWithProductsDelivered();
+	
 
 	Order findByCode(Integer code);
 
