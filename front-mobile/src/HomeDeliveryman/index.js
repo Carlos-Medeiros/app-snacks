@@ -6,9 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
 
 export default function HomeDeliveryman({ route, navigation }) {
-    const [valor, setValor] = useState('');
-
-    const [email, setEmail] = useState(route.params.userEmail);
 
     const login = () => {
         navigation.replace('Login')
@@ -17,8 +14,6 @@ export default function HomeDeliveryman({ route, navigation }) {
     const requests = () => {
         navigation.navigate('RequestsDeliveryman')
     }
-
-
 
     const editAccount = () => {
         navigation.navigate('EditAccount')
@@ -32,11 +27,11 @@ export default function HomeDeliveryman({ route, navigation }) {
                     <Text style={styles.logo}>Delivery da Gé</Text>
                 </View>
                 <View>
-                    <Image source={require('../img/cuate2.png')} style={styles.imgStatus} ></Image>
+                    <Image source={require('../img/cuate2_yellow.png')} style={styles.imgStatus} ></Image>
                 </View>
                 <View style={styles.containerText}>
                     <Text style={styles.textStatus}>
-                        Acompanhe os pedidos e entregue no prazo!{valor} 
+                        Acompanhe os pedidos e entregue no prazo!
                     </Text>
                     <Text style={styles.textInfo}>
                         Pilote com segurança, sua vida em primeiro lugar.
@@ -65,13 +60,13 @@ export default function HomeDeliveryman({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         alignItems: 'center'
     },
     containerHeader: {
         width: widthToDP('100%'),
         height: heightToDP('11%'),
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFF601',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -80,7 +75,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'white'
+        color: 'black'
     },
     imgStatus: {
         marginTop: heightToDP('4%'),
@@ -94,13 +89,13 @@ const styles = StyleSheet.create({
     textStatus: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: 'black',
+        color: '#FFF601',
         textAlign: 'center'
     },
     textInfo: {
         marginTop: heightToDP('1%'),
         fontSize: 12,
-        color: '#9E9E9E',
+        color: '#FDF990',
         textAlign: 'center'
     },
     containerButtonPedidos: {
@@ -109,13 +104,13 @@ const styles = StyleSheet.create({
     buttonPedidos: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFF601',
         width: widthToDP('50%'),
         height: widthToDP('13%'),
         borderRadius: 15,
     },
     textButtonPedidos: {
-        color: 'white',
+        color: 'black',
         fontSize: 16,
         fontWeight: 'bold'
     },
@@ -129,10 +124,10 @@ const styles = StyleSheet.create({
         height: widthToDP('13%'),
         borderRadius: 15,
         borderWidth: 2,
-        borderColor: '#DB1020'
+        borderColor: '#FFF601'
     },
     textButtonConta: {
-        color: '#DB1020',
+        color: '#FFF601',
         fontSize: 16,
         fontWeight: 'bold'
     },
@@ -144,7 +139,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textButton: {
-        color: '#DB1020',
+        color: '#FFF601',
         fontSize: 16,
         fontWeight: 'bold'
     }

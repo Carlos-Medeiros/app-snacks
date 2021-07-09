@@ -78,7 +78,7 @@ export default function RegisterPassword({ route, navigation }) {
                     <View style={styles.containerVisiblePassword}>
                         <TouchableOpacity style={styles.visiblePassword} onPress={()=>visiblePassword()}>
                             <View style={styles.containerVisible}>
-                                {visible ? <Image source={require(`../img/Visible.png`)}/> : <Image source={require('../img/Invisible.png')} style={styles.invisible}/>}
+                                {visible ? <Image source={require(`../img/visible_icon.png`)}/> : <Image source={require('../img/invisible_icon.png')} style={styles.invisible}/>}
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -87,7 +87,7 @@ export default function RegisterPassword({ route, navigation }) {
                     <View style={styles.containerVisiblePasswordRepeat}>
                         <TouchableOpacity style={styles.visiblePasswordRepeat} onPress={()=>visiblePasswordRepeat()}>
                             <View style={styles.containerVisibleRepeat}>
-                                {visibleRepeat ? <Image source={require(`../img/Visible.png`)}/> : <Image source={require('../img/Invisible.png')} style={styles.invisible}/>}
+                                {visibleRepeat ? <Image source={require(`../img/visible_icon.png`)}/> : <Image source={require('../img/invisible_icon.png')} style={styles.invisible}/>}
                             </View>
                         </TouchableOpacity>
                     </View>

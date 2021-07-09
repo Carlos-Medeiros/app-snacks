@@ -76,7 +76,7 @@ export default function Register({ route, navigation }) {
                 <View style={styles.containerHeader}>
                     <View style={styles.containerSeta}>
                         <TouchableOpacity style={styles.imgSeta} onPress={()=>login()}>
-                            <Image source={require('../img/arrow1x.png')} ></Image>
+                            <Image source={require('../img/arrow_yellow.png')} ></Image>
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.textRegister}>Cadastro</Text>
@@ -91,10 +91,10 @@ export default function Register({ route, navigation }) {
                 <Text style={styles.textH1}>Olá, bem-vindo ao Lanches da Gê!</Text>
                 <Text style={styles.textH2}>Digite seu e-mail</Text>
                 <View style={styles.loadingSpinner}>
-                    {loading ? codeValidation : <ActivityIndicator size="large" color="#DB1020"/>}
+                    {loading ? codeValidation : <ActivityIndicator size="large" color="#FFDD00"/>}
                 </View>
-                <TextInput style={styles.Input} placeholder="Email" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
-                <Image source={require('../img/Message.png')} style={styles.iconMessage} ></Image>
+                <TextInput style={styles.Input} placeholder="Email" placeholderTextColor="#FFDD00" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
+                <Image source={require('../img/message_yellow.png')} style={styles.iconMessage} ></Image>
 
                 <View style={styles.containerError}>
                     <Text style={styles.textVisible}>{menssage}</Text>
@@ -116,7 +116,7 @@ export default function Register({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#0B0B0D',
     },
     containerHeader: {
         width: widthToDP('100%'),
@@ -134,35 +134,36 @@ const styles = StyleSheet.create({
     textRegister: {
         fontSize: 16,
         marginLeft: widthToDP('29%'),
-        marginTop: heightToDP('2%')
+        marginTop: heightToDP('2%'),
+        color: '#FFDD00'
     },
     containerBarras: {
         flexDirection: 'row',
         alignItems: 'center'
     },
     textBarra1: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra2: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra3: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra4: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
@@ -172,12 +173,14 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('8%'),
         marginLeft: widthToDP('6%'),
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#FFDD00'
     },
     textH2: {
         marginTop: heightToDP('0.5%'),
         marginLeft: widthToDP('6%'),
-        fontSize: 16
+        fontSize: 16,
+        color: '#FFDD00'
     },
     loadingSpinner: {
         marginTop: heightToDP('2%'),
@@ -187,11 +190,12 @@ const styles = StyleSheet.create({
     Input: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         borderRadius: 15,
         paddingLeft: 45,
         marginTop: heightToDP('1%'),
-        marginLeft: widthToDP('6%')
+        marginLeft: widthToDP('6%'),
+        color: '#FFDD00'
     },
     iconMessage: {
         marginLeft: widthToDP('11%'),
@@ -203,14 +207,14 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('88%'),
         height: widthToDP('15%'),
         borderRadius: 15,
         marginLeft: widthToDP('6%')
     },
     textButton: {
-        color: 'white',
+        color: '#2C2D34',
         fontSize: 18
     },
     containerError: {
@@ -218,11 +222,11 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%')
     },
     textVisible: {
-        color: 'black',
+        color: '#FFDD00',
         marginLeft: widthToDP('6%')
     },
     textRoute: {
         textDecorationLine: 'underline',
-        color: '#DB1020'
+        color: '#FFDD00'
     }
 });

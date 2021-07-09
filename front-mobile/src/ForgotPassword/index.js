@@ -22,18 +22,14 @@ export default function ForgotPassword({ route, navigation }) {
             API.put(`/forgotYourPassword/${email}`, {
                 password: password
             }).then(setMenssage(''))
-            .then(completed)
+            .then(navigation.replace('Login'))
             .catch()
         }
         else {
             setMenssage('Senhas não coincidem');
         }
     }
-
-    const completed = () => {
-        navigation.navigate('Login')
-    }
-
+    
     function visiblePassword(){
         if (visible == true) {
             setVisible(false)
@@ -53,45 +49,47 @@ export default function ForgotPassword({ route, navigation }) {
 
     return ( 
         <>
-            <View style={styles.containerHeader}>
-                <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>login()}>
-                    <Image source={require('../img/arrow1x.png')} ></Image>
-                </TouchableWithoutFeedback>
-                <Text style={styles.textRegister}>Recuperação</Text>
-            </View>            
-            <View style={styles.containerBarras}>
-                <Text style={styles.textBarra1}></Text>
-                <Text style={styles.textBarra2}></Text>
-                <Text style={styles.textBarra3}></Text>
-            </View>
             <View style={styles.container}>
+                <View style={styles.containerHeader}>
+                    <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>login()}>
+                        <Image source={require('../img/arrow_yellow.png')} ></Image>
+                    </TouchableWithoutFeedback>
+                    <Text style={styles.textRegister}>Recuperação</Text>
+                </View>            
+                <View style={styles.containerBarras}>
+                    <Text style={styles.textBarra1}></Text>
+                    <Text style={styles.textBarra2}></Text>
+                    <Text style={styles.textBarra3}></Text>
+                </View>
+                <View style={styles.container}>
 
-                <Text style={styles.textH1}>E finalmente, crie uma senha!</Text>
-                <Text style={styles.textH2}>Digite sua senha</Text>
-                <TextInput secureTextEntry={visible} style={styles.inputPassword} placeholder="Insira sua senha" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
-                <Image source={require('../img/Lock.png')} style={styles.iconLock} ></Image>
-                    <View style={styles.containerVisiblePassword}>
-                        <TouchableOpacity style={styles.visiblePassword} onPress={()=>visiblePassword()}>
-                            <View style={styles.containerVisible}>
-                                {visible ? <Image source={require(`../img/Visible.png`)}/> : <Image source={require('../img/Invisible.png')} style={styles.invisible}/>}
-                            </View>
+                    <Text style={styles.textH1}>E finalmente, crie uma senha!</Text>
+                    <Text style={styles.textH2}>Digite sua senha</Text>
+                    <TextInput secureTextEntry={visible} style={styles.inputPassword} placeholder="Insira sua senha" placeholderTextColor="#FFDD00" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
+                    <Image source={require('../img/lock_yellow.png')} style={styles.iconLock} ></Image>
+                        <View style={styles.containerVisiblePassword}>
+                            <TouchableOpacity style={styles.visiblePassword} onPress={()=>visiblePassword()}>
+                                <View style={styles.containerVisible}>
+                                    {visible ? <Image source={require(`../img/visible_icon.png`)}/> : <Image source={require('../img/invisible_icon.png')} style={styles.invisible}/>}
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    <TextInput secureTextEntry={visibleRepeat} style={styles.inputRepeatPassword} placeholder="Repita sua senha" placeholderTextColor="#FFDD00" onChangeText={text=>setRepeatPassword(text)} autoCapitalize="none"/>
+                    <Image source={require('../img/lock_yellow.png')} style={styles.iconLockRepeat} ></Image>
+                        <View style={styles.containerVisiblePasswordRepeat}>
+                            <TouchableOpacity style={styles.visiblePasswordRepeat} onPress={()=>visiblePasswordRepeat()}>
+                                <View style={styles.containerVisibleRepeat}>
+                                    {visibleRepeat ? <Image source={require(`../img/visible_icon.png`)}/> : <Image source={require('../img/invisible_icon.png')} style={styles.invisible}/>}
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    <Text style={styles.textError}>{menssage}</Text>
+
+                    <View style={styles.containerButton}>
+                        <TouchableOpacity style={styles.button} onPress={()=>completeRegister()}>
+                            <Text style={styles.textButton}>Prosseguir</Text>
                         </TouchableOpacity>
                     </View>
-                <TextInput secureTextEntry={visibleRepeat} style={styles.inputRepeatPassword} placeholder="Repita sua senha" onChangeText={text=>setRepeatPassword(text)} autoCapitalize="none"/>
-                <Image source={require('../img/Lock.png')} style={styles.iconLockRepeat} ></Image>
-                    <View style={styles.containerVisiblePasswordRepeat}>
-                        <TouchableOpacity style={styles.visiblePasswordRepeat} onPress={()=>visiblePasswordRepeat()}>
-                            <View style={styles.containerVisibleRepeat}>
-                                {visibleRepeat ? <Image source={require(`../img/Visible.png`)}/> : <Image source={require('../img/Invisible.png')} style={styles.invisible}/>}
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                <Text style={styles.textError}>{menssage}</Text>
-
-                <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={()=>completeRegister()}>
-                        <Text style={styles.textButton}>Prosseguir</Text>
-                    </TouchableOpacity>
                 </View>
             </View>
         </>
@@ -101,7 +99,7 @@ export default function ForgotPassword({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#0B0B0D'
     },
     containerHeader: {
         width: widthToDP('100%'),
@@ -119,28 +117,29 @@ const styles = StyleSheet.create({
     textRegister: {
         fontSize: 16,
         marginLeft: widthToDP('25.5%'),
-        marginTop: heightToDP('2%')
+        marginTop: heightToDP('2%'),
+        color: '#FFDD00'
     },
     containerBarras: {
         flexDirection: 'row',
         alignItems: 'center'
     },
     textBarra1: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra2: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra3: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
@@ -150,21 +149,24 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('8%'),
         marginLeft: widthToDP('6%'),
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#FFDD00'
     },
     textH2: {
         marginTop: heightToDP('0.5%'),
         marginLeft: widthToDP('6%'),
         fontSize: 16,
+        color: '#FFDD00'
     },
     inputPassword: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         borderRadius: 15,
         paddingLeft: 50,
         marginTop: heightToDP('7%'),
-        marginLeft: widthToDP('6%')
+        marginLeft: widthToDP('6%'),
+        color: '#FFDD00'
     },
     iconLock: {
         marginLeft: widthToDP('10%'),
@@ -196,11 +198,12 @@ const styles = StyleSheet.create({
     inputRepeatPassword: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         borderRadius: 15,
         paddingLeft: 50,
         marginTop: heightToDP('7%'),
-        marginLeft: widthToDP('6%')
+        marginLeft: widthToDP('6%'),
+        color: '#FFDD00'
     },
     iconLockRepeat: {
         marginLeft: widthToDP('10%'),
@@ -235,18 +238,18 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('88%'),
         height: widthToDP('15%'),
         borderRadius: 15,
         marginLeft: widthToDP('6%')
     },
     textButton: {
-        color: 'white',
+        color: '#2C2D34',
         fontSize: 18
     },
     textError: {
-        color: '#DB1020',
+        color: '#FFDD00',
         marginTop: heightToDP('1%'),
         marginLeft: widthToDP('6%')
     }

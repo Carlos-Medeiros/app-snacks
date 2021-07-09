@@ -16,6 +16,11 @@ import ProductCard from './ProductCard';
 import RequestsDeliveryman from './RequestsDeliveryman';
 import OrderCard from './OrderCard';
 import OrderDetails from './OrderDetails';
+import EditAccount from './EditAccount';
+import EditName from './EditName';
+import EditPassword from './EditPassword';
+import EditPhone from './EditPhone';
+
 
 const Stack = createStackNavigator();
 
@@ -45,6 +50,11 @@ function Routes() {
                 <Stack.Screen name="RequestsDeliveryman" component={RequestsDeliveryman}/>
                 <Stack.Screen name="OrderCard" component={OrderCard}/>
                 <Stack.Screen name="OrderDetails" component={OrderDetails}/>
+                <Stack.Screen name="EditAccount" component={EditAccount}/>
+                <Stack.Screen name="EditName" component={EditName}/>
+                <Stack.Screen name="EditPassword" component={EditPassword}/>
+                <Stack.Screen name="EditPhone" component={EditPhone}/>
+
             </Stack.Navigator>
         </NavigationContainer>
 

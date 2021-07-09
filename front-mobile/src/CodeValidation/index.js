@@ -57,11 +57,11 @@ export default function CodeValidation({ route, navigation }) {
 
     return ( 
         <>
-            <View>
+            <View style={styles.container}>
                 <View style={styles.containerHeader}>
                     <View style={styles.containerSeta}>
                             <TouchableOpacity style={styles.imgSeta} onPress={()=>register()}>
-                                <Image source={require('../img/arrow1x.png')} ></Image>
+                                <Image source={require('../img/arrow_yellow.png')} ></Image>
                             </TouchableOpacity>
                     </View>
                     <Text style={styles.textRegister}>Cadastro</Text>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#0B0B0D',
     },
     containerHeader: {
         width: widthToDP('100%'),
@@ -136,35 +136,36 @@ const styles = StyleSheet.create({
     textRegister: {
         fontSize: 16,
         marginLeft: widthToDP('29%'),
-        marginTop: heightToDP('2%')
+        marginTop: heightToDP('2%'),
+        color: '#FFDD00'
     },
     containerBarras: {
         flexDirection: 'row',
         alignItems: 'center'
     },
     textBarra1: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra2: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra3: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra4: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
@@ -174,12 +175,14 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('8%'),
         marginLeft: widthToDP('6%'),
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#FFDD00'
     },
     textH2: {
         marginTop: heightToDP('0.5%'),
         marginLeft: widthToDP('6%'),
         fontSize: 16,
+        color: '#FFDD00'
     },
     codeFieldRoot: {
         marginTop: heightToDP('5%'),
@@ -192,12 +195,12 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         lineHeight: 40,
         fontSize: 24,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#2C2D34',
         textAlign: 'center',
-        color: '#DB1020',
+        color: '#FFDD00',
     },
     focusCell: {
-        borderColor: '#DB1020',
+        borderColor: '#FFDD00',
         borderWidth: 2,
     },
     containerError: {
@@ -206,7 +209,7 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('6%')
     },
     textVisible: {
-        color: '#DB1020',
+        color: '#FFDD00',
     },
     containerResendCode: {
         marginTop: heightToDP('4%'),
@@ -217,7 +220,7 @@ const styles = StyleSheet.create({
         width: widthToDP('30%'),
     },
     resendCode: {
-        color: '#848484'
+        color: '#FFDD00'
     },
     containerButton: {
         marginTop: heightToDP('36%')
@@ -225,14 +228,14 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('88%'),
         height: widthToDP('15%'),
         borderRadius: 15,
         marginLeft: widthToDP('6%')
     },
     textButton: {
-        color: 'white',
+        color: '#2C2D34',
         fontSize: 18
     },
 });

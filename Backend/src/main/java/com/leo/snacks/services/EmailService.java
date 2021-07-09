@@ -73,7 +73,7 @@ public class EmailService {
 	@Transactional
 	public UserEmailValidationDTO emailExisting(UserEmailValidationDTO dto) {		
 		if (emailValidationRepository.findByEmail(dto.getEmail()) != null 
-			|| deliverymanRepository.findByEmail(dto.getEmail()) != null 
+			&& deliverymanRepository.findByEmail(dto.getEmail()) != null 
 			|| ownerRepository.findByEmail(dto.getEmail()) != null) {
 			return new UserEmailValidationDTO(emailValidationRepository.findByEmail(dto.getEmail()));
 		}

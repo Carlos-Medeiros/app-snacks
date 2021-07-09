@@ -54,9 +54,6 @@ const styles = StyleSheet.create({
         elevation: 9
 
     },
-    shadowStyle: {
-
-    },
     header: {
         width: widthToDP('82.5%'),
         flexDirection: 'row',
@@ -82,8 +79,7 @@ const styles = StyleSheet.create({
         lineHeight: 25,
         textAlign: 'right',
         letterSpacing: -0.24,
-        color: '#DA5C5C',
-    
+        color: '#DB1020'    
     },
     productList: {
         borderTopColor: '#E6E6E6',

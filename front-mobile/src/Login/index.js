@@ -54,23 +54,23 @@ export default function Login({navigation}) {
         <>
             <View style={styles.container}>
                 <View  style={styles.logo}>
-                    <Image source={require(`../img/Logo.png`)}/>
+                    <Image source={require(`../img/logo_yellow.png`)} style={styles.imgLogo}/>
                 </View>
                 <View style={styles.loadingSpinner}>
-                    {loading ? deliverymanStatus : <ActivityIndicator size="large" color="#DB1020"/>}
+                    {loading ? deliverymanStatus : <ActivityIndicator size="large" color="#FFDD00"/>}
                 </View>
                 <View style={styles.containerEmail}>
-                    <TextInput style={styles.InputEmail} placeholder="Email" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
-                    <Image source={require('../img/Message.png')} style={styles.iconMessage} ></Image>
+                    <TextInput style={styles.InputEmail} placeholder="Email" placeholderTextColor="#FFDD00" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
+                    <Image source={require('../img/message_yellow.png')} style={styles.iconMessage} ></Image>
                 </View>
                 <Text style={styles.textMenssage}>{menssage}</Text>
                 <View style={styles.containerPassword}>
-                    <TextInput secureTextEntry={visible} style={styles.InputPassword} placeholder="Senha" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
-                    <Image source={require('../img/Lock.png')} style={styles.iconLock} ></Image>
+                    <TextInput secureTextEntry={visible} style={styles.InputPassword} placeholder="Senha" placeholderTextColor="#FFDD00" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
+                    <Image source={require('../img/lock_yellow.png')} style={styles.iconLock} ></Image>
                     <View style={styles.containerVisiblePassword}>
                         <TouchableOpacity style={styles.visiblePassword} onPress={()=>visiblePassword()}>
                             <View style={styles.containerVisible}>
-                                {visible ? <Image source={require(`../img/Visible.png`)}/> : <Image source={require('../img/Invisible.png')} style={styles.invisible}/>}
+                                {visible ? <Image source={require(`../img/visible_icon.png`)}/> : <Image source={require('../img/invisible_icon.png')} style={styles.invisible}/>}
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#0B0B0D',
         justifyContent: 'center',
     },
     logo: {
@@ -126,7 +126,8 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('2%')
     },
     InputEmail: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
+        color: '#FFDD00',
         width: widthToDP('85%'),
         height: widthToDP('13%'),
         borderRadius: 15,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
         marginTop: widthToDP('-8.5%')
     },  
     textMenssage: {
-        color: '#DB1020',
+        color: '#FFDD00',
         marginLeft: widthToDP('7%'),
         marginTop: widthToDP('4%')
     },
@@ -147,7 +148,8 @@ const styles = StyleSheet.create({
         marginTop: widthToDP('8%')
     },
     InputPassword: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
+        color: '#FFDD00',
         width: widthToDP('85%'),
         height: widthToDP('13%'),
         borderRadius: 15,
@@ -191,11 +193,11 @@ const styles = StyleSheet.create({
     },
     textOpacity: {
         fontSize: 16,
-        color: '#848484'
+        color: '#FFDD00'
     },
     textEntrar: {
         textAlign: 'center',
-        color: '#DB1020',
+        color: '#FFDD00',
         fontSize: 18
     }, 
     containerEntrar: {
@@ -206,15 +208,14 @@ const styles = StyleSheet.create({
         height: widthToDP('13%'),
         width: widthToDP('64%'),
         borderRadius: 15,
-        backgroundColor: 'white',
         borderWidth: 2,
-        borderColor: '#DB1020',
+        borderColor: '#FFDD00',
     },
     containerCadastrese: {
         marginTop: heightToDP('3%')
     },
     textCadastrese: {
-        color: '#DB1020',
+        color: '#FFDD00',
         fontSize: 18
     }, 
 });

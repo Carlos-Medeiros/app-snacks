@@ -7,7 +7,6 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 export default function RegisterName({ route, navigation }) {
 
     const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
     const [menssage, setMenssage] = useState('')
     const [showAlert, setShowAlert] = useState(false)
 
@@ -20,7 +19,7 @@ export default function RegisterName({ route, navigation }) {
     }
 
     const registerPhoneNumber = () => {
-        if(firstName === '' && lastName === '') {
+        if(firstName === '') {
             setMenssage('Insira seu Nome e Sobrenome')
         }
         else {
@@ -36,7 +35,7 @@ export default function RegisterName({ route, navigation }) {
                 <View style={styles.containerHeader}>
                     <View>
                         <TouchableOpacity style={styles.imgSeta} onPress={()=>validationComplete()}>
-                            <Image source={require('../img/arrow1x.png')} ></Image>
+                            <Image source={require('../img/arrow_yellow.png')} ></Image>
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.textRegister}>Cadastro</Text>
@@ -51,8 +50,7 @@ export default function RegisterName({ route, navigation }) {
                 <Text style={styles.textH1}>Como você quer ser chamado?</Text>
                 <Text style={styles.textH2}>Digite seu nome</Text>
                 <View style={styles.containerInputs}>
-                    <TextInput style={styles.inputFirstName} placeholder="Nome" onChangeText={text=>setFirstName(text)} autoCapitalize="none"/>
-                    <TextInput style={styles.inputLastName} placeholder="Sobrenome" onChangeText={text=>setLastName(text)} autoCapitalize="none"/>
+                    <TextInput style={styles.inputFirstName} placeholder="Nome" placeholderTextColor="#FFDD00" onChangeText={text=>setFirstName(text)} autoCapitalize="none"/>
                 </View>
                 <AwesomeAlert
                     show={showAlert}
@@ -65,7 +63,7 @@ export default function RegisterName({ route, navigation }) {
                     showConfirmButton={true}
                     confirmText="Continuar cadastro"
                     cancelText="Candelar cadastro"
-                    confirmButtonColor="#DB1020"
+                    confirmButtonColor="#FFDD00"
                     onConfirmPressed={() => {
                         setShowAlert(false)
                     }}
@@ -90,7 +88,7 @@ export default function RegisterName({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#0B0B0D',
     },
     containerHeader: {
         width: widthToDP('100%'),
@@ -108,35 +106,36 @@ const styles = StyleSheet.create({
     textRegister: {
         fontSize: 16,
         marginLeft: widthToDP('28%'),
-        marginTop: heightToDP('2%')
+        marginTop: heightToDP('2%'),
+        color: '#FFDD00'
     },
     containerBarras: {
         flexDirection: 'row',
         alignItems: 'center'
     },
     textBarra1: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra2: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra3: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra4: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
@@ -146,36 +145,30 @@ const styles = StyleSheet.create({
         marginTop: widthToDP('15%'),
         marginLeft: widthToDP('6%'),
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#FFDD00'
     },
     textH2: {
         marginTop: heightToDP('0.5%'),
         marginLeft: widthToDP('6%'),
         fontSize:16,
+        color: '#FFDD00'
     },
     containerInputs: {
         flexDirection: 'row'
     },
     inputFirstName: {
-        width: widthToDP('41%'),
+        width: widthToDP('88%'),
         height: widthToDP('12%'),
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         borderRadius: 15,
         paddingLeft: 15,
         marginTop: heightToDP('5%'),
-        marginLeft: widthToDP('6%')
-    },
-    inputLastName: {
-        width: widthToDP('41%'),
-        height: widthToDP('12%'),
-        backgroundColor: '#F6F6F6',
-        borderRadius: 15,
-        paddingLeft: 15,
-        marginTop: heightToDP('5%'),
-        marginLeft: widthToDP('6%')
+        marginLeft: widthToDP('6%'),
+        color: '#FFDD00'
     },
     menssageError:{
-        color: '#DB1020',
+        color: '#FFDD00',
         fontSize: 14,
         marginLeft: widthToDP('6%'),
         marginTop: heightToDP('0.5%')
@@ -186,14 +179,14 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('88%'),
         height: widthToDP('15%'),
         borderRadius: 15,
         marginLeft: widthToDP('6%')
     },
     textButton: {
-        color: 'white',
+        color: '#2C2D34',
         fontSize: widthToDP('4.5%')
     }
 });
