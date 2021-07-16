@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,9 +10,21 @@ export default function DeliverymanStatus({ route, navigation }) {
 
     const [deliverymanStatus, setDeliverymanStatus] = useState([]);
     const [status, setStatus] = useState('');
+    const [email, setEmail] = useState(route.params.userEmail);
 
     useEffect(() => {
-        API.get(`/${route.params.userEmail}/status`, {
+        function handleBackButton() {
+          navigation.navigate('DeliverymanStatus');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
+
+    useEffect(() => {
+        API.get(`/${email}/status`, {
         }).then((response) => {setDeliverymanStatus(response.data)})
     }, []);
 
@@ -22,7 +34,7 @@ export default function DeliverymanStatus({ route, navigation }) {
             setStatus('Pendente')
         }
         if (deliverymanStatus.status === 'ACCEPTED') {
-            navigation.replace('HomeDeliveryman', {userEmail: route.params.userEmail})
+            navigation.replace('HomeDeliveryman')
         }
         if (deliverymanStatus.status === 'REJECTED') {
             setStatus('Rejeitado');
@@ -33,6 +45,8 @@ export default function DeliverymanStatus({ route, navigation }) {
     }, [deliverymanStatus.status]);
         
     const login = () => {
+        AsyncStorage.setItem('EmailUser', ''),
+        AsyncStorage.setItem('PasswordUser', ''),
         navigation.replace('Login')
     }
 
@@ -42,10 +56,10 @@ export default function DeliverymanStatus({ route, navigation }) {
         <>
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
-                    <Text style={styles.logo}>Delivery da Gé</Text>
+                    <Text style={styles.logo}>Comedoria da Gé</Text>
                 </View>
                 <View>
-                    <Image source={require('../img/cuate1.png')} style={styles.imgStatus} ></Image>
+                    <Image source={require('../img/status_yellow.png')} style={styles.imgStatus} ></Image>
                 </View>
                 <View style={styles.containerText}>
                     <Text style={styles.textStatus}>
@@ -68,13 +82,13 @@ export default function DeliverymanStatus({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
         width: widthToDP('100%'),
         height: heightToDP('11%'),
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -83,7 +97,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'white'
+        color: '#2C2D34'
     },
     imgStatus: {
         marginTop: heightToDP('6%'),
@@ -98,10 +112,11 @@ const styles = StyleSheet.create({
         fontSize: 26,
         fontWeight: 'bold',
         color: 'black',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'white'
     },
     status: {
-        color: '#DB1020',
+        color: '#FFDD00',
         marginLeft: widthToDP('27%'),
         fontSize: 26,
         fontWeight: 'bold'
@@ -109,7 +124,7 @@ const styles = StyleSheet.create({
     textInfo: {
         marginTop: heightToDP('1%'),
         fontSize: 16,
-        color: '#9E9E9E',
+        color: 'white',
         textAlign: 'center'
     },
     containerButton: {
@@ -118,13 +133,13 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('30%'),
         height: widthToDP('11%'),
         borderRadius: 15,
     },
     textButton: {
-        color: 'white',
+        color: '#2C2D34',
         fontSize: 18,
         fontWeight: 'bold',
         fontSize: widthToDP('4.5%')

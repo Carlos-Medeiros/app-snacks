@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Image, ActivityIndicator} from 'reac
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({navigation}) {
 
@@ -11,6 +12,24 @@ export default function Login({navigation}) {
     const [menssage, setMenssage] = useState('');
     const [visible, setVisible] = useState(true);
     const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        AsyncStorage.getItem('EmailUser')
+        .then((email) => {
+            setEmail(email);
+        })
+        AsyncStorage.getItem('PasswordUser')
+        .then((password) => {
+            setPassword(password);
+        })
+        API.post(`/login/deliveryman`, {
+            email: email,
+            password: password
+        }).then(deliverymanStatus)
+        .catch(setEmail(''), setPassword(''))
+    }, []);
+
+
 
     const handleLogin = () => {
         setLoading(false);
@@ -28,6 +47,8 @@ export default function Login({navigation}) {
     }
 
     const deliverymanStatus = () => {
+        AsyncStorage.setItem('EmailUser', email),
+        AsyncStorage.setItem('PasswordUser', password),
         navigation.replace('DeliverymanStatus', {userEmail: email})
     }
 
@@ -54,18 +75,24 @@ export default function Login({navigation}) {
         <>
             <View style={styles.container}>
                 <View  style={styles.logo}>
-                    <Image source={require(`../img/logo_yellow.png`)} style={styles.imgLogo}/>
+                    <Text style={styles.logoH1}>
+                        COMEDORIA DA GÊ
+                    </Text>
+                    <View style={styles.logoBarra}></View>
+                    <Text style={styles.logoH2}>
+                        delivery
+                    </Text>
                 </View>
                 <View style={styles.loadingSpinner}>
                     {loading ? deliverymanStatus : <ActivityIndicator size="large" color="#FFDD00"/>}
                 </View>
                 <View style={styles.containerEmail}>
-                    <TextInput style={styles.InputEmail} placeholder="Email" placeholderTextColor="#FFDD00" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
+                    <TextInput style={styles.InputEmail} placeholder="Email" placeholderTextColor="#707070" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
                     <Image source={require('../img/message_yellow.png')} style={styles.iconMessage} ></Image>
                 </View>
                 <Text style={styles.textMenssage}>{menssage}</Text>
                 <View style={styles.containerPassword}>
-                    <TextInput secureTextEntry={visible} style={styles.InputPassword} placeholder="Senha" placeholderTextColor="#FFDD00" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
+                    <TextInput secureTextEntry={visible} style={styles.InputPassword} placeholder="Senha" placeholderTextColor="#707070" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
                     <Image source={require('../img/lock_yellow.png')} style={styles.iconLock} ></Image>
                     <View style={styles.containerVisiblePassword}>
                         <TouchableOpacity style={styles.visiblePassword} onPress={()=>visiblePassword()}>
@@ -107,7 +134,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#0B0B0D',
+        backgroundColor: '#121315',
         justifyContent: 'center',
     },
     logo: {
@@ -116,6 +143,21 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('4%'),
         alignItems: 'center',
         justifyContent: 'flex-end'
+    },
+    logoH1: {
+        fontSize: 36,
+        fontWeight: 'bold',
+        color: '#FFDD00'
+    },
+    logoBarra: {
+        width: widthToDP('100%'),
+        height: 3,
+        backgroundColor: '#FFDD00'
+    }, 
+    logoH2: {
+        marginTop: heightToDP('-0.5%'),
+        fontSize: 32,
+        color: '#FFDD00'
     },
     loadingSpinner: {
         marginTop: 15,

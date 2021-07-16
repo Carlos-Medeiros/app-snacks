@@ -1,22 +1,41 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, BackHandler, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
-
 import { TextInputMask } from 'react-native-masked-text';
 
 export default function RegisterPhoneNumber({ route, navigation }) {
 
+    const [email, setEmail] = useState(route.params.userEmail);
+    const [name, setName] = useState(route.params.userName);
     const [phoneNumber, setPhoneNumber] = useState();
     const [menssage, setMenssage] = useState('');
+    const cellRef = useState(null);
+
+    useEffect(() => {
+        function handleBackButton() {
+          navigation.navigate('RegisterName');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
 
     const registerName = () => {
         navigation.navigate('RegisterName')
     }
 
-    const registerPassword = () => {
-        navigation.navigate('RegisterPassword', {userName: route.params.userName, 
-        userEmail: route.params.userEmail, userPhoneNumber: phoneNumber})
+    const validPhone = () => {
+        var regex = new RegExp('^((1[1-9])|([2-9][0-9]))((3[0-9]{3}[0-9]{4})|(9[0-9]{3}[0-9]{5}))$');
+        const phoneUnmask = cellRef?.current.getRawValue();
+        if (regex.test(phoneUnmask)) { 
+            setMenssage("");
+            navigation.navigate('RegisterPassword', {userName: name, 
+            userEmail: email, userPhoneNumber: phoneNumber})
+        }
+        else setMenssage("Telefone inválido");
     }
 
     return ( 
@@ -25,7 +44,7 @@ export default function RegisterPhoneNumber({ route, navigation }) {
                 <View style={styles.containerHeader}>
                     <View style={styles.containerSeta}>
                         <TouchableOpacity style={styles.imgSeta} onPress={()=>registerName()}>
-                            <Image source={require('../img/arrow1x.png')} ></Image>
+                            <Image source={require('../img/arrow_yellow.png')} ></Image>
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.textRegister}>Cadastro</Text>
@@ -46,16 +65,20 @@ export default function RegisterPhoneNumber({ route, navigation }) {
                         maskType: 'BRL',
                         withDDD: true,
                         dddMask: '(99) '
+                        
                     }} 
                     placeholder="(81) 91234-5678" 
+                    placeholderTextColor="#707070"
                     value={phoneNumber}
+                    
                     onChangeText={val=>setPhoneNumber(val)} 
+                    ref={cellRef}
                 />
 
                 <Text style={styles.textError}>{menssage}</Text>
 
                 <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={()=>registerPassword()}>
+                    <TouchableOpacity style={styles.button} onPress={()=>validPhone()}>
                         <Text style={styles.textButton}>Prosseguir</Text>
                     </TouchableOpacity>
                 </View>
@@ -67,7 +90,7 @@ export default function RegisterPhoneNumber({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#121315',
     },
     containerHeader: {
         width: widthToDP('100%'),
@@ -85,35 +108,36 @@ const styles = StyleSheet.create({
     textRegister: {
         fontSize: 16,
         marginLeft: widthToDP('28%'),
-        marginTop: heightToDP('2%')
+        marginTop: heightToDP('2%'),
+        color: '#FFDD00'
     },
     containerBarras: {
         flexDirection: 'row',
         alignItems: 'center'
     },
     textBarra1: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra2: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra3: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra4: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
@@ -123,23 +147,26 @@ const styles = StyleSheet.create({
         marginTop: widthToDP('15%'),
         marginLeft: widthToDP('6%'),
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#FFDD00'
     },
     textH2: {
         marginTop: heightToDP('0.5%'),
         marginLeft: widthToDP('6%'),
         fontSize: 16,
+        color: '#FFDD00'
     },
     inputPhoneNumber: {
         width: widthToDP('88%'),
         height: widthToDP('12%'),
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#2C2D34',
         borderRadius: 15,
         marginTop: heightToDP('7%'),
         marginLeft: widthToDP('6%'),
         fontSize: 24,
         paddingLeft: 65,
-        letterSpacing: 2
+        letterSpacing: 2,
+        color: '#FFDD00'
     },
     containerButton: {
         marginTop: heightToDP('41.5%')
@@ -147,17 +174,18 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         width: widthToDP('88%'),
         height: widthToDP('15%'),
         borderRadius: 15,
         marginLeft: widthToDP('6%')
     },
     textButton: {
-        color: 'white',
+        color: '#2C2D34',
         fontSize: widthToDP('4.5%')
     },
     textError: {
-        marginLeft: widthToDP('6%')
+        marginLeft: widthToDP('6%'),
+        color: '#FFDD00'
     }
 });

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, ActivityIndicator, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, ActivityIndicator, Image,BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive'
 import API from '../api';
@@ -9,6 +9,17 @@ export default function ForgotPasswordHome({navigation}) {
     const [email, setEmail] = useState('');
     const [menssage, setMenssage] = useState('');
     const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        function handleBackButton() {
+          navigation.navigate('Login');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
 
     const emailValidationPut = () => {
         setLoading(false);
@@ -56,7 +67,7 @@ export default function ForgotPasswordHome({navigation}) {
                 <View style={styles.loadingSpinner}>
                     {loading ? codeValidation : <ActivityIndicator size="large" color="#FFDD00"/>}
                 </View>
-                <TextInput style={styles.Input} placeholder="Email" placeholderTextColor="#FFDD00" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
+                <TextInput style={styles.Input} placeholder="Email" placeholderTextColor="#707070" onChangeText={text=>setEmail(text)} autoCapitalize="none"/>
                 <Image source={require('../img/message_yellow.png')} style={styles.iconMessage} ></Image>
 
                 <View style={styles.containerError}>
@@ -76,7 +87,7 @@ export default function ForgotPasswordHome({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0B0B0D',
+        backgroundColor: '#121315',
     },
     containerHeader: {
         width: widthToDP('100%'),

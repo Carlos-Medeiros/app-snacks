@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, View, BackHandler, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
 
-export default function EditName({ navigation }) {
+export default function EditName({route, navigation }) {
 
+    const [email, setEmail] = useState(route.params.userEmail);
     const [deliveryman, setDeliveryman] = useState([]);
     const [name, setName] = useState('');
     const [menssage, setMenssage] = useState('');
 
     useEffect(() => {
-        API.get(`/email@gmail.com/status`, {
+        API.get(`/${email}/status`, {
         }).then((response) => {setDeliveryman(response.data)})
-        .then(setName(deliveryman.name))
     }, []);
 
     const editAccount = () => {
-        navigation.navigate('EditAccount')
+        navigation.replace('EditAccount', {userEmail: email})
     }
 
     const home = () => {
@@ -32,18 +31,23 @@ export default function EditName({ navigation }) {
         }
         else {
             setMenssage('')
-            if(name === deliveryman.name) {
-                setMenssage('Insira um nome diferente do atual para alterar')
-            }
-            else {
-                setMenssage('')
-                API.post(`/editName/deliveryman/email@gmail.com`, {
-                    name: name,
-                }).then(navigation.replace('EditAccount'))
-                .catch()
-            }
+            API.put(`/editName/deliveryman/${email}`, {
+                name: name,
+            }).then(navigation.replace('EditAccount', {userEmail: email}))
+            .catch()
         }
     }
+
+    useEffect(() => {
+        function handleBackButton() {
+          navigation.replace('EditAccount', {userEmail: email});
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
 
     return ( 
         <>
@@ -58,11 +62,12 @@ export default function EditName({ navigation }) {
                         Editar nome
                     </Text>
                 </View>
-                <View style={styles.containerItem}>
-                    <View style={styles.headerItem}>
-                        <TextInput style={styles.userName} placeholder={deliveryman.name} placeholderTextColor="#FFF601" onChangeText={text=>setName(text)} autoCapitalize="none"/>
-                    </View>
+                <View style={styles.containerInput}>
+                    <TextInput style={styles.inputName} placeholder={deliveryman.name} placeholderTextColor="#707070" onChangeText={text=>setName(text)} autoCapitalize="none"/>
                 </View> 
+                <View style={styles.containerErro}>
+                    <Text style={styles.textError}>{menssage}</Text>
+                </View>
                 
                 <View style={styles.containerButtonSave}>
                     <TouchableOpacity style={styles.buttonSave} onPress={()=>save()}>
@@ -85,13 +90,13 @@ export default function EditName({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
         width: widthToDP('100%'),
         height: heightToDP('11%'),
-        backgroundColor: '#FFF601',
+        backgroundColor: '#FFDD00',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#000000'
+        color: '#121315'
     },
     containerText: {
         width: widthToDP('88%'),
@@ -110,60 +115,43 @@ const styles = StyleSheet.create({
     textStatus: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: '#FFF601',
+        color: '#FFDD00',
         textAlign: 'center'
     },
-    containerInputs: {
+    containerInput: {
         flexDirection: 'row'
     },
-    inputFirstName: {
+    inputName: {
         width: widthToDP('88%'),
-        height: widthToDP('12%'),
-        backgroundColor: '#333333',
+        height: widthToDP('13%'),
+        backgroundColor: '#2C2D34',
         borderRadius: 15,
         paddingLeft: 15,
-        marginTop: heightToDP('3%'),
+        marginTop: heightToDP('4%'),
+        color: '#FFDD00'
     },
-    containerItem: {
-        marginTop: heightToDP('2%'),
-        marginBottom: heightToDP('2%'),
-        marginRight: widthToDP('5%'),
-        marginLeft: widthToDP('5%'),
-        width: widthToDP('90%'),
-        padding: 15,
-        backgroundColor: '#333333',
-        borderRadius: 10,
-        shadowOpacity: 0.5,
-        shadowRadius: 20,
-        shadowColor: '#FFF601',
-        shadowOffset: { width: 0, height: 4 },
-        elevation: 9
-
-    },
-    headerItem: {
-        width: widthToDP('82.5%'),
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    userName: {
-        width: widthToDP('84%'),
-        color: '#FFF601',
-        fontSize: 16
+    containerErro: {
+        width: widthToDP('100%'),
+        marginTop: heightToDP('1%'),
+    },  
+    textError: {
+        color: '#FFDD00',
+        marginLeft: widthToDP('6%')
     },
     containerButtonSave: {
-        marginTop: heightToDP('54%')
+        marginTop: heightToDP('50%')
     },
     buttonSave: {
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 2,
-        borderColor: '#FFF601',
+        borderColor: '#FFDD00',
         width: widthToDP('50%'),
         height: widthToDP('15%'),
         borderRadius: 15,
     },
     textButtonSave: {
-        color: '#FFF601',
+        color: '#FFDD00',
         fontSize: 18,
         fontWeight: 'bold'
     },
@@ -171,7 +159,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%')
     },
     textButton: {
-        color: '#FFF601',
+        color: '#FFDD00',
         fontSize: 18
     }, 
 

@@ -1,13 +1,17 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
 
 export default function HomeDeliveryman({ route, navigation }) {
 
+    const [email, setEmail] = useState('');
+
     const login = () => {
+        AsyncStorage.setItem('EmailUser', ''),
+        AsyncStorage.setItem('PasswordUser', ''),
         navigation.replace('Login')
     }
 
@@ -16,9 +20,26 @@ export default function HomeDeliveryman({ route, navigation }) {
     }
 
     const editAccount = () => {
-        navigation.navigate('EditAccount')
+        navigation.navigate('EditAccount', {userEmail: email})
     }
 
+    useEffect(() => {
+        if (email === '') {
+            AsyncStorage.getItem('EmailUser')
+            .then((email) => {
+                setEmail(email)
+            })
+        }
+
+        function handleBackButton() {
+          navigation.navigate('HomeDeliveryman');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
 
     return ( 
         <>
@@ -27,7 +48,7 @@ export default function HomeDeliveryman({ route, navigation }) {
                     <Text style={styles.logo}>Delivery da Gé</Text>
                 </View>
                 <View>
-                    <Image source={require('../img/cuate2_yellow.png')} style={styles.imgStatus} ></Image>
+                    <Image source={require('../img/home_yellow.png')} style={styles.imgStatus} ></Image>
                 </View>
                 <View style={styles.containerText}>
                     <Text style={styles.textStatus}>
@@ -60,13 +81,13 @@ export default function HomeDeliveryman({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
         width: widthToDP('100%'),
         height: heightToDP('11%'),
-        backgroundColor: '#FFF601',
+        backgroundColor: '#FFDD00',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -75,7 +96,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'black'
+        color: '#121315'
     },
     imgStatus: {
         marginTop: heightToDP('4%'),
@@ -89,13 +110,13 @@ const styles = StyleSheet.create({
     textStatus: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#FFF601',
+        color: 'white',
         textAlign: 'center'
     },
     textInfo: {
         marginTop: heightToDP('1%'),
         fontSize: 12,
-        color: '#FDF990',
+        color: 'white',
         textAlign: 'center'
     },
     containerButtonPedidos: {
@@ -104,7 +125,7 @@ const styles = StyleSheet.create({
     buttonPedidos: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFF601',
+        backgroundColor: '#FFDD00',
         width: widthToDP('50%'),
         height: widthToDP('13%'),
         borderRadius: 15,
@@ -124,10 +145,10 @@ const styles = StyleSheet.create({
         height: widthToDP('13%'),
         borderRadius: 15,
         borderWidth: 2,
-        borderColor: '#FFF601'
+        borderColor: '#FFDD00'
     },
     textButtonConta: {
-        color: '#FFF601',
+        color: '#FFDD00',
         fontSize: 16,
         fontWeight: 'bold'
     },
@@ -139,7 +160,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textButton: {
-        color: '#FFF601',
+        color: '#FFDD00',
         fontSize: 16,
         fontWeight: 'bold'
     }

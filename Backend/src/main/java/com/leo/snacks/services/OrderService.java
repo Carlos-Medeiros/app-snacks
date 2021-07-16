@@ -74,7 +74,7 @@ public class OrderService {
 			numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
 		}
 		
-		Order order = new Order(null, numberRandom, dto.getAddress(), dto.getLatitude(), dto.getLongitude(), Instant.now(), dto.isPaymantToCard(), dto.isDelivery(), OrderStatus.PENDING);
+		Order order = new Order(null, numberRandom, dto.getAddress(), dto.getLatitude(), dto.getLongitude(), dto.getDetails(), Instant.now(), dto.isPaymantToCard(), dto.isDelivery(), OrderStatus.PENDING);
 		for (ProductDTO p : dto.getProducts()) {
 			Product product = productRepository.getOne(p.getId());
 			order.getProduct().add(product);

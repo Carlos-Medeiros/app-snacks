@@ -1,26 +1,78 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
 
-export default function EditPassword({ navigation }) {
+export default function EditPassword({route, navigation }) {
     
+    const [email, setEmail] = useState(route.params.userEmail);
     const [deliveryman, setDeliveryman] = useState([]);
+    const [password, setPassword] = useState('');
+    const [repeatPassword, setRepeatPassword] = useState('');
+    const [menssage, setMenssage] = useState('');
+    const [visible, setVisible] = useState(true);
+    const [visibleRepeat, setVisibleRepeat] = useState(true);
 
     useEffect(() => {
-        API.get(`/email@gmail.com/status`, {
+        function handleBackButton() {
+          navigation.replace('EditAccount', {userEmail: email});
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
+
+    useEffect(() => {
+        API.get(`/${email}/status`, {
         }).then((response) => {setDeliveryman(response.data)})
     }, []);
+
+    const completeRegister = () => {
+        if (password && repeatPassword != '') {
+            if (password == repeatPassword) {
+                setMenssage('')
+                API.put(`/editPassword/deliveryman/${email}`, {
+                    password: password
+                }).then(AsyncStorage.setItem('PasswordUser', password),
+                    navigation.replace('EditAccount', {userEmail: email}))
+                .catch()
+            }
+            else {
+                setMenssage('Senhas não coincidem');
+            }
+        }
+        else {
+            setMenssage('A senha deve conter no mínino 8 caracteres')
+        }
+    }
+    const editAccount = () => {
+        navigation.replace('EditAccount', {userEmail: email})
+    }
 
     const home = () => {
         navigation.replace('HomeDeliveryman')
     }
-
-    const editName = () => {
-        navigation.navigate('')
+  
+    function visiblePassword(){
+        if (visible == true) {
+            setVisible(false)
+        }
+        else {
+            setVisible(true)
+        }
+    }
+    function visiblePasswordRepeat(){
+        if (visibleRepeat == true) {
+            setVisibleRepeat(false)
+        }
+        else {
+            setVisibleRepeat(true)
+        }
     }
 
     return ( 
@@ -33,44 +85,44 @@ export default function EditPassword({ navigation }) {
                 </View>
                 <View style={styles.containerText}>
                     <Text style={styles.textStatus}>
-                        Dados pessoais
+                        Editar senha
                     </Text>
                 </View>
-                <TouchableOpacity style={styles.containerItem}>
-                    <View style={styles.headerItem}>
-                        <Text style={styles.userName}>{deliveryman.name}</Text>
-                        <View>
-                            <View style={styles.containerArrow}>
-                                <Image source={require('../img/red_arrow.png')} style={styles.arrow} ></Image>
-                            </View>
+                <TextInput secureTextEntry={visible} style={styles.inputPassword} placeholder="Insira sua senha" placeholderTextColor="#707070" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
+                    <Image source={require('../img/lock_yellow.png')} style={styles.iconLock} ></Image>
+                        <View style={styles.containerVisiblePassword}>
+                            <TouchableOpacity style={styles.visiblePassword} onPress={()=>visiblePassword()}>
+                                <View style={styles.containerVisible}>
+                                    {visible ? <Image source={require(`../img/visible_icon.png`)}/> : <Image source={require('../img/invisible_icon.png')} style={styles.invisible}/>}
+                                </View>
+                            </TouchableOpacity>
                         </View>
+                <TextInput secureTextEntry={visibleRepeat} style={styles.inputRepeatPassword} placeholder="Repita sua senha" placeholderTextColor="#707070" onChangeText={text=>setRepeatPassword(text)} autoCapitalize="none"/>
+                <Image source={require('../img/lock_yellow.png')} style={styles.iconLockRepeat} ></Image>
+                    <View style={styles.containerVisiblePasswordRepeat}>
+                        <TouchableOpacity style={styles.visiblePasswordRepeat} onPress={()=>visiblePasswordRepeat()}>
+                            <View style={styles.containerVisibleRepeat}>
+                                {visibleRepeat ? <Image source={require(`../img/visible_icon.png`)}/> : <Image source={require('../img/invisible_icon.png')} style={styles.invisible}/>}
+                            </View>
+                        </TouchableOpacity>
                     </View>
-                    <Text style={styles.itemName}>Nome</Text>
-                </TouchableOpacity> 
+                <View style={styles.containerErro}>
+                    <Text style={styles.textError}>{menssage}</Text>
+                </View>
+                
+                <View style={styles.containerButtonSave}>
+                    <TouchableOpacity style={styles.buttonSave} onPress={()=>completeRegister()}>
+                        <Text style={styles.textButtonSave}>Salvar</Text>
+                    </TouchableOpacity>
+                </View>
+                
+                <View style={styles.containerButton}>
+                        <TouchableOpacity style={styles.button} onPress={()=>editAccount()}>
+                            <Text style={styles.textButton}>Cancelar</Text>
+                        </TouchableOpacity>
+                </View>
 
-                <TouchableOpacity style={styles.containerItem}>
-                    <View style={styles.headerItem}>
-                        <Text style={styles.userName}>{deliveryman.phones}</Text>
-                        <View>
-                            <View style={styles.containerArrow}>
-                                <Image source={require('../img/red_arrow.png')} style={styles.arrow} ></Image>
-                            </View>
-                        </View>
-                    </View>
-                    <Text style={styles.itemName}>Telefone</Text>
-                </TouchableOpacity>   
 
-                <TouchableOpacity style={styles.containerItem}>
-                    <View style={styles.headerItem}>
-                        <Text style={styles.userName}>********</Text>
-                        <View>
-                            <View style={styles.containerArrow}>
-                                <Image source={require('../img/red_arrow.png')} style={styles.arrow} ></Image>
-                            </View>
-                        </View>
-                    </View>
-                    <Text style={styles.itemName}>Senha</Text>
-                </TouchableOpacity>          
             </View>
         </>
     );
@@ -79,13 +131,13 @@ export default function EditPassword({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
         width: widthToDP('100%'),
         height: heightToDP('11%'),
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -94,74 +146,122 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'white'
+        color: '#121315'
     },
     containerText: {
-        width: widthToDP('100%'),
+        width: widthToDP('88%'),
         marginTop: heightToDP('2%'),
-        alignItems: 'center'
+        alignItems: 'flex-start'
      },
     textStatus: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: 'black',
+        color: '#FFDD00',
         textAlign: 'center'
     },
-    containerButton: {
-        marginTop: heightToDP('3%'),
+    containerInput: {
+        flexDirection: 'row'
     },
-    button: {
-        justifyContent: 'center',
+    inputPassword: {
+        width: widthToDP('88%'),
+        height: widthToDP('13%'),
+        backgroundColor: '#2C2D34',
+        borderRadius: 15,
+        paddingLeft: 50,
+        marginTop: heightToDP('4%'),
+        color: '#FFDD00'
+    },
+    iconLock: {
+        marginLeft: widthToDP('-75%'),
+        marginTop: widthToDP('-9.5%')
+    },
+    containerVisiblePassword: {
+        width: 40,
+        height: 40,
+        marginLeft: widthToDP('80%'),
+        marginTop: -30,
+        padding: 2,
         alignItems: 'center',
     },
-    textButton: {
-        color: '#DB1020',
-        fontSize: 16,
+    visiblePassword: {
+        width: 40,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    containerVisible: {
+        marginTop: widthToDP('6%'),
+        width: 40,
+        height: 40,
+    },
+    invisible: {
+        marginTop: widthToDP('-0.5%')
+    },
+    inputRepeatPassword: {
+        width: widthToDP('88%'),
+        height: widthToDP('13%'),
+        backgroundColor: '#2C2D34',
+        borderRadius: 15,
+        paddingLeft: 50,
+        marginTop: heightToDP('4%'),
+        color: '#FFDD00'
+    },
+    iconLockRepeat: {
+        marginLeft: widthToDP('-75%'),
+        marginTop: widthToDP('-9.5%')
+    },
+    containerVisiblePasswordRepeat: {
+        width: 40,
+        height: 40,
+        marginLeft: widthToDP('80%'),
+        marginTop: -30,
+        padding: 2,
+        alignItems: 'center',
+    },
+    visiblePasswordRepeat: {
+        width: 40,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    containerVisibleRepeat: {
+        marginTop: widthToDP('6%'),
+        width: 40,
+        height: 40,
+    },
+    invisible: {
+        marginTop: widthToDP('-0.5%')
+    },
+    containerErro: {
+        width: widthToDP('100%'),
+        marginTop: heightToDP('1%'),
+    },  
+    textError: {
+        color: '#FFDD00',
+        marginLeft: widthToDP('6%')
+    },
+    containerButtonSave: {
+        marginTop: heightToDP('40%')
+    },
+    buttonSave: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        borderColor: '#FFDD00',
+        width: widthToDP('50%'),
+        height: widthToDP('15%'),
+        borderRadius: 15,
+    },
+    textButtonSave: {
+        color: '#FFDD00',
+        fontSize: 18,
         fontWeight: 'bold'
     },
-    containerItem: {
-        marginTop: heightToDP('2%'),
-        marginBottom: heightToDP('2%'),
-        marginRight: widthToDP('5%'),
-        marginLeft: widthToDP('5%'),
-        width: widthToDP('90%'),
-        padding: 15,
-        backgroundColor: '#ffffff',
-        borderRadius: 10,
-        shadowOpacity: 0.5,
-        shadowRadius: 20,
-        shadowColor: '#000000',
-        shadowOffset: { width: 0, height: 4 },
-        elevation: 9
-
+    containerButton: {
+        marginTop: heightToDP('3%')
     },
-    headerItem: {
-        width: widthToDP('82.5%'),
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    itemName: {
-        marginTop: heightToDP('-1%'),
-        fontWeight: 'normal',
-        fontSize: 14,
-        lineHeight: 19,
-        letterSpacing: -0.24,
-        color: '#9E9E9E',
-    },
-    userName: {
-        fontWeight: 'bold',
-        fontSize: 16,
-        lineHeight: 25,
-        letterSpacing: -0.24,
-        color: '#263238',
-    },
-    arrow: {
-        width: 20,
-        height: 20
-    },
-    containerArrow: {
-        marginTop: heightToDP('1.5%'),
-        textAlign: 'right',
-        color: '#DB1020'    
-    }
+    textButton: {
+        color: '#FFDD00',
+        fontSize: 18
+    }, 
 });

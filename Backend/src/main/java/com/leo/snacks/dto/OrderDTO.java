@@ -20,6 +20,7 @@ public class OrderDTO implements Serializable {
 	private Double longitude;
 	private Double total;
 	private Instant moment;
+	private String details;
 	private boolean paymantToCard;
 	private boolean delivery;
 	private OrderStatus status;
@@ -31,7 +32,7 @@ public class OrderDTO implements Serializable {
 	}
 	
 	public OrderDTO(Long id, Integer code, String address, Double latitude, Double longitude, Double total,
-			Instant moment, boolean paymantToCard, boolean delivery, OrderStatus status) {
+			String details, Instant moment, boolean paymantToCard, boolean delivery, OrderStatus status) {
 		this.id = id;
 		this.code = code;
 		this.address = address;
@@ -51,6 +52,7 @@ public class OrderDTO implements Serializable {
 		latitude = entity.getLatitude();
 		longitude = entity.getLongitude();
 		total = entity.getTotal();
+		details = entity.getDetails();
 		moment = entity.getMoment();
 		paymantToCard = entity.isPaymantToCard();
 		delivery = entity.isDelivery();
@@ -97,6 +99,14 @@ public class OrderDTO implements Serializable {
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
 	}
 
 	public Double getTotal() {

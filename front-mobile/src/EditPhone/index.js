@@ -1,27 +1,58 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, View, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
+import { TextInputMask } from 'react-native-masked-text';
 import API from '../api';
 
-export default function EditPhone({ navigation }) {
-    
+export default function EditPhone({route, navigation }) {
+   
+    const [email, setEmail] = useState(route.params.userEmail);
     const [deliveryman, setDeliveryman] = useState([]);
+    const [phoneNumber, setPhoneNumber] = useState();
+    const [menssage, setMenssage] = useState('');
+    const cellRef = useState(null);
 
     useEffect(() => {
-        API.get(`/email@gmail.com/status`, {
+        function handleBackButton() {
+          navigation.replace('EditAccount', {userEmail: email});
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
+
+    useEffect(() => {
+        API.get(`/${email}/status`, {
         }).then((response) => {setDeliveryman(response.data)})
     }, []);
+
+    
+
+    const validPhone = () => {
+        var regex = new RegExp('^((1[1-9])|([2-9][0-9]))((3[0-9]{3}[0-9]{4})|(9[0-9]{3}[0-9]{5}))$');
+        const phoneUnmask = cellRef?.current.getRawValue();
+        if (regex.test(phoneUnmask)) { 
+            setMenssage("");
+            API.put(`/editPhoneNumber/deliveryman/${email}`, {
+                phones: phoneNumber,
+            }).then(navigation.replace('EditAccount', {userEmail: email}))
+            .catch()
+        }
+        else setMenssage("Telefone inválido");
+    }
+
+    const editAccount = () => {
+        navigation.replace('EditAccount', {userEmail: email})
+    }
 
     const home = () => {
         navigation.replace('HomeDeliveryman')
     }
 
-    const editName = () => {
-        navigation.navigate('')
-    }
 
     return ( 
         <>
@@ -33,44 +64,44 @@ export default function EditPhone({ navigation }) {
                 </View>
                 <View style={styles.containerText}>
                     <Text style={styles.textStatus}>
-                        Dados pessoais
+                        Editar telefone
                     </Text>
                 </View>
-                <TouchableOpacity style={styles.containerItem}>
-                    <View style={styles.headerItem}>
-                        <Text style={styles.userName}>{deliveryman.name}</Text>
-                        <View>
-                            <View style={styles.containerArrow}>
-                                <Image source={require('../img/red_arrow.png')} style={styles.arrow} ></Image>
-                            </View>
-                        </View>
-                    </View>
-                    <Text style={styles.itemName}>Nome</Text>
-                </TouchableOpacity> 
+                <View style={styles.containerInput}>
+                    <TextInputMask 
+                        style={styles.inputPhoneNumber} 
+                        type={'cel-phone'} 
+                        options={{
+                            maskType: 'BRL',
+                            withDDD: true,
+                            dddMask: '(99) '
+                            
+                        }} 
+                        placeholder="(81) 91234-5678" 
+                        placeholderTextColor="#707070"
+                        value={phoneNumber}
+                        
+                        onChangeText={val=>setPhoneNumber(val)} 
+                        ref={cellRef}
+                    />                
+                </View> 
+                <View style={styles.containerErro}>
+                    <Text style={styles.textError}>{menssage}</Text>
+                </View>
+                
+                <View style={styles.containerButtonSave}>
+                    <TouchableOpacity style={styles.buttonSave} onPress={()=>validPhone()}>
+                        <Text style={styles.textButtonSave}>Salvar</Text>
+                    </TouchableOpacity>
+                </View>
+                
+                <View style={styles.containerButton}>
+                        <TouchableOpacity style={styles.button} onPress={()=>editAccount()}>
+                            <Text style={styles.textButton}>Cancelar</Text>
+                        </TouchableOpacity>
+                </View>
 
-                <TouchableOpacity style={styles.containerItem}>
-                    <View style={styles.headerItem}>
-                        <Text style={styles.userName}>{deliveryman.phones}</Text>
-                        <View>
-                            <View style={styles.containerArrow}>
-                                <Image source={require('../img/red_arrow.png')} style={styles.arrow} ></Image>
-                            </View>
-                        </View>
-                    </View>
-                    <Text style={styles.itemName}>Telefone</Text>
-                </TouchableOpacity>   
 
-                <TouchableOpacity style={styles.containerItem}>
-                    <View style={styles.headerItem}>
-                        <Text style={styles.userName}>********</Text>
-                        <View>
-                            <View style={styles.containerArrow}>
-                                <Image source={require('../img/red_arrow.png')} style={styles.arrow} ></Image>
-                            </View>
-                        </View>
-                    </View>
-                    <Text style={styles.itemName}>Senha</Text>
-                </TouchableOpacity>          
             </View>
         </>
     );
@@ -79,13 +110,13 @@ export default function EditPhone({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
         width: widthToDP('100%'),
         height: heightToDP('11%'),
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -94,74 +125,64 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'white'
+        color: '#121315'
     },
     containerText: {
-        width: widthToDP('100%'),
+        width: widthToDP('88%'),
         marginTop: heightToDP('2%'),
-        alignItems: 'center'
+        alignItems: 'flex-start'
      },
     textStatus: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: 'black',
+        color: '#FFDD00',
         textAlign: 'center'
     },
-    containerButton: {
-        marginTop: heightToDP('3%'),
+    containerInput: {
+        flexDirection: 'row'
     },
-    button: {
+    inputPhoneNumber: {
+        width: widthToDP('88%'),
+        height: widthToDP('12%'),
+        backgroundColor: '#2C2D34',
+        borderRadius: 15,
+        marginTop: heightToDP('4%'),
+        fontSize: 24,
+        paddingLeft: 65,
+        letterSpacing: 2,
+        color: '#FFDD00'
+    },
+    containerErro: {
+        width: widthToDP('100%'),
+        marginTop: heightToDP('1%'),
+    },  
+    textError: {
+        color: '#FFDD00',
+        marginLeft: widthToDP('6%')
+    },
+    containerButtonSave: {
+        marginTop: heightToDP('50%')
+    },
+    buttonSave: {
         justifyContent: 'center',
         alignItems: 'center',
+        borderWidth: 2,
+        borderColor: '#FFDD00',
+        width: widthToDP('50%'),
+        height: widthToDP('15%'),
+        borderRadius: 15,
     },
-    textButton: {
-        color: '#DB1020',
-        fontSize: 16,
+    textButtonSave: {
+        color: '#FFDD00',
+        fontSize: 18,
         fontWeight: 'bold'
     },
-    containerItem: {
-        marginTop: heightToDP('2%'),
-        marginBottom: heightToDP('2%'),
-        marginRight: widthToDP('5%'),
-        marginLeft: widthToDP('5%'),
-        width: widthToDP('90%'),
-        padding: 15,
-        backgroundColor: '#ffffff',
-        borderRadius: 10,
-        shadowOpacity: 0.5,
-        shadowRadius: 20,
-        shadowColor: '#000000',
-        shadowOffset: { width: 0, height: 4 },
-        elevation: 9
+    containerButton: {
+        marginTop: heightToDP('3%')
+    },
+    textButton: {
+        color: '#FFDD00',
+        fontSize: 18
+    }, 
 
-    },
-    headerItem: {
-        width: widthToDP('82.5%'),
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    itemName: {
-        marginTop: heightToDP('-1%'),
-        fontWeight: 'normal',
-        fontSize: 14,
-        lineHeight: 19,
-        letterSpacing: -0.24,
-        color: '#9E9E9E',
-    },
-    userName: {
-        fontWeight: 'bold',
-        fontSize: 16,
-        lineHeight: 25,
-        letterSpacing: -0.24,
-        color: '#263238',
-    },
-    arrow: {
-        width: 20,
-        height: 20
-    },
-    containerArrow: {
-        marginTop: heightToDP('1.5%'),
-        textAlign: 'right',
-        color: '#DB1020'    
-    }
 });

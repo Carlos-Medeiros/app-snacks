@@ -1,21 +1,32 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Image, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
 import { useIsFocused } from '@react-navigation/native';
 import API from '../api';
 
-export default function EditAccount({ navigation }) {
+export default function EditAccount({ route, navigation }) {
     
     const [deliveryman, setDeliveryman] = useState([]);
     const isFocused = useIsFocused();
+    const [email, setEmail] = useState(route.params.userEmail);
 
     const fetchData = () => {
-        API.get(`/email@gmail.com/status`, {
+        API.get(`/${email}/status`, {
         }).then((response) => {setDeliveryman(response.data)})
     }
+    useEffect(() => {
+        function handleBackButton() {
+          navigation.navigate('HomeDeliveryman');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
 
     useEffect(() => {
         if (isFocused) {
@@ -28,7 +39,15 @@ export default function EditAccount({ navigation }) {
     }
 
     const editName = () => {
-        navigation.navigate('EditName')
+        navigation.navigate('EditName', {userEmail: email})
+    }
+
+    const editPhone = () => {
+        navigation.navigate('EditPhone', {userEmail: email})
+    }
+
+    const editPassword = () => {
+        navigation.navigate('EditPassword', {userEmail: email})
     }
 
     return ( 
@@ -46,38 +65,38 @@ export default function EditAccount({ navigation }) {
                 </View>
                 <TouchableOpacity style={styles.containerItem} onPress={editName}>
                     <View style={styles.headerItem}>
-                        <Text style={styles.userName}>{deliveryman.name}</Text>
+                        <Text style={styles.userName}>Nome</Text>
                         <View>
                             <View style={styles.containerArrow}>
-                                <Image source={require('../img/red_arrow.png')} style={styles.arrow} ></Image>
+                                <Image source={require('../img/arrow_black.png')} style={styles.arrow} ></Image>
                             </View>
                         </View>
                     </View>
-                    <Text style={styles.itemName}>Nome</Text>
+                    <Text style={styles.itemName}>{deliveryman.name}</Text>
                 </TouchableOpacity> 
 
-                <TouchableOpacity style={styles.containerItem}>
+                <TouchableOpacity style={styles.containerItem} onPress={editPhone}>
                     <View style={styles.headerItem}>
-                        <Text style={styles.userName}>{deliveryman.phones}</Text>
+                        <Text style={styles.userName}>Telefone</Text>
                         <View>
                             <View style={styles.containerArrow}>
-                                <Image source={require('../img/red_arrow.png')} style={styles.arrow} ></Image>
+                                <Image source={require('../img/arrow_black.png')} style={styles.arrow} ></Image>
                             </View>
                         </View>
                     </View>
-                    <Text style={styles.itemName}>Telefone</Text>
+                    <Text style={styles.itemName}>{deliveryman.phones}</Text>
                 </TouchableOpacity>   
 
-                <TouchableOpacity style={styles.containerItem}>
+                <TouchableOpacity style={styles.containerItem} onPress={editPassword}>
                     <View style={styles.headerItem}>
-                        <Text style={styles.userName}>********</Text>
+                        <Text style={styles.userName}>Senha</Text>
                         <View>
                             <View style={styles.containerArrow}>
-                                <Image source={require('../img/red_arrow.png')} style={styles.arrow} ></Image>
+                                <Image source={require('../img/arrow_black.png')} style={styles.arrow} ></Image>
                             </View>
                         </View>
                     </View>
-                    <Text style={styles.itemName}>Senha</Text>
+                    <Text style={styles.itemName}>********</Text>
                 </TouchableOpacity>          
             </View>
         </>
@@ -87,13 +106,13 @@ export default function EditAccount({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
         width: widthToDP('100%'),
         height: heightToDP('11%'),
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -102,7 +121,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'white'
+        color: '#121315'
     },
     containerText: {
         width: widthToDP('100%'),
@@ -112,20 +131,8 @@ const styles = StyleSheet.create({
     textStatus: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: 'black',
+        color: '#FFDD00',
         textAlign: 'center'
-    },
-    containerButton: {
-        marginTop: heightToDP('3%'),
-    },
-    button: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    textButton: {
-        color: '#DB1020',
-        fontSize: 16,
-        fontWeight: 'bold'
     },
     containerItem: {
         marginTop: heightToDP('2%'),
@@ -134,11 +141,11 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('5%'),
         width: widthToDP('90%'),
         padding: 15,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#FFDD00',
         borderRadius: 10,
         shadowOpacity: 0.5,
         shadowRadius: 20,
-        shadowColor: '#000000',
+        shadowColor: '#FFDD00',
         shadowOffset: { width: 0, height: 4 },
         elevation: 9
 
@@ -150,14 +157,14 @@ const styles = StyleSheet.create({
     },
     itemName: {
         marginTop: heightToDP('-1%'),
-        fontWeight: 'normal',
+        fontWeight: 'bold',
         fontSize: 14,
         lineHeight: 19,
         letterSpacing: -0.24,
-        color: '#9E9E9E',
+        color: '#2C2D34',
     },
     userName: {
-        fontWeight: 'bold',
+        fontWeight: 'normal',
         fontSize: 16,
         lineHeight: 25,
         letterSpacing: -0.24,
@@ -170,6 +177,5 @@ const styles = StyleSheet.create({
     containerArrow: {
         marginTop: heightToDP('1.5%'),
         textAlign: 'right',
-        color: '#DB1020'    
     }
 });

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, View, Linking } from 'react-native';
+import React, { useEffect } from 'react';
+import { Alert, StyleSheet, Text, View, Linking, BackHandler} from 'react-native';
 import {widthToDP, heightToDP} from '../Responsive';
 import { Order } from '../types';
 import OrderCard from '../OrderCard';
@@ -18,6 +18,17 @@ type Props = {
 export default function OrderDetails({ route }: Props) {
     const { order } = route.params;
     const navigation = useNavigation();
+
+    useEffect(() => {
+        function handleBackButton() {
+          navigation.navigate('RequestsDeliveryman');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
 
     const orders = () => {
         navigation.navigate('RequestsDeliveryman')
@@ -63,12 +74,12 @@ export default function OrderDetails({ route }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#121315',
     },     
     containerHeader: {
         width: widthToDP('100%'),
         height: heightToDP('11%'),
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -77,13 +88,13 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'white'
+        color: '#121315'
     },
     margin: {
         marginTop: heightToDP('4%')
     },
     button: {
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         flexDirection: 'row',
         borderRadius: 10,
         marginTop: 40,
@@ -99,7 +110,7 @@ const styles = StyleSheet.create({
         paddingRight: 50,
         fontWeight: 'bold',
         fontSize: 18,
-        color: '#FFFFFF',
+        color: '#2C2D34',
         letterSpacing: -0.24
     }
 });

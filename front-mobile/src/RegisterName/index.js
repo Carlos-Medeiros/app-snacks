@@ -1,31 +1,37 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Image, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
-import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default function RegisterName({ route, navigation }) {
 
     const [firstName, setFirstName] = useState('');
     const [menssage, setMenssage] = useState('')
-    const [showAlert, setShowAlert] = useState(false)
+    const [email, setEmail] = useState(route.params.userEmail);
 
-    const validationComplete = () => {
-        setShowAlert(true)
-    }
+    useEffect(() => {
+        function handleBackButton() {
+          navigation.navigate('Register');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
 
     const candelarCadastro = () => {
-        navigation.navigate('Login')
+        navigation.navigate('Register')
     }
 
     const registerPhoneNumber = () => {
         if(firstName === '') {
-            setMenssage('Insira seu Nome e Sobrenome')
+            setMenssage('Insira seu Nome')
         }
         else {
             setMenssage('')
-            navigation.navigate('RegisterPhoneNumber', {userName: firstName + ' ' + lastName, 
-            userEmail: route.params.userEmail})
+            navigation.navigate('RegisterPhoneNumber', {userName: firstName, 
+            userEmail: email})
         }
     }
 
@@ -34,7 +40,7 @@ export default function RegisterName({ route, navigation }) {
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
                     <View>
-                        <TouchableOpacity style={styles.imgSeta} onPress={()=>validationComplete()}>
+                        <TouchableOpacity style={styles.imgSeta} onPress={()=>candelarCadastro()}>
                             <Image source={require('../img/arrow_yellow.png')} ></Image>
                         </TouchableOpacity>
                     </View>
@@ -50,29 +56,8 @@ export default function RegisterName({ route, navigation }) {
                 <Text style={styles.textH1}>Como você quer ser chamado?</Text>
                 <Text style={styles.textH2}>Digite seu nome</Text>
                 <View style={styles.containerInputs}>
-                    <TextInput style={styles.inputFirstName} placeholder="Nome" placeholderTextColor="#FFDD00" onChangeText={text=>setFirstName(text)} autoCapitalize="none"/>
+                    <TextInput style={styles.inputFirstName} placeholder="Nome" placeholderTextColor="#707070" onChangeText={text=>setFirstName(text)} autoCapitalize="none"/>
                 </View>
-                <AwesomeAlert
-                    show={showAlert}
-                    showProgress={false}
-                    title="Alerta"
-                    message="Falta pouco para finalizar seu cadastro"
-                    closeOnTouchOutside={true}
-                    closeOnHardwareBackPress={false}
-                    showCancelButton={true}
-                    showConfirmButton={true}
-                    confirmText="Continuar cadastro"
-                    cancelText="Candelar cadastro"
-                    confirmButtonColor="#FFDD00"
-                    onConfirmPressed={() => {
-                        setShowAlert(false)
-                    }}
-                    onCancelPressed={() => {
-                        candelarCadastro();
-                    }}
-
-                />
-
                 <Text style={styles.menssageError}>{menssage}</Text>
 
                 <View style={styles.containerButton}>
@@ -88,7 +73,7 @@ export default function RegisterName({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0B0B0D',
+        backgroundColor: '#121315',
     },
     containerHeader: {
         width: widthToDP('100%'),

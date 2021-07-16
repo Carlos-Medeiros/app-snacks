@@ -35,6 +35,8 @@ public class Order implements Serializable {
 	private Double latitude;
 	@NotNull
 	private Double longitude;
+	@NotBlank
+	private String details;
 	private Instant moment;
 	private boolean paymantToCard;
 	private boolean delivery;
@@ -56,12 +58,13 @@ public class Order implements Serializable {
 	}
 	
 	public Order(Long id, Integer code, String address, Double latitude, Double longitude,
-			Instant moment, boolean paymantToCard, boolean delivery, OrderStatus status) {
+			String details,Instant moment, boolean paymantToCard, boolean delivery, OrderStatus status) {
 		this.id = id;
 		this.code = code;
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.details = details;
 		this.moment = moment;
 		this.paymantToCard = paymantToCard;
 		this.delivery = delivery;
@@ -106,6 +109,14 @@ public class Order implements Serializable {
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
+	}
+	
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
 	}
 
 	public Instant getMoment() {

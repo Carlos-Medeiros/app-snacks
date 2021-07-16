@@ -1,14 +1,17 @@
 {
   "expo": {
-    "name": "front-mobile2",
+    "name": "Comedoria da Gê",
     "slug": "front-mobile2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "platforms": [
+      "android"
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#121315"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -16,14 +19,12 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#121315"
+      },
+      "package": "com.freljord.comedoriadage"
     },
     "web": {
       "favicon": "./assets/favicon.png"

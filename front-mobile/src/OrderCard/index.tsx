@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('5%'),
         width: widthToDP('90%'),
         padding: 15,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#FFDD00',
         borderRadius: 10,
         shadowOpacity: 0.5,
         shadowRadius: 20,
-        shadowColor: '#000000',
+        shadowColor: '#121315',
         shadowOffset: { width: 0, height: 4 },
         elevation: 9
 
@@ -64,14 +64,14 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 19,
         letterSpacing: -0.24,
-        color: '#9E9E9E',
+        color: '#2C2D34',
     },
     orderName: {
         fontWeight: 'bold',
         fontSize: 18,
         lineHeight: 25,
         letterSpacing: -0.24,
-        color: '#263238',
+        color: '#2C2D34',
     },
     orderPrice: {
         fontWeight: 'bold',
@@ -79,10 +79,10 @@ const styles = StyleSheet.create({
         lineHeight: 25,
         textAlign: 'right',
         letterSpacing: -0.24,
-        color: '#DB1020'    
+        color: '#2C2D34'    
     },
     productList: {
-        borderTopColor: '#E6E6E6',
+        borderTopColor: '#2C2D34',
         borderTopWidth: 1,
         marginTop: 20,
         paddingTop: 15

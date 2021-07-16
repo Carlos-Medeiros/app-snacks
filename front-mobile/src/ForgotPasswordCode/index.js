@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image} from 'react-native';
+import { StyleSheet, Text, View, Image, BackHandler} from 'react-native';
 import {TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
@@ -8,6 +8,7 @@ import API from '../api';
 const CELL_COUNT = 6;
 export default function ForgotPasswordCode({ route, navigation }) {
 
+    const [email, setEmail] = useState(route.params.userEmail);
     const [menssage, setMenssage] = useState('');
     const [numberKey, setNumberKey] = useState('');
     const ref = useBlurOnFulfill({numberKey, cellCount: CELL_COUNT});
@@ -17,9 +18,20 @@ export default function ForgotPasswordCode({ route, navigation }) {
     });
 
     useEffect(() => {
+        function handleBackButton() {
+          navigation.navigate('ForgotPasswordHome');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
+
+    useEffect(() => {
         if (parseInt(numberKey) >= 100000) {
             API.post(`/keyValidation`, {
-                email: route.params.userEmail,
+                email: email,
                 numberValidation: parseInt(numberKey)
             }).then(setMenssage(''))
             .then(forgotPassword)
@@ -28,13 +40,13 @@ export default function ForgotPasswordCode({ route, navigation }) {
     }, [numberKey]);
 
     const emailValidationPut = () => {
-        API.put(`/emailValidator/${route.params.userEmail}/1`, {
+        API.put(`/emailValidator/${email}/1`, {
         }).then(setMenssage(''))
     };
 
     const keyValidation = () => {
         API.post(`/keyValidation`, {
-            email: route.params.userEmail,
+            email: email,
             numberValidation: parseInt(numberKey)
         }).then(setMenssage(''))
         .then(forgotPassword)
@@ -52,7 +64,7 @@ export default function ForgotPasswordCode({ route, navigation }) {
 
     const forgotPassword = () => {
         setMenssage('')
-        navigation.navigate('ForgotPassword', {userEmail: route.params.userEmail})
+        navigation.navigate('ForgotPassword', {userEmail: email})
     }
 
     return ( 
@@ -117,7 +129,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#0B0B0D',
+        backgroundColor: '#121315',
     },
     containerHeader: {
         width: widthToDP('100%'),

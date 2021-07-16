@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
@@ -22,6 +22,17 @@ export default function RequestsDeliveryman() {
         }).then(response => setOrders(response.data))
         .catch(() => Alert.alert('Houve um erro ao buscar os pedidos!'))
     } 
+
+    useEffect(() => {
+        function handleBackButton() {
+          navigation.navigate('HomeDeliveryman');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
 
     useEffect(() => {
         if (isFocused) {
@@ -67,13 +78,13 @@ export default function RequestsDeliveryman() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
         width: widthToDP('100%'),
         height: heightToDP('11%'),
-        backgroundColor: '#DB1020',
+        backgroundColor: '#FFDD00',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -84,7 +95,7 @@ const styles = StyleSheet.create({
     logo: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'white'
+        color: '#121315'
     }, 
     containerOrders: {
         marginTop: heightToDP('2%'),

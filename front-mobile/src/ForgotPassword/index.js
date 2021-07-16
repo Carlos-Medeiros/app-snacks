@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Image, BackHandler } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
@@ -13,20 +13,36 @@ export default function ForgotPassword({ route, navigation }) {
     const [visible, setVisible] = useState(true);
     const [visibleRepeat, setVisibleRepeat] = useState(true);
 
-    const login = () => {
-        navigation.navigate('Login')
+    useEffect(() => {
+        function handleBackButton() {
+          navigation.navigate('ForgotPasswordHome');
+          return true;
+        }
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+        return () => backHandler.remove();
+      }, [navigation]);
+
+    const forgotPasswordHome = () => {
+        navigation.navigate('ForgotPasswordHome')
     }
 
     const completeRegister = () => {
-        if (password == repeatPassword) {
-            API.put(`/forgotYourPassword/${email}`, {
-                password: password
-            }).then(setMenssage(''))
-            .then(navigation.replace('Login'))
-            .catch()
+        if (password && repeatPassword != '') {
+            if (password == repeatPassword) {
+                API.put(`/forgotYourPassword/deliveryman/${email}`, {
+                    password: password
+                }).then(setMenssage(''))
+                .then(navigation.replace('Login'))
+                .catch()
+            }
+            else {
+                setMenssage('Senhas não coincidem');
+            }
         }
         else {
-            setMenssage('Senhas não coincidem');
+            setMenssage('A senha deve conter no mínino 8 caracteres')
         }
     }
     
@@ -51,7 +67,7 @@ export default function ForgotPassword({ route, navigation }) {
         <>
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
-                    <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>login()}>
+                    <TouchableWithoutFeedback style={styles.imgSeta} onPress={()=>forgotPasswordHome()}>
                         <Image source={require('../img/arrow_yellow.png')} ></Image>
                     </TouchableWithoutFeedback>
                     <Text style={styles.textRegister}>Recuperação</Text>
@@ -65,7 +81,7 @@ export default function ForgotPassword({ route, navigation }) {
 
                     <Text style={styles.textH1}>E finalmente, crie uma senha!</Text>
                     <Text style={styles.textH2}>Digite sua senha</Text>
-                    <TextInput secureTextEntry={visible} style={styles.inputPassword} placeholder="Insira sua senha" placeholderTextColor="#FFDD00" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
+                    <TextInput secureTextEntry={visible} style={styles.inputPassword} placeholder="Insira sua senha" placeholderTextColor="#707070" onChangeText={text=>setPassword(text)} autoCapitalize="none"/>
                     <Image source={require('../img/lock_yellow.png')} style={styles.iconLock} ></Image>
                         <View style={styles.containerVisiblePassword}>
                             <TouchableOpacity style={styles.visiblePassword} onPress={()=>visiblePassword()}>
@@ -74,7 +90,7 @@ export default function ForgotPassword({ route, navigation }) {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                    <TextInput secureTextEntry={visibleRepeat} style={styles.inputRepeatPassword} placeholder="Repita sua senha" placeholderTextColor="#FFDD00" onChangeText={text=>setRepeatPassword(text)} autoCapitalize="none"/>
+                    <TextInput secureTextEntry={visibleRepeat} style={styles.inputRepeatPassword} placeholder="Repita sua senha" placeholderTextColor="#707070" onChangeText={text=>setRepeatPassword(text)} autoCapitalize="none"/>
                     <Image source={require('../img/lock_yellow.png')} style={styles.iconLockRepeat} ></Image>
                         <View style={styles.containerVisiblePasswordRepeat}>
                             <TouchableOpacity style={styles.visiblePasswordRepeat} onPress={()=>visiblePasswordRepeat()}>
@@ -99,7 +115,7 @@ export default function ForgotPassword({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0B0B0D'
+        backgroundColor: '#121315'
     },
     containerHeader: {
         width: widthToDP('100%'),
