@@ -32,6 +32,9 @@ export default function OrderCard({ order }: Props) {
                         <Text key={product.id} style={styles.text}>{product.name}</Text>
                     ))}
                 </View>
+                <View style={styles.productList}>
+                    <Text style={styles.text}>{order.details}</Text>
+                </View>
             </View>               
         </>
     );
@@ -45,13 +48,13 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('5%'),
         width: widthToDP('90%'),
         padding: 15,
-        backgroundColor: '#FFDD00',
+        backgroundColor: '#121315',
         borderRadius: 10,
-        shadowOpacity: 0.5,
+        shadowOpacity: 1,
         shadowRadius: 20,
-        shadowColor: '#121315',
-        shadowOffset: { width: 0, height: 4 },
-        elevation: 9
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 14 },
+        elevation: 19
 
     },
     header: {
@@ -64,14 +67,14 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 19,
         letterSpacing: -0.24,
-        color: '#2C2D34',
+        color: '#FFDD00',
     },
     orderName: {
         fontWeight: 'bold',
         fontSize: 18,
         lineHeight: 25,
         letterSpacing: -0.24,
-        color: '#2C2D34',
+        color: '#FFDD00',
     },
     orderPrice: {
         fontWeight: 'bold',
@@ -79,10 +82,10 @@ const styles = StyleSheet.create({
         lineHeight: 25,
         textAlign: 'right',
         letterSpacing: -0.24,
-        color: '#2C2D34'    
+        color: '#FFDD00'    
     },
     productList: {
-        borderTopColor: '#2C2D34',
+        borderTopColor: '#FFDD00',
         borderTopWidth: 1,
         marginTop: 20,
         paddingTop: 15

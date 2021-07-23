@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.leo.snacks.domain.Category;
 import com.leo.snacks.dto.CategoryDTO;
 import com.leo.snacks.dto.OnlyCategoryDTO;
 import com.leo.snacks.services.CategoryService;
@@ -43,15 +40,10 @@ public class CategoryResource {
 		return ResponseEntity.ok().body(list);	
 	}
 	
-	@GetMapping(value="/page")
-	public ResponseEntity<Page<OnlyCategoryDTO>> findPage(
-			@RequestParam(value="page", defaultValue="0")Integer page, 
-			@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage, 
-			@RequestParam(value="ordeBy", defaultValue="name")String orderBy, 
-			@RequestParam(value="direction", defaultValue="ASC")String direction) {
-		Page<Category> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<OnlyCategoryDTO> listDTO = list.map(x -> new OnlyCategoryDTO(x));
-		return ResponseEntity.ok().body(listDTO);	
+	@GetMapping("/products")
+	public ResponseEntity<List<CategoryDTO>> findAllCategorys() {
+		List<CategoryDTO> list = service.findAllCategorys();
+		return ResponseEntity.ok().body(list);	
 	}
 	
 	@PostMapping

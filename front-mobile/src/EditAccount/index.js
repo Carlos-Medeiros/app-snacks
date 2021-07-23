@@ -68,7 +68,7 @@ export default function EditAccount({ route, navigation }) {
                         <Text style={styles.userName}>Nome</Text>
                         <View>
                             <View style={styles.containerArrow}>
-                                <Image source={require('../img/arrow_black.png')} style={styles.arrow} ></Image>
+                                <Image source={require('../img/arrow2_yellow.png')} style={styles.arrow} ></Image>
                             </View>
                         </View>
                     </View>
@@ -80,7 +80,7 @@ export default function EditAccount({ route, navigation }) {
                         <Text style={styles.userName}>Telefone</Text>
                         <View>
                             <View style={styles.containerArrow}>
-                                <Image source={require('../img/arrow_black.png')} style={styles.arrow} ></Image>
+                                <Image source={require('../img/arrow2_yellow.png')} style={styles.arrow} ></Image>
                             </View>
                         </View>
                     </View>
@@ -92,7 +92,7 @@ export default function EditAccount({ route, navigation }) {
                         <Text style={styles.userName}>Senha</Text>
                         <View>
                             <View style={styles.containerArrow}>
-                                <Image source={require('../img/arrow_black.png')} style={styles.arrow} ></Image>
+                                <Image source={require('../img/arrow2_yellow.png')} style={styles.arrow} ></Image>
                             </View>
                         </View>
                     </View>
@@ -106,7 +106,7 @@ export default function EditAccount({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#121315',
+        backgroundColor: '#191A1D',
         alignItems: 'center'
     },
     containerHeader: {
@@ -141,11 +141,11 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('5%'),
         width: widthToDP('90%'),
         padding: 15,
-        backgroundColor: '#FFDD00',
+        backgroundColor: '#121315',
         borderRadius: 10,
         shadowOpacity: 0.5,
         shadowRadius: 20,
-        shadowColor: '#FFDD00',
+        shadowColor: '#000000',
         shadowOffset: { width: 0, height: 4 },
         elevation: 9
 
@@ -161,14 +161,14 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 19,
         letterSpacing: -0.24,
-        color: '#2C2D34',
+        color: '#FFDD00',
     },
     userName: {
         fontWeight: 'normal',
         fontSize: 16,
         lineHeight: 25,
         letterSpacing: -0.24,
-        color: '#263238',
+        color: '#FFDD00',
     },
     arrow: {
         width: 20,

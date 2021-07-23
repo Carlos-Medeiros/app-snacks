@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +29,12 @@ public class CategoryService {
 	public List<OnlyCategoryDTO> findAll() {
 		List<Category> list = repository.findAll();
 		return list.stream().map(x -> new OnlyCategoryDTO(x)).collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<CategoryDTO> findAllCategorys() {
+		List<Category> list = repository.findAll();
+		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
 	}
 	
 	@Transactional(readOnly = true)
@@ -68,9 +71,5 @@ public class CategoryService {
 		search(id);
 		repository.deleteById(id);
 	}
-	
-	public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repository.findAll(pageRequest);
-	}
+
 }

@@ -12,7 +12,6 @@ import DeliverymanStatus from './DeliverymanStatus';
 import RegisterName from "./RegisterName";
 import RegisterPhoneNumber from './RegisterPhoneNumber';
 import RegisterPassword from './RegisterPassword';
-import ProductCard from './ProductCard';
 import RequestsDeliveryman from './RequestsDeliveryman';
 import OrderCard from './OrderCard';
 import OrderDetails from './OrderDetails';
@@ -20,8 +19,6 @@ import EditAccount from './EditAccount';
 import EditName from './EditName';
 import EditPassword from './EditPassword';
 import EditPhone from './EditPhone';
-import { TransitionSpecs } from '@react-navigation/stack';
-
 
 const Stack = createStackNavigator();
 
@@ -52,7 +49,6 @@ function Routes() {
                   mode="modal"
                 >
                 <Stack.Screen name="Login" component={Login}/>
-                <Stack.Screen name="ProductCard" component={ProductCard}/>
                 <Stack.Screen name="HomeDeliveryman" component={HomeDeliveryman}/>
                 <Stack.Screen name="Register" component={Register}/>
                 <Stack.Screen name="RegisterName" component={RegisterName}/>

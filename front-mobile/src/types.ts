@@ -5,6 +5,7 @@ export type Order = {
         address: string;
         latitude: number;
         longitude: number;
+        details: string;
         total: number;
         moment: string;
         products: Product[];

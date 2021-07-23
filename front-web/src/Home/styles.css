@@ -1,0 +1,296 @@
+.container {
+    background-color: var(--primary-color);
+    height: 554px;
+
+}
+
+.containerHome {
+    width: 100%;
+    display: flex;
+}
+
+.infoHome {
+    width: 38%;
+    margin-left: 90px;
+}
+
+.h1Home {
+    margin-top: 23%;
+    font-weight: bold;
+    font-size: 40px;
+    color: var(--light-color);
+
+}
+
+.pHome {
+    margin-top: -3%;
+    width: 80%;
+    font-size: 20px;
+    color: var(--light-color);
+
+}
+
+.containerLocal {
+    display: flex;
+    align-items: center;
+}
+
+.pLocal {
+    font-size: 18px;
+    margin-left: 2%;
+    color: var(--light-color);
+}
+
+.containerStatus {
+    width: 247px;
+    height: 53px;
+    display: flex;
+    align-items: center;
+    border-color: var(--primary-hover-color);
+    border-width: 3px;
+    border-radius: 10px;
+    border-style: solid;
+    padding-left: 19px;
+    margin-top: 30px;
+}
+
+.pStatus {
+    color: var(--primary-hover-color);
+    font-size: 18px;
+    margin-left: 26px;
+}
+
+.imgHome {
+    width: 50%;
+    margin-left: 2%;
+}
+
+.containerProdutos {
+    background-color: var(--primary-color);
+}
+
+.produtos {
+    width: 100%;
+    height: 50px;
+    background-color: var(--primary-hover-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.produtosName {
+    font-size: 24px;
+    color: var(--primary-color);
+}
+
+.containerItens {
+    display: flex;
+}
+
+.categorias {
+    width: 197px;
+    height: 30%;
+    background-color: var(--color-itens);
+    border-radius: 20px;
+    margin-left: 90px;
+    margin-top: 90px;
+    padding-bottom: 20px;
+}
+
+.containerCategoriaName {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.categoriaName {
+    color: var(--primary-hover-color);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.containerItensCategoria {
+    display: grid;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.category-name {
+    color: var(--light-color);
+    opacity: 15%;
+    font-size: 20px;
+}
+
+.category-name.selected {
+    color: var(--light-color);
+    opacity: 100%;
+    font-size: 20px;
+}
+
+.category-name:hover {
+    transform: scale(1.05);
+}
+
+
+.itens {
+    max-width: 70%;
+    margin-left: 30px;
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
+}
+
+.hamburguerSelected {
+    width: 233px;
+    margin-top: -7px;
+}
+
+.containerItemSelected {
+    width: 233px;
+    height: 300px;
+    margin-top: 90px;
+    margin-left: 20px;
+    margin-right: 27px;
+    border-radius: 25px;
+    background-color: var(--primary-hover-color);
+    display: grid;
+    cursor: pointer;
+}
+
+.containerItemSelected:hover {
+    transform: scale(1.01);
+}
+
+.addCarSelected {
+    background-color: var(--primary-hover-color);
+    width: 45px;
+    height: 45px;
+    border-radius: 30px;
+    display: grid;
+    align-items: center;
+    margin-top: -205px;
+    margin-left: 160px;
+}
+
+.carSelected {
+    margin-left: 13px;
+    margin-bottom: 10px;
+}
+
+.confirmedSelected {
+    margin-left: 25px;
+}
+
+.nameProductSelected {
+    color: var(--color-itens);
+    font-size: 20px;
+    margin-left: 18px;
+    margin-top: 15px;
+}
+
+.priceProductSelected {
+    color: var(--color-itens);
+    font-size: 20px;
+    margin-left: 18px;
+    margin-top: -10px;
+}
+
+.descriptionProductSelected {
+    color: var(--color-itens);
+    font-size: 14px;
+    margin-left: 18px;
+    margin-top: -10px;
+}
+
+.containerItem {
+    width: 233px;
+    height: 300px;
+    margin-top: 90px;
+    margin-left: 20px;
+    margin-right: 27px;
+    border-radius: 25px;
+    background-color: var(--color-itens);
+    display: grid;
+    cursor: pointer;
+}
+
+.containerItem:hover {
+    transform: scale(1.01);
+}
+
+.hamburguer {
+    width: 233px;
+    margin-top: -7px;
+}
+
+.addCar {
+    background-color: var(--color-itens);
+    width: 45px;
+    height: 45px;
+    border-radius: 30px;
+    display: grid;
+    align-items: center;
+    margin-top: -205px;
+    margin-left: 160px;
+}
+
+.carYellow {
+    margin-left: 13px;
+    margin-bottom: 10px;
+}
+
+.add {
+    margin-left: 25px;
+}
+
+.nameProduct {
+    color: var(--light-color);
+    font-size: 20px;
+    margin-left: 18px;
+    margin-top: 15px;
+}
+
+.priceProduct {
+    color: var(--light-color);
+    font-size: 20px;
+    margin-left: 18px;
+    margin-top: -10px;
+}
+
+.descriptionProduct {
+    color: var(--light-color);
+    opacity: 60%;
+    font-size: 14px;
+    margin-left: 18px;
+    margin-top: -10px;
+}
+
+.containerFooter {
+    height: 50px;
+    background-color: var(--primary-hover-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer {
+    color: var(--color-itens);
+    font-size: 24;
+}
+
+.radio-teste {
+    width: 50px;
+    height: 10px;
+    opacity: 15%;
+    border-width: 5px;
+    border-style: solid;
+    text-decoration: none;
+    border-color: blueviolet;
+    background-color: brown;
+    color: yellow;
+}
+
+.radio-name {
+    color: aqua;
+}

@@ -81,7 +81,7 @@ export default function HomeDeliveryman({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#121315',
+        backgroundColor: '#191A1D',
         alignItems: 'center'
     },
     containerHeader: {

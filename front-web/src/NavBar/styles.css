@@ -1,0 +1,29 @@
+.main-navbar {
+    display: flex;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.shopping-car {
+    background-color: var(--primary-hover-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 90px;
+    margin-top: 54px;
+}
+
+.car {
+    width: 18.42px;
+    height: 18px;
+}
+
+.logo {
+    margin-top: 54px;
+    margin-left: 90px;
+    width: 250px;
+}
