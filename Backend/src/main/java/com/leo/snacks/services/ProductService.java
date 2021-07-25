@@ -52,7 +52,43 @@ public class ProductService {
 	@Transactional
 	public ProductDTO update(ProductDTO dto) {
 		search(dto.getId());
-		Product product = new Product(null, dto.getName(), dto.getPrice(), dto.getDescription(), dto.getImageUri(), dto.isInventory(), dto.isDiscount(), null);
+		Product product = repository.getOne(dto.getId());
+		if (dto.getName() == null) {
+			product.getName();
+		}
+		else {
+			product.setName(dto.getName());
+		}
+		if (dto.getPrice() == null) {
+			product.getPrice();
+		}
+		else {
+			product.setPrice(dto.getPrice());
+		}
+		if (dto.getDescription() == null) {
+			product.getDescription();
+		}
+		else {
+			product.setDescription(dto.getDescription());
+		}
+		if (dto.getImageUri() == null) {
+			product.getImageUri();
+		}
+		else {
+			product.setImageUri(dto.getImageUri());
+		}
+		if (dto.isInventory() != false && dto.isInventory() != true ) {
+			product.isInventory();
+		}
+		else {
+			product.setInventory(dto.isInventory());
+		}
+		if (dto.isDiscount() != false && dto.isDiscount() != true ) {
+			product.isDiscount();
+		}
+		else {
+			product.setDiscount(dto.isDiscount());
+		}
 		product = repository.save(product);
 		return new ProductDTO(product);
 	}

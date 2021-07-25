@@ -8,7 +8,7 @@ import { ReactComponent as Hamburguer } from '../item-teste.svg'
 import { ReactComponent as CarYellow } from '../car-yellow.svg'
 import { ReactComponent as Car } from '../carrinho.svg'
 import { ReactComponent as Add } from '../mais.svg'
-import { Category } from './types';
+import { Category, Product } from './types';
 import { checkIsSelected } from "./helpers";
 import CategoryList from './CategoryList';
 import { fetchCategorys } from '../api';
@@ -16,6 +16,7 @@ import { fetchCategorys } from '../api';
 function Home() {
 
     const [categorys, setCategorys] = useState<Category[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [selectedCategorys, setSelectedCategorys] = useState<Category[]>([]);
 
     useEffect(() => {
@@ -23,7 +24,6 @@ function Home() {
         .then(response => setCategorys(response.data))
         .catch(error => console.log(error));
     }, []);
-
 
     const handleSelectCategory = (category: Category) => {
         const isAlreadySelected = checkIsSelected(selectedCategorys, category);
@@ -60,147 +60,10 @@ function Home() {
                         <h2 className="produtosName">Produtos</h2>
                     </div>
                     <div className="containerItens">
-                        <div className="categorias">
-                            <div className="containerCategoriaName">
-                                <p className="categoriaName">Categorias</p>
-                            </div>
-                            <CategoryList
+                        <CategoryList
                             categorys={categorys}
                             onSelectCategory={handleSelectCategory}
                             selectedCategorys={selectedCategorys}/>
-                        </div>
-                        <div className="itens">
-                            {/*<div className="containerItemSelected">
-                                <Hamburguer className="hamburguerSelected"/>
-                                <div className="addCarSelected">
-                                    <Confirmed className="confirmedSelected"/>
-                                    <Car className="carSelected"/>
-                                </div>
-                                <h2 className="nameProductSelected">Hambúrguer</h2>
-                                <h2 className="priceProductSelected">R$20,00</h2>
-                                <p className="descriptionProductSelected">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>*/}
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="containerItem">
-                                <Hamburguer className="hamburguer"/>
-                                <div className="addCar">
-                                    <Add className="add"/>
-                                    <CarYellow className="carYellow"/>
-                                </div>
-                                <h2 className="nameProduct">Hambúrguer</h2>
-                                <h2 className="priceProduct">R$20,00</h2>
-                                <p className="descriptionProduct">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div className="containerFooter">

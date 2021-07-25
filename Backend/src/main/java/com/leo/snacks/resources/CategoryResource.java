@@ -58,7 +58,7 @@ public class CategoryResource {
 	public ResponseEntity<CategoryDTO> update(@Valid @RequestBody CategoryDTO dto, @PathVariable Long id ) {
 		dto.setId(id);
 		dto = service.update(dto);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().body(dto);
 	}
 	
 	@DeleteMapping("/{id}")

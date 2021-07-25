@@ -57,10 +57,21 @@ public class CategoryService {
 	@Transactional
 	public CategoryDTO update(CategoryDTO dto) {
 		search(dto.getId());
-		Category category = new Category(dto.getId(), dto.getName());
-		for (ProductDTO p : dto.getProducts()) {
-			Product product = productRepository.getOne(p.getId());
-			category.getProducts().add(product);
+		Category category = repository.getOne(dto.getId());
+		if (dto.getName() == null) {
+			category.getName();
+		}
+		else {
+			category.setName(dto.getName());
+		}
+		if (dto.getProducts() == null) {
+			category.getProducts();
+		}
+		else {
+			for (ProductDTO p : dto.getProducts()) {
+				Product product = productRepository.getOne(p.getId());
+				category.getProducts().add(product);
+			}
 		}
 		category = repository.save(category);
 		return new CategoryDTO(category);
