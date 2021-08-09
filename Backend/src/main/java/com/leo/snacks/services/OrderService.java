@@ -69,12 +69,8 @@ public class OrderService {
 	
 	@Transactional
 	public OrderDTO insert(OrderDTO dto) {
-		Integer numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
-		while (numberRandom > 1000000 || numberRandom < 100000 && orderRepository.findByCode(numberRandom) != null) {
-			numberRandom = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
-		}
 		
-		Order order = new Order(null, numberRandom, dto.getAddress(), dto.getLatitude(), dto.getLongitude(), dto.getDetails(), Instant.now(), dto.isPaymantToCard(), dto.isDelivery(), OrderStatus.PENDING);
+		Order order = new Order(null, dto.getCode(), dto.getAddress(), dto.getLatitude(), dto.getLongitude(), dto.getDetails(), Instant.now(), dto.isPaymantToCard(), dto.getChange(), dto.isDelivery(), OrderStatus.PENDING);
 		for (ProductDTO p : dto.getProducts()) {
 			Product product = productRepository.getOne(p.getId());
 			order.getProduct().add(product);
@@ -86,6 +82,10 @@ public class OrderService {
 				order.getDeliveryTax().add(delieryTax);
 			}
 		}
+		if (order.isPaymantToCard() == true) {
+			order.setChange(null);
+		}
+		
 		order = orderRepository.save(order);
 		return new OrderDTO(order);
 		

@@ -22,6 +22,7 @@ public class OrderDTO implements Serializable {
 	private Instant moment;
 	private String details;
 	private boolean paymantToCard;
+	private Double change;
 	private boolean delivery;
 	private OrderStatus status;
 
@@ -32,7 +33,7 @@ public class OrderDTO implements Serializable {
 	}
 	
 	public OrderDTO(Long id, Integer code, String address, Double latitude, Double longitude, Double total,
-			String details, Instant moment, boolean paymantToCard, boolean delivery, OrderStatus status) {
+			String details, Instant moment, boolean paymantToCard, Double change, boolean delivery, OrderStatus status) {
 		this.id = id;
 		this.code = code;
 		this.address = address;
@@ -41,6 +42,7 @@ public class OrderDTO implements Serializable {
 		this.total = total;
 		this.moment = moment;
 		this.paymantToCard = paymantToCard;
+		this.change = change;
 		this.delivery = delivery;
 		this.status = status;
 	}
@@ -55,6 +57,7 @@ public class OrderDTO implements Serializable {
 		details = entity.getDetails();
 		moment = entity.getMoment();
 		paymantToCard = entity.isPaymantToCard();
+		change = entity.getChange();
 		delivery = entity.isDelivery();
 		status = entity.getStatus();
 		products = entity.getProduct().stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
@@ -131,6 +134,14 @@ public class OrderDTO implements Serializable {
 
 	public void setPaymantToCard(boolean paymantToCard) {
 		this.paymantToCard = paymantToCard;
+	}
+
+	public Double getChange() {
+		return change;
+	}
+
+	public void setChange(Double change) {
+		this.change = change;
 	}
 
 	public boolean isDelivery() {

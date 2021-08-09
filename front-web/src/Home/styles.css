@@ -1,7 +1,68 @@
 .container {
     background-color: var(--primary-color);
-    height: 554px;
+    width: 100%;
+    height: 100vh;
+}
 
+.main-navbar {
+    display: flex;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.shopping-car {
+    background-color: var(--primary-hover-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    margin-right: 90px;
+    margin-top: 54px;
+    cursor: pointer;
+}
+.shopping-car:hover {
+    transform: scale(1.05);
+}
+
+.shopping-car-itens-amount {
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: var(--color-itens);
+    margin-top: -20px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shopping-car-itens-amount-null {
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    margin-top: -20px;
+    margin-left: 20px;
+}
+
+.shopping-car-amount {
+    color: var(--light-color);
+    font-size: 10px;
+}
+
+.car {
+    width: 18.42px;
+    height: 18px;
+    margin-left: 7px;
+    margin-top: -20px;
+}
+
+.logo {
+    margin-top: 54px;
+    margin-left: 90px;
+    width: 250px;
 }
 
 .containerHome {
@@ -132,17 +193,27 @@
     transform: scale(1.05);
 }
 
-.category-iten-name {
-    width: 185px;
+.container-category-item-name {
+    width: 400px;
     height: 50px;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--color-itens);
+}
+
+.category-item-name-selected {
+    color: var(--light-color);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.category-item-name {
     color: var(--primary-hover-color);
     font-size: 24px;
     font-weight: bold;
+    margin-left: 7px;
 }
 
 .itens {
@@ -158,7 +229,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    margin-top: -20px;
+    margin-top: 0px;
 }
 
 .hamburguerSelected {
@@ -236,18 +307,58 @@
     cursor: pointer;
 }
 
+.product {
+    width: 233px;
+    height: 300px;
+    border-radius: 25px;
+    background-color: var(--color-itens);
+    display: grid;
+    cursor: pointer;
+}
+
+.product.selected {
+    width: 233px;
+    height: 300px;
+    border-radius: 25px;
+    background-color: var(--primary-hover-color);
+    display: grid;
+    cursor: pointer;
+}
+
+.containerItem-disable {
+    width: 233px;
+    height: 300px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    margin-left: 20px;
+    margin-right: 27px;
+    border-radius: 25px;
+    background-color: var(--color-itens);
+    display: grid;
+    opacity: 30%;
+}
+
+
 .containerItem:hover {
     transform: scale(1.01);
 }
 
-.hamburguer {
+.itemProduct {
     width: 233px;
+    height: 160px;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
 }
 
 .nameProduct {
     color: var(--light-color);
+    font-size: 20px;
+    margin-left: 18px;
+    margin-top: 7px;
+}
+
+.nameProduct.selected {
+    color: var(--color-itens);
     font-size: 20px;
     margin-left: 18px;
     margin-top: 0px;
@@ -257,12 +368,28 @@
     color: var(--light-color);
     font-size: 20px;
     margin-left: 18px;
+    margin-top: -13px;
+}
+
+.priceProduct.selected {
+    color: var(--color-itens);
+    font-size: 20px;
+    margin-left: 18px;
     margin-top: -25px;
 }
 
 .descriptionProduct {
     color: var(--light-color);
+    letter-spacing: 0.7px;
     opacity: 60%;
+    font-size: 14px;
+    margin-left: 18px;
+    margin-top: -10px;
+}
+
+.descriptionProduct.selected {
+    color: var(--color-itens);
+    opacity: 80%;
     font-size: 14px;
     margin-left: 18px;
     margin-top: -10px;
@@ -281,11 +408,27 @@
     font-size: 24;
 }
 
-.container-category-iten-active {
+.container-category-item-active {
     width: 100%;
     margin-top: 60px;
 }
 
-.container-category-iten {
+.container-category-item {
     display: none;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--primary-color);
+    
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-hover-color);
+    border-radius: 10px;
+}
+
+
