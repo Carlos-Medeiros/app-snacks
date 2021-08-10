@@ -4,7 +4,7 @@ import { ReactComponent as Car } from '../carrinho.svg'
 import { ReactComponent as ArrowYellow } from '../arrow-left-yellow.svg'
 import './styles.css';
 
-function ModalProduct({ onClose= () => {}, addItemCar = () => {}, removeItem, productItemContainer, categoryActive}){
+function ModalProduct({ onClose= () => {}, addItemCar = () => {}, removeProduct, addProduct, removeItem, productItemContainer, categoryActive}){
     return (
         <div className="modal">
             <div className="modal-container">
@@ -40,6 +40,8 @@ function ModalProduct({ onClose= () => {}, addItemCar = () => {}, removeItem, pr
                         }
                     </div>
                 </div>
+                <button onClick={() => addProduct(productItemContainer)}>add</button>
+                <button onClick={() => removeProduct(productItemContainer)}>remove</button>
             </div>
         </div>
     )

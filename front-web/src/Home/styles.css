@@ -287,13 +287,6 @@
     margin-top: -10px;
 }
 
-.descriptionProductSelected {
-    color: var(--color-itens);
-    font-size: 14px;
-    margin-left: 18px;
-    margin-top: -10px;
-}
-
 .containerItem {
     width: 233px;
     height: 300px;
@@ -361,7 +354,7 @@
     color: var(--color-itens);
     font-size: 20px;
     margin-left: 18px;
-    margin-top: 0px;
+    margin-top: 7px;
 }
 
 .priceProduct {
@@ -375,7 +368,7 @@
     color: var(--color-itens);
     font-size: 20px;
     margin-left: 18px;
-    margin-top: -25px;
+    margin-top: -13px;
 }
 
 .descriptionProduct {
@@ -385,6 +378,10 @@
     font-size: 14px;
     margin-left: 18px;
     margin-top: -10px;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .descriptionProduct.selected {

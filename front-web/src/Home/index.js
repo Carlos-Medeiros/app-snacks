@@ -21,6 +21,7 @@ function Home() {
     const [removeItem, setRemoveItem] = useState(false);
     const [viewOrders, setViewOrders] = useState(false);
     const [selectedProducts, setSelectedProducts] = useState([]);
+    const [amount, setAmount] = useState([]);
     const [categoryActive, setCategoryActive] = useState();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -44,6 +45,28 @@ function Home() {
         }
     }
     
+    const addProduct = (product) => {
+        amount.push(product)
+        console.log(amount)
+    }
+    const [teste, setTeste] = useState(false);
+
+    const removeProduct = (product) => {
+        let bool = false
+        const sla = amount.find(item => item.id === product.id)
+        console.log(sla)
+        if (sla === undefined) {
+            console.log('não tem mais')
+        } else {
+            if (sla.id === product.id) {
+                amount.splice(amount.lastIndexOf(product.id), 1)
+                console.log(amount)
+            } else {
+                console.log('não tem mais')
+            }
+        }
+    }
+
     const handleSelectProduct = (product) => {
         const isAlreadySelected = checkIsSelected(selectedProducts, product);
       
@@ -64,7 +87,8 @@ function Home() {
 
     return(
         <>  
-            {viewOrders ? <Orders onClose={() => setViewOrders(false)}/>:
+            {viewOrders ? <Orders onClose={() => setViewOrders(false)}
+            amount={amount}/>:
             <div className="container">
                 <div className="main-navbar">
                     <Logo className="logo"/>
@@ -111,6 +135,8 @@ function Home() {
                         
                         {productItemContainer !== 0?
                             <ModalProduct 
+                                removeProduct={removeProduct}
+                                addProduct={addProduct}
                                 onClose={() => setProductItemContainer(0)}
                                 addItemCar={() => addCar()}
                                 removeItem={removeItem}
@@ -123,7 +149,6 @@ function Home() {
                     <h2 className="footer">Footer</h2>
                 </div>
             </div>}
-            
         </>
     )
 

@@ -25,6 +25,12 @@ public class OrderResource {
 	@Autowired
 	private OrderService service;
 	
+	@GetMapping("/{code}")
+	public ResponseEntity<OrderDTO> findCode(@PathVariable Integer code) {
+		OrderDTO dto = service.searchCode(code);
+		return ResponseEntity.ok().body(dto);
+	}
+	
 	@GetMapping("/pending")
 	public ResponseEntity<List<OrderDTO>> findAllPending() {
 		List<OrderDTO> list = service.findAllPending();

@@ -38,6 +38,12 @@ public class OrderService {
 	}
 	
 	@Transactional(readOnly = true)
+	public OrderDTO searchCode(Integer code) {
+		Order order = orderRepository.findByCode(code);
+		return new OrderDTO(order);
+	}
+	
+	@Transactional(readOnly = true)
 	public List<OrderDTO> findAllPending() {
 		List<Order> list = orderRepository.findOrdersWithProductsPending();
 		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
