@@ -49,7 +49,7 @@ public class DeliveryTaxResource {
 	@PutMapping("/{id}")
 	public ResponseEntity<DeliveryTaxDTO> update(@Valid @RequestBody DeliveryTaxDTO dto, @PathVariable Long id ) {
 		dto.setId(id);
-		dto = service.update(dto);
+		service.update(dto);
 		return ResponseEntity.noContent().build();
 	}
 	

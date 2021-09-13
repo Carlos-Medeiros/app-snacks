@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
+import Home from './Home';
 import Routes from './Routes';
+import { CartProvider } from "react-use-cart";
 
 function App() {
   return (
-    <Routes/>
+    <CartProvider>
+      <Home/>
+    </CartProvider>
   );
 }
 

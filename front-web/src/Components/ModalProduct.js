@@ -1,16 +1,20 @@
 import React from "react";
-import { ReactComponent as Fechado } from '../fechado.svg'
-import { ReactComponent as Car } from '../carrinho.svg'
 import { ReactComponent as ArrowYellow } from '../arrow-left-yellow.svg'
+import { ReactComponent as Close } from '../close.svg'
 import './styles.css';
+import { useCart } from "react-use-cart";
 
-function ModalProduct({ onClose= () => {}, addItemCar = () => {}, removeProduct, addProduct, removeItem, productItemContainer, categoryActive}){
+function ModalProduct({ onClose= () => {}, productItemContainer, categoryActive}){
+    
+    const { addItem,
+        removeItem,
+        inCart} = useCart();
+    
     return (
         <div className="modal">
             <div className="modal-container">
-                <div className="container-header-product" onClick={onClose}>
-                    <ArrowYellow className="arrow-yellow-header"/>
-                    <p className="category-active">{categoryActive}</p>
+                <div className="container-close" onClick={onClose}>
+                    <Close className="close"/>
                 </div>
                 <div className="container-product-body-img">
                     <img src={productItemContainer.imageUri} className="product-body-img" alt={productItemContainer.name} />
@@ -24,24 +28,17 @@ function ModalProduct({ onClose= () => {}, addItemCar = () => {}, removeProduct,
                         <p className="product-item-price">R${productItemContainer.price},00</p>
                     </div>
                     <div className="container-product-buttons">
-                        <div className="container-product-button-back"  onClick={onClose}>
-                            <ArrowYellow className="arrow-yellow"/>
-                            <p className="product-button-back">Voltar</p>
-                        </div>
-                        {removeItem === false ? 
-                        <div className="container-product-button-add-car" onClick={addItemCar}>
+    
+                        {inCart(productItemContainer.id) === false ? 
+                        <div className="container-product-button-add-car" onClick={() => addItem(productItemContainer)}>
                             <p className="product-button-add">Adicionar</p> 
-                            <Car className="product-button-car"/> 
                         </div> :
-                        <div className="container-product-button-remove-car" onClick={addItemCar}>
+                        <div className="container-product-button-remove-car" onClick={() => removeItem(productItemContainer.id)}>
                             <p className="product-button-remove">Remover</p> 
-                            <Fechado className="product-button-remove-car"/>
                         </div>
                         }
                     </div>
                 </div>
-                <button onClick={() => addProduct(productItemContainer)}>add</button>
-                <button onClick={() => removeProduct(productItemContainer)}>remove</button>
             </div>
         </div>
     )

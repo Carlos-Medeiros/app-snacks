@@ -3,20 +3,16 @@ package com.leo.snacks.resources;
 import java.net.URI;
 import java.util.List;
 
+import com.leo.snacks.dto.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.leo.snacks.dto.ProductDTO;
 import com.leo.snacks.services.ProductService;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -45,7 +41,7 @@ public class ProductResource {
 	
 	@GetMapping("/findByName/{name}")
 	public ResponseEntity<List<ProductDTO>> findByName(@PathVariable String name) {
-		List<ProductDTO> list= service.findByName(name);
+		List<ProductDTO> list = service.findByName(name);
 		return ResponseEntity.ok().body(list);
 	}
 	
@@ -62,20 +58,19 @@ public class ProductResource {
 		dto = service.update(dto);
 		return ResponseEntity.ok().body(dto); 
 	}
-	
-	@PutMapping("/discount/{id}")
-	public ResponseEntity<ProductDTO> discount(@RequestBody Double discount, @PathVariable Long id) {
-		ProductDTO dto = service.discount(discount, id);
-		return ResponseEntity.ok().body(dto); 
+
+	@PatchMapping("/discount/{id}")
+	@ResponseStatus(NO_CONTENT)
+	public void discount(@PathVariable Long id, @RequestBody Double discount) {
+		service.discount(discount, id);
 	}
-	
-	@PutMapping("/discount/reverse/{id}")
-	public ResponseEntity<ProductDTO> discountReverse(@PathVariable Long id) {
-		ProductDTO dto = service.discountReverse(id);
-		return ResponseEntity.ok().body(dto); 
+
+	@PatchMapping("/discount-reverse/{id}")
+	@ResponseStatus(NO_CONTENT)
+	public void discountReverse(@PathVariable Long id) {
+		service.discountReverse(id);
 	}
-	
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);

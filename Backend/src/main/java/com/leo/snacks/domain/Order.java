@@ -19,7 +19,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tb_order")
+@Table(name = "request")
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -44,13 +44,13 @@ public class Order implements Serializable {
 	private OrderStatus status;
 	
 	@ManyToMany
-	@JoinTable(name = "tb_order_product",
+	@JoinTable(name = "request_product",
 			joinColumns = @JoinColumn(name = "order_id"),
 			inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> product = new ArrayList<>();
 	
 	@ManyToMany
-	@JoinTable(name = "tb_order_delivery_tax",
+	@JoinTable(name = "request_delivery_tax",
 			joinColumns = @JoinColumn(name = "order_id"),
 			inverseJoinColumns = @JoinColumn(name = "delivery_tax_id"))
 	private Set<DeliveryTax> deliveryTax = new HashSet<>();

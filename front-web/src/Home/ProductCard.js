@@ -1,45 +1,35 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { fetchCategorys } from '../api';
-import { ReactComponent as Confirmed } from '../confirmed.svg'
-import { ReactComponent as Hamburguer } from '../item-teste.svg'
-import { ReactComponent as CarYellow } from '../car-yellow.svg'
-import { ReactComponent as Car } from '../carrinho.svg'
-import { ReactComponent as Add } from '../mais.svg'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useCart } from 'react-use-cart';
 
-function ProductCard({ product, onSelectProducts, isSelected, productItem, setProductItem}) {
+function ProductCard({ product, setProductItem}) {
 
-    const [toggleState, setToggleState] = useState(0);
-    const [view, setView] = useState([]);
-    const [showModal, setShowModal] = useState(false)
+    const { inCart } = useCart();
 
-    const openModal = () => {
-        setToggleState(product.id)
-        setShowModal(true)
-    }
+    function formatPrice(price) {
+        const formatter = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        });
 
-    const closeModal = () => {
-        setToggleState(0)
-        setShowModal(false)
+        return formatter.format(price);
     }
 
     return(
         <div className={product.inventory === true ? "containerItem" : "containerItem-disable"} >
             {product.inventory === true ? 
             <div onClick={() => setProductItem(product)}>
-                <div className={`product ${isSelected ? 'selected' : ''}`}>
+                <div className={`product ${inCart(product.id) ? 'selected' : ''}`}>
                     <img src={product.imageUri} className="itemProduct" alt={product.name} />
-                    <h2 className={`nameProduct ${isSelected ? 'selected' : ''}`}>{product.name}</h2>
-                    <h2 className={`priceProduct ${isSelected ? 'selected' : ''}`}>R${product.price}</h2>
-                    <p className={`descriptionProduct ${isSelected ? 'selected' : ''}`}>{product.description}</p>
+                    <h2 className={`nameProduct ${inCart(product.id) ? 'selected' : ''}`}>{product.name}</h2>
+                    <h2 className={`priceProduct ${inCart(product.id) ? 'selected' : ''}`}>{formatPrice(product.price)}</h2>
+                    <p className={`descriptionProduct ${inCart(product.id) ? 'selected' : ''}`}>{product.description}</p>
                 </div>
             </div> : 
-                <div className={`product ${isSelected ? 'selected' : ''}`}>
+                <div className={`product`}>
                     <img src={product.imageUri} className="itemProduct" alt={product.name} />
-                    <h2 className={`nameProduct ${isSelected ? 'selected' : ''}`}>{product.name}</h2>
-                    <h2 className={`priceProduct ${isSelected ? 'selected' : ''}`}>R${product.price}</h2>
-                    <p className={`descriptionProduct ${isSelected ? 'selected' : ''}`}>{product.description}</p>
+                    <h2 className={`nameProduct`}>{product.name}</h2>
+                    <h2 className={`priceProduct`}>{formatPrice(product.price)}</h2>
+                    <p className={`descriptionProduct`}>{product.description}</p>
                 </div>
             } 
         </div>

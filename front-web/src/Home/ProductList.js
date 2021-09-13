@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { checkIsSelected } from './helpers';
 import ProductCard from './ProductCard';
 
-function ProductList({ category, state, selectedProducts, onSelectProducts, productItemCard, setProductItemCard }) {
+function ProductList({ category, state, productItemCard, setProductItemCard }) {
 
     const [products, setProducts] = useState([]);
     const [productItem, setProductItem] = useState(productItemCard);
@@ -23,7 +22,7 @@ function ProductList({ category, state, selectedProducts, onSelectProducts, prod
     return(
         <div className={state === category.id ? "container-category-item-active" : "container-category-item "}>
             <div className="container-category-item-name">
-                <p className="category-item-name-selected">Você Selecionou</p>
+                <p className="category-item-name-selected">Você selecionou</p>
                 <p className="category-item-name">{category.name}</p>
             </div>
             <div className="container-products">
@@ -31,9 +30,6 @@ function ProductList({ category, state, selectedProducts, onSelectProducts, prod
                 <ProductCard
                 key={product.id}
                 product={product}
-                onSelectProducts={onSelectProducts}
-                isSelected={checkIsSelected(selectedProducts, product)}
-                productItem={productItem}
                 setProductItem={setProductItem}/>))}   
             </div>         
         </div>

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="tb_category")
+@Table
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = 1l;
@@ -27,7 +27,7 @@ public class Category implements Serializable {
 	private String name;
 	
 	@ManyToMany
-	@JoinTable(name = "tb_category_product",
+	@JoinTable(name = "category_product",
 			joinColumns = @JoinColumn(name = "category_id"),
 			inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private Set<Product> products = new HashSet<>();

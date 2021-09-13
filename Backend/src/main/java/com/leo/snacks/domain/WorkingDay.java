@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="tb_working_day")
+@Table
 public class WorkingDay implements Serializable {
 
 	private static final long serialVersionUID = 1l;

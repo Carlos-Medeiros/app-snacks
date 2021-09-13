@@ -1,5 +1,8 @@
 package com.leo.snacks.services;
 
+import com.leo.snacks.domain.Account;
+import com.leo.snacks.dto.AccountDTO;
+import com.leo.snacks.exception.BusinessRuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,9 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.leo.snacks.domain.EmailValidation;
 import com.leo.snacks.dto.UserEmailValidationDTO;
-import com.leo.snacks.repositories.DeliverymanRepository;
+import com.leo.snacks.repositories.AccountRepository;
 import com.leo.snacks.repositories.EmailValidationRepository;
-import com.leo.snacks.repositories.OwnerRepository;
 
 @Service
 public class EmailService {
@@ -22,10 +24,7 @@ public class EmailService {
 	private EmailValidationRepository emailValidationRepository;
 	
 	@Autowired
-	private DeliverymanRepository deliverymanRepository;
-	
-	@Autowired
-	private OwnerRepository ownerRepository;
+	private AccountRepository accountRepository;
 	
     public void sendValidation(String to, String body, String topic) {
         SimpleMailMessage message = new SimpleMailMessage(); 
@@ -44,12 +43,12 @@ public class EmailService {
 	
 	@Transactional
 	public UserEmailValidationDTO keyValidation(UserEmailValidationDTO dto) {
-		EmailValidation emailValidation = this.emailValidationRepository.findByEmailAndNumberValidation(dto.getEmail(), dto.getNumberValidation());;
+		EmailValidation emailValidation = this.emailValidationRepository.findByEmailAndNumberValidation(dto.getEmail(), dto.getNumberValidation());
 		if (emailValidation != null) {
 			return new UserEmailValidationDTO(emailValidation);
 		}
 		else {
-			return new UserEmailValidationDTO(null);
+			throw new BusinessRuleException("Invalid code");
 		}
 	}
     
@@ -66,22 +65,20 @@ public class EmailService {
 			return new UserEmailValidationDTO(emailValidationRepository.findByEmail(dto.getEmail()));
 		}
 		else {
-			return new UserEmailValidationDTO(null);
+			throw new BusinessRuleException("E-mail already registered");
 		}
 	}
 	
 	@Transactional
 	public UserEmailValidationDTO emailExisting(UserEmailValidationDTO dto) {		
 		if (emailValidationRepository.findByEmail(dto.getEmail()) != null 
-			&& deliverymanRepository.findByEmail(dto.getEmail()) != null 
-			|| ownerRepository.findByEmail(dto.getEmail()) != null) {
+			&& accountRepository.findByEmail(dto.getEmail()) != null) {
 			return new UserEmailValidationDTO(emailValidationRepository.findByEmail(dto.getEmail()));
 		}
 		else {
-			return new UserEmailValidationDTO(null);
+			throw new BusinessRuleException("E-mail not registered");
 		}
 	}
-	
 	
 	@Transactional
 	public UserEmailValidationDTO update(String email, Integer numberKey) {
@@ -93,25 +90,25 @@ public class EmailService {
 		EmailValidation emailValidation = emailValidationRepository.findByEmail(email);
 		switch (numberKey) {
 		case 0:
-			if (deliverymanRepository.findByEmail(email) == null && ownerRepository.findByEmail(email) == null) {
+			if (accountRepository.findByEmail(email) == null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
 				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));
 			}
 			else {
-				return new UserEmailValidationDTO(null);
+				throw new BusinessRuleException("E-mail already registered");
 			}
 		case 1:
-			if (deliverymanRepository.findByEmail(email) != null || ownerRepository.findByEmail(email) != null) {
+			if (accountRepository.findByEmail(email) != null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
 				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));
 			}
 			else {
-				return new UserEmailValidationDTO(null);
+				throw new BusinessRuleException("E-mail not registered");
 			}
 		default:
-			return new UserEmailValidationDTO(null);
+			throw new BusinessRuleException("Wrong key number");
 		}
 	}
 	

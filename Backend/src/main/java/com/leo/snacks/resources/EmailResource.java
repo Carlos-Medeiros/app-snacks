@@ -1,16 +1,14 @@
 package com.leo.snacks.resources;
 
+import com.leo.snacks.dto.AccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.leo.snacks.dto.UserEmailValidationDTO;
 import com.leo.snacks.services.EmailService;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 public class EmailResource {
@@ -36,14 +34,14 @@ public class EmailResource {
 		dto = emailService.emailExisting(dto);
 		return ResponseEntity.ok().body(dto);
 	}
-	
+
 	@PutMapping("/emailValidator/{email}/{numberKey}")
 	public ResponseEntity<UserEmailValidationDTO> update(@PathVariable String email, @PathVariable Integer numberKey) {
 		UserEmailValidationDTO dto = emailService.update(email, numberKey);
 		emailService.sendValidation(dto.getEmail(), "Validation code", String.valueOf(dto.getNumberValidation()));
 		return ResponseEntity.ok().body(dto);
 	}
-	
+
 	@DeleteMapping("/emailDelete/{email}")
 	public ResponseEntity<Void> delete(@PathVariable String email) {
 		emailService.delete(email);

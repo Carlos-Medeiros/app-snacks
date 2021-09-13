@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.leo.snacks.dto.CategoryDTO;
+import com.leo.snacks.exception.BusinessRuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,52 +93,64 @@ public class OrderService {
 		if (order.isPaymantToCard() == true) {
 			order.setChange(null);
 		}
-		
-		order = orderRepository.save(order);
-		return new OrderDTO(order);
-		
+
+		if (orderRepository.findByCode(dto.getCode()) == null) {
+			order = orderRepository.save(order);
+			return new OrderDTO(order);
+		}
+
+		throw new BusinessRuleException("Existing code");
 	}
-	
+
 	@Transactional
-	public OrderDTO setPending(Long id) {
-		Order order = orderRepository.getOne(id);
-		order.setStatus(OrderStatus.PENDING);
-		order = orderRepository.save(order);
-		return new OrderDTO(order);
+	public void setPending(Long id) {
+		orderRepository
+				.findById(id)
+				.map( order -> {
+					order.setStatus(OrderStatus.PENDING);
+					return orderRepository.save(order);
+				}).orElseThrow(() -> new BusinessRuleException("Order not found"));
 	}
-	
+
 	@Transactional
-	public OrderDTO setConfirmed(Long id) {
-		Order order = orderRepository.getOne(id);
-		order.setStatus(OrderStatus.CONFIRMED);
-		order = orderRepository.save(order);
-		return new OrderDTO(order);
+	public void setConfirmed(Long id) {
+		orderRepository
+				.findById(id)
+				.map( order -> {
+					order.setStatus(OrderStatus.CONFIRMED);
+					return orderRepository.save(order);
+				}).orElseThrow(() -> new BusinessRuleException("Order not found"));
 	}
-	
+
 	@Transactional
-	public OrderDTO setReady(Long id) {
-		Order order = orderRepository.getOne(id);
-		order.setStatus(OrderStatus.READY);
-		order = orderRepository.save(order);
-		return new OrderDTO(order);
+	public void setDelivery(Long id) {
+		orderRepository
+				.findById(id)
+				.map( order -> {
+					order.setStatus(OrderStatus.DELIVERY);
+					return orderRepository.save(order);
+				}).orElseThrow(() -> new BusinessRuleException("Order not found"));
 	}
-	
+
 	@Transactional
-	public OrderDTO setPickup(Long id) {
-		Order order = orderRepository.getOne(id);
-		order.setStatus(OrderStatus.PICKUP);
-		order = orderRepository.save(order);
-		return new OrderDTO(order);
+	public void setPickup(Long id) {
+		orderRepository
+				.findById(id)
+				.map( order -> {
+					order.setStatus(OrderStatus.PICKUP);
+					return orderRepository.save(order);
+				}).orElseThrow(() -> new BusinessRuleException("Order not found"));
 	}
-	
+
 	@Transactional
-	public OrderDTO setDelivered(Long id) {
-		Order order = orderRepository.getOne(id);
-		order.setStatus(OrderStatus.DELIVERED);
-		order = orderRepository.save(order);
-		return new OrderDTO(order);
+	public void setDelivered(Long id) {
+		orderRepository
+				.findById(id)
+				.map( order -> {
+					order.setStatus(OrderStatus.DELIVERED);
+					return orderRepository.save(order);
+				}).orElseThrow(() -> new BusinessRuleException("Order not found"));
 	}
-	
 	
 	@Transactional
 	public void delete(Long id) {

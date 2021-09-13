@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="tb_delivery_tax")
+@Table
 public class DeliveryTax implements Serializable {
 
 	private static final long serialVersionUID = 1l;

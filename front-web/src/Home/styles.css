@@ -152,11 +152,12 @@
 .categorias {
     width: 197px;
     height: 30%;
-    background-color: var(--color-itens);
+    background-color: var(--color-itens-opacity);
     border-radius: 20px;
     margin-left: 90px;
     margin-top: 90px;
     padding-bottom: 20px;
+    box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.2);
 }
 
 .containerCategoriaName {
@@ -197,10 +198,12 @@
     width: 400px;
     height: 50px;
     border-radius: 20px;
+    margin-left: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-itens);
+    background-color: var(--color-itens-opacity);
+    box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.2);
 }
 
 .category-item-name-selected {
@@ -219,10 +222,11 @@
 .itens {
     width: 70%;
     margin-left: 30px;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 .itens-grid {
     width: 100%;
+    margin-top: 0px;
 }
 
 .container-products {
@@ -230,88 +234,34 @@
     flex-wrap: wrap;
     align-items: flex-start;
     margin-top: 0px;
-}
-
-.hamburguerSelected {
-    width: 233px;
-    margin-top: -7px;
-}
-
-.containerItemSelected {
-    width: 233px;
-    height: 300px;
-    margin-top: 90px;
-    margin-left: 20px;
-    margin-right: 27px;
-    border-radius: 25px;
-    background-color: var(--primary-hover-color);
-    display: grid;
-    cursor: pointer;
-}
-
-.containerItemSelected:hover {
-    transform: scale(1.01);
-}
-
-.addCarSelected {
-    background-color: var(--primary-hover-color);
-    width: 45px;
-    height: 45px;
-    border-radius: 30px;
-    display: grid;
-    align-items: center;
-    margin-top: -205px;
-    margin-left: 160px;
-}
-
-.carSelected {
-    margin-left: 13px;
-    margin-bottom: 10px;
-}
-
-.confirmedSelected {
-    margin-left: 25px;
-}
-
-.nameProductSelected {
-    color: var(--color-itens);
-    font-size: 20px;
-    margin-left: 18px;
-    margin-top: 15px;
-}
-
-.priceProductSelected {
-    color: var(--color-itens);
-    font-size: 20px;
-    margin-left: 18px;
-    margin-top: -10px;
+    margin-left: 40px;
 }
 
 .containerItem {
-    width: 233px;
-    height: 300px;
+    width: 200px;
+    height: 270px;
     margin-top: 30px;
-    margin-bottom: 40px;
-    margin-left: 20px;
-    margin-right: 27px;
+    margin-bottom: 20px;
+    margin-right: 50px;
     border-radius: 25px;
-    background-color: var(--color-itens);
+    background-color: var(--color-itens-opacity);
+    box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.2);
     display: grid;
     cursor: pointer;
 }
 
 .product {
-    width: 233px;
-    height: 300px;
+    width: 200px;
+    height: 270px;
     border-radius: 25px;
-    background-color: var(--color-itens);
+    background-color: var(--color-itens-opacity);
     display: grid;
     cursor: pointer;
 }
 
 .product.selected {
-    width: 233px;
-    height: 300px;
+    width: 200px;
+    height: 270px;
     border-radius: 25px;
     background-color: var(--primary-hover-color);
     display: grid;
@@ -319,26 +269,24 @@
 }
 
 .containerItem-disable {
-    width: 233px;
-    height: 300px;
+    width: 200px;
+    height: 270px;
     margin-top: 30px;
     margin-bottom: 40px;
-    margin-left: 20px;
-    margin-right: 27px;
+    margin-right: 50px;
     border-radius: 25px;
-    background-color: var(--color-itens);
+    background-color: var(--color-itens-opacity);
     display: grid;
     opacity: 30%;
 }
-
 
 .containerItem:hover {
     transform: scale(1.01);
 }
 
 .itemProduct {
-    width: 233px;
-    height: 160px;
+    width: 200px;
+    height: 130px;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
 }
@@ -347,49 +295,50 @@
     color: var(--light-color);
     font-size: 20px;
     margin-left: 18px;
-    margin-top: 7px;
+    margin-top: 0px;
 }
 
 .nameProduct.selected {
     color: var(--color-itens);
     font-size: 20px;
     margin-left: 18px;
-    margin-top: 7px;
+    margin-top: 0px;
 }
 
 .priceProduct {
     color: var(--light-color);
     font-size: 20px;
     margin-left: 18px;
-    margin-top: -13px;
+    margin-top: -30px;
 }
 
 .priceProduct.selected {
     color: var(--color-itens);
     font-size: 20px;
     margin-left: 18px;
-    margin-top: -13px;
+    margin-top: -30px;
 }
 
 .descriptionProduct {
     color: var(--light-color);
+    max-height: 35px;
     letter-spacing: 0.7px;
     opacity: 60%;
     font-size: 14px;
     margin-left: 18px;
-    margin-top: -10px;
+    margin-top: -25px;
     max-width: 200px;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
     overflow: hidden;
 }
 
 .descriptionProduct.selected {
     color: var(--color-itens);
-    opacity: 80%;
+    opacity: 100%;
     font-size: 14px;
     margin-left: 18px;
-    margin-top: -10px;
+    margin-top: -25px;
 }
 
 .containerFooter {
@@ -427,5 +376,3 @@
     background-color: var(--primary-hover-color);
     border-radius: 10px;
 }
-
-

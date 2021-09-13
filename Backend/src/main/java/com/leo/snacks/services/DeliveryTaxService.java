@@ -3,6 +3,7 @@ package com.leo.snacks.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.leo.snacks.exception.BusinessRuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,16 +33,24 @@ public class DeliveryTaxService {
 	@Transactional
 	public DeliveryTaxDTO insert(DeliveryTaxDTO dto) {
 		DeliveryTax deliveryTax = new DeliveryTax(null, dto.getDeliveryTax());
-		deliveryTax = repository.save(deliveryTax);
-		return new DeliveryTaxDTO(deliveryTax);
+		if(dto.getDeliveryTax() == null) {
+			throw new BusinessRuleException("The delivery fee cannot be zero");
+		} else {
+			deliveryTax = repository.save(deliveryTax);
+			return new DeliveryTaxDTO(deliveryTax);
+		}
 	}
 	
 	@Transactional
 	public DeliveryTaxDTO update(DeliveryTaxDTO dto) {
 		search(dto.getId());
 		DeliveryTax deliveryTax = new DeliveryTax(dto.getId(), dto.getDeliveryTax());
-		deliveryTax = repository.save(deliveryTax);
-		return new DeliveryTaxDTO(deliveryTax);
+		if(dto.getDeliveryTax() == null) {
+			throw new BusinessRuleException("The delivery fee cannot be zero");
+		} else {
+			deliveryTax = repository.save(deliveryTax);
+			return new DeliveryTaxDTO(deliveryTax);
+		}
 	}
 	
 	@Transactional

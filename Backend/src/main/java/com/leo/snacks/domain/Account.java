@@ -12,8 +12,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_deliveryman")
-public class Deliveryman implements Serializable {
+@Table
+public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -29,17 +29,24 @@ public class Deliveryman implements Serializable {
 	private String password;
 	@NotBlank
 	private String phones;
+	private boolean admin;
 	private DeliverymanStatus status;
 	
-	public Deliveryman() {
+	public Account() {
 	}
 
-	public Deliveryman(Long id, String name, String email, String password, String phones, DeliverymanStatus status) {
+	public Account(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
+
+	public Account(Long id, String name, String email, String password, String phones, boolean admin, DeliverymanStatus status) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
+		this.admin = admin;
 		this.status = status;
 	}
 	
@@ -82,7 +89,15 @@ public class Deliveryman implements Serializable {
 	public void setPhones(String phones) {
 		this.phones = phones;
 	}
-	
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
 	public DeliverymanStatus getStatus() {
 		return status;
 	}
@@ -107,7 +122,7 @@ public class Deliveryman implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Deliveryman other = (Deliveryman) obj;
+		Account other = (Account) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;

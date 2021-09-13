@@ -6,6 +6,7 @@
   --color-itens: #121315;
   --secondary-color: #B7B7B7;
   --light-color: #FFFFFF;
+  --color-itens-opacity: rgba(68, 68, 68, 0.05);
 }
 
 html, body {

@@ -33,5 +33,4 @@ build/
 .vscode/
 
 ###############
-/src/main/java/com/leo/snacks/config
-/src/main/resources
+*.properties

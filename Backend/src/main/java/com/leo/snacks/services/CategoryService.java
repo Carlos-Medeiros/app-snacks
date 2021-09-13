@@ -3,6 +3,9 @@ package com.leo.snacks.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.leo.snacks.domain.Account;
+import com.leo.snacks.dto.AccountDTO;
+import com.leo.snacks.exception.BusinessRuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,8 +53,12 @@ public class CategoryService {
 			Product product = productRepository.getOne(p.getId());
 			category.getProducts().add(product);
 		}
-		category = repository.save(category);
-		return new CategoryDTO(category);
+		if (dto.getName() == null) {
+			throw new BusinessRuleException("Category name cannot be null");
+		} else {
+			category = repository.save(category);
+			return new CategoryDTO(category);
+		}
 	}
 	
 	@Transactional
@@ -76,7 +83,40 @@ public class CategoryService {
 		category = repository.save(category);
 		return new CategoryDTO(category);
 	}
-	
+
+	@Transactional
+	public void editName(CategoryDTO dto, Long id) {
+		repository
+				.findById(id)
+				.map( category -> {
+					category.setName(dto.getName());
+					return repository.save(category);
+				}).orElseThrow(() -> new BusinessRuleException("Category not found"));
+	}
+
+	@Transactional
+	public void insertProduct(Long id, Long idProduct) {
+		repository
+				.findById(id)
+				.map( category -> {
+					Product product = productRepository.getOne(idProduct);
+					category.getProducts().add(product);
+					return repository.save(category);
+				}).orElseThrow(() -> new BusinessRuleException("Category not found"));
+	}
+
+	@Transactional
+	public void removeProduct(Long id, Long idProduct) {
+		repository
+				.findById(id)
+				.map( category -> {
+					Product product = productRepository.getOne(idProduct);
+					category.getProducts().remove(product);
+					return repository.save(category);
+				}).orElseThrow(() -> new BusinessRuleException("Category not found"));
+	}
+
+
 	@Transactional
 	public void delete(Long id) {
 		search(id);

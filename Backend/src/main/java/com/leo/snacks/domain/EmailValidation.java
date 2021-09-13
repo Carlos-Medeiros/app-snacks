@@ -2,17 +2,15 @@ package com.leo.snacks.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @Entity
-@Table(name="tb_email_validation")
+@Table
 public class EmailValidation implements Serializable {
 
 	private static final long serialVersionUID = 1l;
-	
+
 	@Id
 	@Email
 	private String email;
@@ -66,7 +64,5 @@ public class EmailValidation implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

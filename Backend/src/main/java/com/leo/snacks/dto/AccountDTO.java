@@ -2,9 +2,10 @@ package com.leo.snacks.dto;
 
 import java.io.Serializable;
 
-import com.leo.snacks.domain.Owner;
+import com.leo.snacks.domain.Account;
+import com.leo.snacks.domain.DeliverymanStatus;
 
-public class OwnerDTO implements Serializable {
+public class AccountDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -12,22 +13,28 @@ public class OwnerDTO implements Serializable {
 	private String name;
 	private String email;
 	private String password;
+	private String phones;
+	private DeliverymanStatus status;
 	
-	public OwnerDTO() {
+	public AccountDTO() {
 	}
 
-	public OwnerDTO(Long id, String name, String email, String password) {
+	public AccountDTO(Long id, String name, String email, String password, String phones, DeliverymanStatus status) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.phones = phones;
+		this.status = status;
 	}
 	
-	public OwnerDTO(Owner entity) {
+	public AccountDTO(Account entity) {
 		id = entity.getId();
 		name = entity.getName();
 		email = entity.getEmail();
 		password = entity.getPassword();
+		phones = entity.getPhones();
+		status = entity.getStatus();
 	}
 
 	public Long getId() {
@@ -60,6 +67,22 @@ public class OwnerDTO implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhones() {
+		return phones;
+	}
+
+	public void setPhones(String phones) {
+		this.phones = phones;
+	}
+
+	public DeliverymanStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(DeliverymanStatus status) {
+		this.status = status;
 	}
 	
 }

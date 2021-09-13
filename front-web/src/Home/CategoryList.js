@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import axios from "axios";
 import { API_URL } from "../api";
-import { checkIsSelected } from "./helpers";
 
-function CategoryList({ categorys, selectedProducts, onSelectProducts, productItemContainer, setProductItemContainer, setCategoryActive }) {
+function CategoryList({ categorys, productItemContainer, setProductItemContainer, setCategoryActive }) {
     
     const [toggleState, setToggleState] = useState(0);
     const [productItemCard, setProductItemCard] = useState(productItemContainer);
@@ -54,7 +53,6 @@ function CategoryList({ categorys, selectedProducts, onSelectProducts, productIt
                             key={category.id}
                             category={category}
                             state={toggleState}
-                            selectedProducts={selectedProducts}
                             productItemCard={productItemCard}
                             setProductItemCard={setProductItemCard}/>
                     ))}
