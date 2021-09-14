@@ -40,8 +40,8 @@ public class AccountService implements UserDetailsService {
 		Account account = repository.findByEmail(email);
 		return new AccountDTO(account);
 	}
-	
-	@Transactional
+
+ 	@Transactional
 	public AccountDTO register(AccountDTO dto) {
         String passwordEncoder = encoder.encode(dto.getPassword());
 		Account account = new Account(null, dto.getName(), dto.getEmail(), passwordEncoder, dto.getPhones(), false, DeliverymanStatus.PENDING);
@@ -174,4 +174,5 @@ public class AccountService implements UserDetailsService {
 				.roles(roles)
 				.build();
 	}
+	
 }
