@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ###############
-/Backend/src/main/resources
+/src/main/resources
