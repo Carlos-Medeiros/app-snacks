@@ -76,4 +76,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				    .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+		configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "PATCH", "OPTIONS"));
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
+
 }
