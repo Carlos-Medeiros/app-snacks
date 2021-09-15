@@ -45,10 +45,10 @@ public class AccountService implements UserDetailsService {
 	public AccountDTO register(AccountDTO dto) {
         String passwordEncoder = encoder.encode(dto.getPassword());
 		Account account = new Account(null, dto.getName(), dto.getEmail(), passwordEncoder, dto.getPhones(), false, DeliverymanStatus.PENDING);
-		if (repository.findByEmail(dto.getEmail()) == null) {
-			account = repository.save(account);
-			return new AccountDTO(account);
-		} else {
+        if (repository.findByEmail(dto.getEmail()) == null) {
+            account = repository.save(account);
+            return new AccountDTO(account);
+        } else {
             throw new BusinessRuleException("The email "+ dto.getEmail() +" is already registered ");
         }
 	}

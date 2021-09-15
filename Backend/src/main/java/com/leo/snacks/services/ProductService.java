@@ -58,7 +58,7 @@ public class ProductService {
 		if(dto.getImageUri() == null) {
 			throw new BusinessRuleException("Product image uri cannot be null");
 		}
-		if(dto.isInventory() != false || dto.isInventory() != true) {
+		if(dto.isInventory() != false && dto.isInventory() != true) {
 			throw new BusinessRuleException("Product inventory cannot be null");
 		} else {
 			product = repository.save(product);
