@@ -13,11 +13,11 @@ function CategoryList({ categorys, productItemContainer, setProductItemContainer
     }
 
     useEffect(() => {
-        axios.get(`${API_URL}/categorys/${toggleState}`)
+        axios.get(`${API_URL}/categorys/${1}`)
         .then()
-        .catch(count)
+        .catch()
 
-    }, [toggleState]);
+    }, []);
 
     useEffect(() => {
         setProductItemContainer(productItemCard)
