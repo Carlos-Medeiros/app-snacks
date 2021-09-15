@@ -1,8 +1,5 @@
 package com.leo.snacks.services;
 
-import com.leo.snacks.domain.Account;
-import com.leo.snacks.dto.AccountDTO;
-import com.leo.snacks.exception.BusinessRuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.leo.snacks.domain.EmailValidation;
 import com.leo.snacks.dto.UserEmailValidationDTO;
+import com.leo.snacks.exception.BusinessRuleException;
 import com.leo.snacks.repositories.AccountRepository;
 import com.leo.snacks.repositories.EmailValidationRepository;
 

@@ -3,9 +3,6 @@ package com.leo.snacks.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.leo.snacks.domain.Account;
-import com.leo.snacks.dto.AccountDTO;
-import com.leo.snacks.exception.BusinessRuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +12,7 @@ import com.leo.snacks.domain.Product;
 import com.leo.snacks.dto.CategoryDTO;
 import com.leo.snacks.dto.OnlyCategoryDTO;
 import com.leo.snacks.dto.ProductDTO;
+import com.leo.snacks.exception.BusinessRuleException;
 import com.leo.snacks.repositories.CategoryRepository;
 import com.leo.snacks.repositories.ProductRepository;
 

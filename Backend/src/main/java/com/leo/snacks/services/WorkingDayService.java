@@ -4,16 +4,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.leo.snacks.domain.Account;
-import com.leo.snacks.dto.AccountDTO;
-import com.leo.snacks.dto.CategoryDTO;
-import com.leo.snacks.exception.BusinessRuleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.leo.snacks.domain.WorkingDay;
 import com.leo.snacks.dto.WorkingDayDTO;
+import com.leo.snacks.exception.BusinessRuleException;
 import com.leo.snacks.repositories.WorkingDayRepository;
 
 @Service

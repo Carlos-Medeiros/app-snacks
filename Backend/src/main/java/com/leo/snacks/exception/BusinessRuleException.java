@@ -2,7 +2,9 @@ package com.leo.snacks.exception;
 
 public class BusinessRuleException extends RuntimeException {
 
-    public BusinessRuleException(String message) {
+	private static final long serialVersionUID = 1L;
+
+	public BusinessRuleException(String message) {
         super(message);
     }
 }
