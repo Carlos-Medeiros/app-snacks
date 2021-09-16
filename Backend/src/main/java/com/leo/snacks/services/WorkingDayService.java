@@ -21,7 +21,7 @@ public class WorkingDayService {
 	
 	@Transactional(readOnly = true)
 	public List<WorkingDayDTO> findAll() {
-		List<WorkingDay> list = repository.findAll();
+		List<WorkingDay> list = repository.findAllByOrderByIdAsc();
 		return list.stream().map(x -> new WorkingDayDTO(x)).collect(Collectors.toList());
 	}
 	

@@ -94,13 +94,13 @@ public class ProductService {
 		else {
 			product.setImageUri(dto.getImageUri());
 		}
-		if (dto.isInventory() != false && dto.isInventory() != true ) {
+		if (dto.isInventory() != false || dto.isInventory() != true ) {
 			product.isInventory();
 		}
 		else {
 			product.setInventory(dto.isInventory());
 		}
-		if (dto.isDiscount() != false && dto.isDiscount() != true ) {
+		if (dto.isDiscount() != false || dto.isDiscount() != true ) {
 			product.isDiscount();
 		}
 		else {
