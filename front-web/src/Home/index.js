@@ -21,14 +21,11 @@ function Home() {
     const [categoryActive, setCategoryActive] = useState();
     const [viewWorkingDay, setViewWorkingDay] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const [workingDay, setWorkingDay] = useState([]);
     const [dayWeek, setDayWeek] = useState();
-    const [dayOfWeek, setDayOfWeek] = useState();
-    const {items} = useCart();
     const [count, setCount] = useState(0);
+    const [workingDay, setWorkingDay] = useState([]);
+    const {items} = useCart();
     let date = new Date();
-    let day = 1 + date.getDay;
-    let hours = date.getMinutes();
 
     useEffect(() => {
 
@@ -38,16 +35,10 @@ function Home() {
     }, []);
 
     useEffect(() => {    
-
-        axios.patch(`${API_URL}/workingDay`)
-        .then(sleep)
-        .catch()
-
-        const sleep = setTimeout(() => {
-            teste();
-        }, 10000);
-
-    },[hours]);
+        teste();
+        console.log(count)
+        console.log(dayWeek)
+    }, [count]);
 
     useEffect(() => {
    
@@ -57,21 +48,15 @@ function Home() {
     },[]);
 
     const teste = () => {
-
-        while (true) {
-            if (day = count) {
-                console.log(hours);
-                console.log(day);
-                console.log(count)
-                axios.get(`${API_URL}/workingDay/${count}`)
-                .then(response => setDayWeek(response.data))
-                .then(console.log(dayWeek))
-                .catch(error => console.log(error))
-                break
-            } else {
-                setCount(count + 1);
-            }
+        axios.patch(`${API_URL}/workingDay`)
+        .then(response => setDayWeek(response.data))
+        .catch(error => console.log(error))  
+        if (dayWeek != undefined) {
+            setIsOpen(dayWeek.open)
         }
+        setTimeout(() => {
+            setCount(count + 1)
+        }, 30000);
     }
     
     return(

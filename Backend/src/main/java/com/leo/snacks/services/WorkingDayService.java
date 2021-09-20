@@ -79,10 +79,9 @@ public class WorkingDayService {
 	}
 
 	@Transactional
-	public WorkingDayDTO isOpen() {
+	public WorkingDayDTO isOpen(Integer hours) {
 		Calendar today = Calendar.getInstance();
 		Integer dayOfTheWeek = today.get(Calendar.DAY_OF_WEEK);
-		Integer hourOfDay = today.get(Calendar.HOUR_OF_DAY);
 		WorkingDay workingDay = repository.getOne(Long.valueOf(dayOfTheWeek));
 		repository
 				.findById(workingDay.getId())
@@ -91,7 +90,7 @@ public class WorkingDayService {
 						wkDay.setOpen(false);
 					}
 					else {
-						if(hourOfDay >= wkDay.getOpeningTime() && hourOfDay < wkDay.getClosingTime()) {
+						if(hours >= wkDay.getOpeningTime() && hours < wkDay.getClosingTime()) {
 							wkDay.setOpen(true);
 						} else {
 							wkDay.setOpen(false);
