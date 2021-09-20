@@ -3,6 +3,7 @@ package com.leo.snacks.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.leo.snacks.dto.AmountDiscountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -111,13 +112,13 @@ public class ProductService {
 	}
 
 	@Transactional
-	public void discount(Double discount, Long id) {
+	public void discount(AmountDiscountDTO discount, Long id) {
 		repository
 				.findById(id)
 				.map( product -> {
 					if (product.isDiscount() == false) {
-						product.setPercentageDiscount((discount * 100) / product.getPrice());
-						product.setPrice(product.getPrice() - discount);
+						product.setPercentageDiscount((discount.getAmount() * 100) / product.getPrice());
+						product.setPrice(product.getPrice() - discount.getAmount());
 						product.setDiscount(true);
 					} else {
 						throw new BusinessRuleException("The product is already on a discount");

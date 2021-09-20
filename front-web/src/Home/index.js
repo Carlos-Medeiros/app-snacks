@@ -26,7 +26,7 @@ function Home() {
     const [workingDay, setWorkingDay] = useState([]);
     const {items} = useCart();
     let date = new Date();
-
+    let seconds = date.getSeconds();
     useEffect(() => {
 
         fetchCategorys()
@@ -38,7 +38,7 @@ function Home() {
         teste();
         console.log(count)
         console.log(dayWeek)
-    }, [count]);
+    }, [seconds]);
 
     useEffect(() => {
    
@@ -48,7 +48,9 @@ function Home() {
     },[]);
 
     const teste = () => {
-        axios.patch(`${API_URL}/workingDay`)
+        let hourNow = date.getHours();
+        console.log(hourNow)
+        axios.patch(`${API_URL}/workingDay`, [18])
         .then(response => setDayWeek(response.data))
         .catch(error => console.log(error))  
         if (dayWeek != undefined) {

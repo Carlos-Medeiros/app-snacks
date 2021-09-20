@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.leo.snacks.dto.HuorNowDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,7 +47,7 @@ public class WorkingDayResource {
 	}
 
 	@PatchMapping
-	public ResponseEntity<WorkingDayDTO> isOpen(@RequestBody Integer hours) {
+	public ResponseEntity<WorkingDayDTO> isOpen(@RequestBody HuorNowDTO hours) {
 		WorkingDayDTO dto = service.isOpen(hours);
 		return ResponseEntity.ok().body(dto);
 	}

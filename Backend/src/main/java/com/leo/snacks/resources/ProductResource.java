@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 import java.net.URI;
 import java.util.List;
 
+import com.leo.snacks.dto.AmountDiscountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,7 +70,7 @@ public class ProductResource {
 
 	@PatchMapping("/discount/{id}")
 	@ResponseStatus(NO_CONTENT)
-	public void discount(@PathVariable Long id, @RequestBody Double discount) {
+	public void discount(@PathVariable Long id, @RequestBody AmountDiscountDTO discount) {
 		service.discount(discount, id);
 	}
 

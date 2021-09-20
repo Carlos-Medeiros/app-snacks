@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.leo.snacks.dto.HuorNowDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,7 +80,7 @@ public class WorkingDayService {
 	}
 
 	@Transactional
-	public WorkingDayDTO isOpen(Integer hours) {
+	public WorkingDayDTO isOpen(HuorNowDTO hours) {
 		Calendar today = Calendar.getInstance();
 		Integer dayOfTheWeek = today.get(Calendar.DAY_OF_WEEK);
 		WorkingDay workingDay = repository.getOne(Long.valueOf(dayOfTheWeek));
@@ -90,7 +91,7 @@ public class WorkingDayService {
 						wkDay.setOpen(false);
 					}
 					else {
-						if(hours >= wkDay.getOpeningTime() && hours < wkDay.getClosingTime()) {
+						if(hours.getHour() >= wkDay.getOpeningTime() && hours.getHour() < wkDay.getClosingTime()) {
 							wkDay.setOpen(true);
 						} else {
 							wkDay.setOpen(false);
