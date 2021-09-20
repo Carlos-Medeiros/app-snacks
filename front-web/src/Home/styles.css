@@ -103,22 +103,26 @@
 }
 
 .containerStatus {
-    width: 247px;
-    height: 53px;
+    width: 140px;
+    height: 40px;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-color: var(--primary-hover-color);
     border-width: 3px;
     border-radius: 10px;
     border-style: solid;
-    padding-left: 19px;
     margin-top: 30px;
+    cursor: pointer;
+}
+
+.containerStatus:hover {
+    transform: scale(1.05);
 }
 
 .pStatus {
     color: var(--primary-hover-color);
     font-size: 18px;
-    margin-left: 26px;
 }
 
 .imgHome {

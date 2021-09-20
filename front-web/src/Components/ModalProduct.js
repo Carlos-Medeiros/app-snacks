@@ -1,5 +1,4 @@
 import React from "react";
-import { ReactComponent as ArrowYellow } from '../arrow-left-yellow.svg'
 import { ReactComponent as Close } from '../close.svg'
 import './styles.css';
 import { useCart } from "react-use-cart";

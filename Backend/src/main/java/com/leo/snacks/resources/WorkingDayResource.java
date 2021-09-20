@@ -46,8 +46,10 @@ public class WorkingDayResource {
 	}
 
 	@PatchMapping
-	@ResponseStatus(NO_CONTENT)
-	public void isOpen() { service.isOpen(); }
+	public ResponseEntity<WorkingDayDTO> isOpen() {
+		WorkingDayDTO dto = service.isOpen();
+		return ResponseEntity.ok().body(dto);
+	}
 
 	@PatchMapping("/{id}/name")
 	@ResponseStatus(NO_CONTENT)

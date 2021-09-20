@@ -79,7 +79,7 @@ public class WorkingDayService {
 	}
 
 	@Transactional
-	public void isOpen() {
+	public WorkingDayDTO isOpen() {
 		Calendar today = Calendar.getInstance();
 		Integer dayOfTheWeek = today.get(Calendar.DAY_OF_WEEK);
 		Integer hourOfDay = today.get(Calendar.HOUR_OF_DAY);
@@ -91,17 +91,16 @@ public class WorkingDayService {
 						wkDay.setOpen(false);
 					}
 					else {
-						if(hourOfDay >= wkDay.getOpeningTime()) {
+						if(hourOfDay >= wkDay.getOpeningTime() && hourOfDay < wkDay.getClosingTime()) {
 							wkDay.setOpen(true);
-							wkDay = repository.save(wkDay);
-						}
-						if(hourOfDay >= wkDay.getClosingTime()) {
+						} else {
 							wkDay.setOpen(false);
 						}
 
 					}
 					return repository.save(wkDay);
 				}).orElseThrow(() -> new BusinessRuleException("Working day not found"));
+		return new WorkingDayDTO(workingDay);
 	}
 
 	@Transactional
