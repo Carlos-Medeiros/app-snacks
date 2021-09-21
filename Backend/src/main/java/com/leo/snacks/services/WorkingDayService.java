@@ -80,10 +80,8 @@ public class WorkingDayService {
 	}
 
 	@Transactional
-	public WorkingDayDTO isOpen(HuorNowDTO hours) {
-		Calendar today = Calendar.getInstance();
-		Integer dayOfTheWeek = today.get(Calendar.DAY_OF_WEEK);
-		WorkingDay workingDay = repository.getOne(Long.valueOf(dayOfTheWeek));
+	public WorkingDayDTO isOpen(Long id, HuorNowDTO hours) {
+		WorkingDay workingDay = repository.getOne(id);
 		repository
 				.findById(workingDay.getId())
 				.map( wkDay -> {
