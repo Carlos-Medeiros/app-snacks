@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						.permitAll()
 					.antMatchers(HttpMethod.PUT, "/emailValidator/{email}/{numberKey}")
 						.permitAll()
-					.antMatchers(HttpMethod.PATCH, "/user/{email}", "/workingDay")
+					.antMatchers(HttpMethod.PATCH, "/user/{email}", "/workingDay/{id}")
 						.permitAll()
 					.antMatchers("/user/details", "/user/name/{email}", "/user/phone/{email}",
 							"/user/password/{email}", "/user/delete/{email}", "/orders/readyForDelivery",
