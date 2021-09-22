@@ -1,23 +1,10 @@
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
-import axios from "axios";
-import { API_URL } from "../api";
 
 function CategoryList({ categorys, productItemContainer, setProductItemContainer, setCategoryActive }) {
     
     const [toggleState, setToggleState] = useState(0);
     const [productItemCard, setProductItemCard] = useState(productItemContainer);
-
-    const count = () => {
-        setToggleState(toggleState + 1)
-    }
-
-    useEffect(() => {
-        axios.get(`${API_URL}/categorys/${toggleState}`)
-        .then()
-        .catch(count)
-
-    }, [toggleState]);
 
     useEffect(() => {
         setProductItemContainer(productItemCard)
@@ -26,6 +13,12 @@ function CategoryList({ categorys, productItemContainer, setProductItemContainer
     useEffect(() => {
         setProductItemCard(productItemContainer)
     }, [productItemContainer]);
+
+    categorys.map(category => {
+        if (toggleState === 0) {
+            setToggleState(category.id)
+        }
+    })
 
     return (
         <>

@@ -6,13 +6,14 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import AsyncSelect from 'react-select/async';
 import { API_URL, fetchLocalMapBox } from '../api';
 import axios from 'axios';
-import { TextField } from '@material-ui/core';
 
 function Orders({onClose = () => {}}) {
-
     const [delivery, setDelivery] = useState();
     const [card, setCard] = useState();
-    const {emptyCart, cartTotal, totalUniqueItems, items, removeItem, updateItemQuantity} = useCart();
+    const {emptyCart, cartTotal, items, removeItem, updateItemQuantity, totalItems} = useCart();
+    console.log(items)
+    console.log(totalItems)
+
     const [total, setTotal] = useState(cartTotal);
     const initialPosition = {
         lat: -8.2001466, 
@@ -27,6 +28,7 @@ function Orders({onClose = () => {}}) {
     const [changeMoney, setChangeMoney] = useState(null);
     const [amountChangeMoney, setAmountChangeMoney] = useState();
     const [deliveryDetails, setDeliveryDetails] = useState('');
+    const [productsIds, setProductsIds] = useState([]);
 
     const count = () => {
         setToggleState(toggleState + 1)
@@ -79,6 +81,30 @@ function Orders({onClose = () => {}}) {
             setTotal(cartTotal)
         }
     }, [items]);
+
+
+    const sendOrder = () => {
+        
+
+        items.map( products => {
+            let count = 0;
+            while (count != products.quantity) {
+                productsIds.push(products)
+                count += 1
+                console.log(count)
+            }
+            count = 0
+        });
+        console.log(productsIds)
+        const productsIdsts = productsIds.map(({ id }) => ({ id }));
+        console.log(productsIdsts)
+        emptyCart();
+        //axios.post(`${API_URL}/orders`, {
+
+        //})
+        //.then(response => setTaxDelivey(response.data))
+        //.catch(count)
+    }
 
     const loadOptions = async (inputValue, callback) => {
         const response = await fetchLocalMapBox(inputValue);
@@ -253,7 +279,7 @@ function Orders({onClose = () => {}}) {
                                     </div>
                                 </div> 
                             </div>
-                            <div className="container-btn-finish-order">
+                            <div className="container-btn-finish-order" onClick={() => sendOrder()}>
                                 <p className="btn-finish-order">Concluir Pedido</p>
                             </div>
                         </div>

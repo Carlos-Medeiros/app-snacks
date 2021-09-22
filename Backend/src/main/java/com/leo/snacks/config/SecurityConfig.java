@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 				.authorizeRequests()
 					.antMatchers(HttpMethod.GET,"/categorys",
-							"/categorys/{id}", "/deliveryTax/{id}", "/products/{id}",
+							"/categorys/{id}", "/deliveryTax/{id}", "/deliveryTax", "/products/{id}",
 							"/workingDay", "/workingDay/{id}")
 						.permitAll()
 					.antMatchers(HttpMethod.POST, "/user/register",

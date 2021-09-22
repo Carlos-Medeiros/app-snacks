@@ -35,9 +35,7 @@ function Home() {
     }, []);
 
     useEffect(() => {    
-        teste();
-        console.log(count)
-        console.log(dayWeek)
+        requestDay();
     }, [count]);
 
     useEffect(() => {
@@ -47,21 +45,23 @@ function Home() {
         .catch(error => console.log(error))
     },[]);
 
-    const teste = () => {
+    const requestDay = () => {
         let hourNow = date.getHours();
-        console.log(hourNow)
-        console.log(day)
-        axios.patch(`${API_URL}/workingDay`, {
+        axios.patch(`${API_URL}/workingDay/${day}`, {
             hour:hourNow
         })
         .then(response => setDayWeek(response.data))
         .catch(error => console.log(error))  
         if (dayWeek != undefined) {
             setIsOpen(dayWeek.open)
+        } else {
+            setTimeout(() => {
+                setCount(count + 1)
+            }, 1000);            
         }
         setTimeout(() => {
             setCount(count + 1)
-        }, 200000);
+        }, 60000);
     }
     
     return(
