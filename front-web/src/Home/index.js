@@ -63,7 +63,7 @@ function Home() {
             setCount(count + 1)
         }, 60000);
     }
-    
+
     return(
         <>  
             {viewOrders ? <Orders onClose={() => setViewOrders(false)}/>:
@@ -87,7 +87,7 @@ function Home() {
                             <p className="pHome">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Blandit nisi proin fringilla nibh.</p>
                             <div className="containerLocal">
                                 <Local className="imgLocal"/>
-                                <p className="pLocal">Rua Aracatu, 400, Jaboatão dos Guararapes, PE</p>
+                                <p className="pLocal">Rua Cuiabá, 835, Jaboatão dos Guararapes, PE</p>
                             </div>
                             <div className="containerStatus" onClick={() => setViewWorkingDay(true)}>
                                 {isOpen ? 
@@ -124,7 +124,7 @@ function Home() {
                     </div>
                 </div>
                 <div className="containerFooter">
-                    <h2 className="footer">Footer</h2>
+                    <h2 className="footer">Rodapé</h2>
                 </div>
             </div>}
         </>

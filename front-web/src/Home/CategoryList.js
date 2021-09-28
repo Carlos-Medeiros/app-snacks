@@ -14,11 +14,13 @@ function CategoryList({ categorys, productItemContainer, setProductItemContainer
         setProductItemCard(productItemContainer)
     }, [productItemContainer]);
 
-    categorys.map(category => {
-        if (toggleState === 0) {
-            setToggleState(category.id)
+
+    if (toggleState == 0) {
+        if (categorys.length > 0) {
+            setToggleState(categorys[0].id)
         }
-    })
+    }
+
 
     return (
         <>
@@ -26,16 +28,14 @@ function CategoryList({ categorys, productItemContainer, setProductItemContainer
                 <div className="containerCategoriaName">
                     <p className="categoriaName">Categorias</p>
                 </div>
-                <div>
+                <div className="containerItensCategoria">
                     {categorys.map(category => (
                         
-                        <div  className="containerItensCategoria">
-                            <div
+                        <p className={toggleState === category.id ? "category-name-active" : "category-name"}
                             onClick={() => setToggleState(category.id)}>
-                                <p className={toggleState === category.id ? "category-name-active" : "category-name"}>{category.name}</p>
-                                {toggleState === category.id ? setCategoryActive(category.name): null}
-                            </div>
-                        </div>
+                            {category.name}                 
+                            {toggleState === category.id ? setCategoryActive(category.name): null}
+                        </p>
                     ))}
                 </div>
             </div>

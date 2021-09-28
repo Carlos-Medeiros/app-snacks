@@ -6,15 +6,19 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import AsyncSelect from 'react-select/async';
 import { API_URL, fetchLocalMapBox } from '../api';
 import axios from 'axios';
+import ModalOrder from '../Components/ModalOrder';
+import ModalError from '../Components/ModalError';
 
 function Orders({onClose = () => {}}) {
     const [delivery, setDelivery] = useState();
     const [card, setCard] = useState();
-    const {emptyCart, cartTotal, items, removeItem, updateItemQuantity, totalItems} = useCart();
-    console.log(items)
-    console.log(totalItems)
-
+    const {emptyCart, cartTotal, items, removeItem, updateItemQuantity} = useCart();
+    const [deliveryId, setDeliveryId] = useState([]); 
+    const [isOpen, setIsOpen] = useState(false);
     const [total, setTotal] = useState(cartTotal);
+    const [error, setError] = useState([]);
+    const [isError, setIsError] = useState(false);
+
     const initialPosition = {
         lat: -8.2001466, 
         lng: -34.9252881
@@ -22,24 +26,33 @@ function Orders({onClose = () => {}}) {
     const [address, setAddress] = useState({
         position: initialPosition
     });
-    const [orderLocation, setOrderLocation] = useState();
-    const [toggleState, setToggleState] = useState(0);
-    const [taxDelivery, setTaxDelivey] = useState();
-    const [changeMoney, setChangeMoney] = useState(null);
-    const [amountChangeMoney, setAmountChangeMoney] = useState();
-    const [deliveryDetails, setDeliveryDetails] = useState('');
-    const [productsIds, setProductsIds] = useState([]);
 
-    const count = () => {
-        setToggleState(toggleState + 1)
-    }
+    const [orderLocation, setOrderLocation] = useState();
+    const [taxDelivery, setTaxDelivey] = useState();
+    const [listTaxDelivery, setListTaxDelivery] = useState([]);
+    const [changeMoney, setChangeMoney] = useState(null);
+    const [amountChangeMoney, setAmountChangeMoney] = useState("");
+    const [deliveryDetails, setDeliveryDetails] = useState("");
+    const [productsIds, setProductsIds] = useState([]);
+    const [code, setCode] = useState();
+
+    let numberRandom = 0;
+
 
     useEffect(() => {
-        axios.get(`${API_URL}/deliveryTax/${toggleState}`)
-        .then(response => setTaxDelivey(response.data))
-        .catch(count)
+        axios.get(`${API_URL}/deliveryTax`)
+        .then(response => setListTaxDelivery(response.data))
+        .catch()
+        setOrderLocation({
+            latitude: -8.200085,
+            longitude: -34.9274177,
+            address: "Rua Cuiabá, 835 - Candeias"
+        })
 
-    }, [toggleState]);
+        
+    numberRandom = Math.floor(Math.random() * 999999 + 100000)
+    setCode(numberRandom)
+    }, []);
 
     function formatPrice(price) {
         const formatter = new Intl.NumberFormat('pt-BR', {
@@ -55,11 +68,19 @@ function Orders({onClose = () => {}}) {
             setDelivery(true)
             setTotal(total + taxDelivery.deliveryTax)
         }
+        setDeliveryDetails("")
     }
 
     const deliveryDisabled = () => {
         setDelivery(false)
         setTotal(cartTotal)
+        setOrderLocation({
+            latitude: -8.200085,
+            longitude: -34.9274177,
+            address: "Rua Cuiabá, 835 - Candeias"
+        })
+
+        setDeliveryDetails("Retirar na loja")
     }
 
     const choiceCard = () => {
@@ -81,30 +102,96 @@ function Orders({onClose = () => {}}) {
             setTotal(cartTotal)
         }
     }, [items]);
-
-
-    const sendOrder = () => {
-        
-
+    
+    const completedOrder = () => {      
         items.map( products => {
             let count = 0;
             while (count != products.quantity) {
                 productsIds.push(products)
                 count += 1
-                console.log(count)
             }
             count = 0
         });
-        console.log(productsIds)
-        const productsIdsts = productsIds.map(({ id }) => ({ id }));
-        console.log(productsIdsts)
-        emptyCart();
-        //axios.post(`${API_URL}/orders`, {
+        const allProductsIds = productsIds.map(({ id }) => ({ id }));
 
-        //})
-        //.then(response => setTaxDelivey(response.data))
-        //.catch(count)
+        if (deliveryDetails == '' 
+            | card == undefined 
+            | amountChangeMoney == ""
+            | delivery == undefined 
+            | allProductsIds.length == 0) {
+            
+            if (delivery == undefined) {
+                error.push("Forma de entrega não selecionada")
+                setIsError(true)
+            }
+            if (delivery == true & deliveryDetails == "") {
+                error.push("Detalhes para a entrega em branco")
+                setIsError(true)
+            }
+            if (card == undefined) {
+                error.push("Forma de pagamento não selecionada")
+                setIsError(true)
+            }
+            if (card == false) {
+                if(changeMoney == false) {
+                    error.push("Troco não selecionado")
+                    setIsError(true)
+                }
+                if(changeMoney == true & amountChangeMoney.length == ""){
+                    error.push("Valor para troco em branco")
+                    setIsError(true)
+                }
+            }
+            if (allProductsIds.length == 0) {
+                error.push("Nenhum item selecionado")
+                setIsError(true)
+            } 
+        }
+
+        if (isError === false & error.length === 0) {
+            sendOrder(allProductsIds);
+        }
     }
+
+    const sendOrder = (allProductsIds) => {
+        numberRandom = Math.floor(Math.random() * 999999 + 100000)
+        while (numberRandom > 999999) {
+            numberRandom = Math.floor(Math.random() * 999999 + 100000)
+        }
+        setCode(numberRandom)
+        setDeliveryId([])
+        deliveryId.push(taxDelivery)
+
+
+        
+        const allTaxDeliveryId = deliveryId.map(({ id }) => ({ id }));
+
+        if (changeMoney == true) {
+            setAmountChangeMoney(parseInt(amountChangeMoney))
+        }
+
+        axios.post(`${API_URL}/orders`, {
+            code: numberRandom,
+            address: orderLocation.address,
+            latitude: orderLocation.latitude,
+            longitude: orderLocation.longitude,
+            details: deliveryDetails,
+            paymantToCard: card,
+            change: amountChangeMoney,
+            delivery: delivery,
+            products: allProductsIds,
+            deliveryTax: allTaxDeliveryId
+        })
+        .then(cleanAttributes())
+        .catch(error => console.log(error))
+    }
+
+    const cleanAttributes = () => {
+        emptyCart()
+        setDeliveryId([])
+        setIsOpen(true)
+    }
+
 
     const loadOptions = async (inputValue, callback) => {
         const response = await fetchLocalMapBox(inputValue);
@@ -130,7 +217,13 @@ function Orders({onClose = () => {}}) {
           longitude: place.position.lng,
           address: place.label
         });
-      };
+    };
+
+    if (taxDelivery === undefined) {
+        if (listTaxDelivery.length > 0) {
+            setTaxDelivey(listTaxDelivery[0])
+        }
+    }
 
     return(
         <>
@@ -221,6 +314,14 @@ function Orders({onClose = () => {}}) {
                                 </div> :
                             null}
                         </div>
+                        {isError? 
+                            <ModalError listError={error}
+                                        onClose={() => setIsError(false)}
+                                        cleanError={() => setError([])}/>
+                        :null}
+                        {isOpen ? 
+                            <ModalOrder code={code}/>
+                        :null}
                         <div className="container-card-order-item">
                             <div className="container-order-item">
                                 <div className="container-order-item-tittle">
@@ -279,7 +380,7 @@ function Orders({onClose = () => {}}) {
                                     </div>
                                 </div> 
                             </div>
-                            <div className="container-btn-finish-order" onClick={() => sendOrder()}>
+                            <div className="container-btn-finish-order" onClick={() => completedOrder()}>
                                 <p className="btn-finish-order">Concluir Pedido</p>
                             </div>
                         </div>
