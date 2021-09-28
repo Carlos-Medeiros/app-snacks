@@ -27,6 +27,7 @@ function Home() {
     const {items} = useCart();
     let date = new Date();
     let day = date.getDay();
+
     useEffect(() => {
 
         fetchCategorys()
@@ -47,7 +48,7 @@ function Home() {
 
     const requestDay = () => {
         let hourNow = date.getHours();
-        axios.patch(`${API_URL}/workingDay/${day}`, {
+        axios.patch(`${API_URL}/workingDay/${day + 1 }`, {
             hour:hourNow
         })
         .then(response => setDayWeek(response.data))
