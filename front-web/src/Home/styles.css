@@ -183,7 +183,7 @@
 }
 
 .category-name {
-    color: gray;
+    color: rgba(196, 196, 196, 0.5);
     font-size: 20px;
 }
 
@@ -279,8 +279,7 @@
     margin-right: 50px;
     border-radius: 25px;
     background-color: var(--color-itens-opacity);
-    display: grid;
-    opacity: 70%;
+    display: none;
 }
 
 .containerItem:hover {
@@ -325,7 +324,7 @@
 }
 
 .descriptionProduct {
-    color: gray;
+    color: rgba(196, 196, 196, 0.5);
     max-height: 35px;
     letter-spacing: 0.7px;
     font-size: 14px;
@@ -508,7 +507,7 @@
     }
 
     .category-name {
-        color: gray;
+        color: rgba(196, 196, 196, 0.5);
         font-size: 12px;
         margin-right: 10px;
     }
@@ -592,19 +591,6 @@
         cursor: pointer;
     }
     
-    .containerItem-disable {
-        width: 120px;
-        height: 180px;
-        margin-top: 30px;
-        margin-bottom: 20px;
-        margin-right: auto;
-        margin-left: auto;
-        border-radius: 25px;
-        background-color: var(--color-itens-opacity);
-        display: grid;
-        opacity: 70%;
-    }
-    
     .itemProduct {
         width: 122px;
         height: 92px;
@@ -647,7 +633,7 @@
     }
     
     .descriptionProduct {
-        color: gray;
+        color: rgba(196, 196, 196, 0.5);
         max-height: 35px;
         letter-spacing: 0.7px;
         font-size: 14px;
@@ -783,7 +769,7 @@
     }
 
     .category-name {
-        color: gray;
+        color: rgba(196, 196, 196, 0.5);
         font-size: 14px;
     }
     
@@ -916,7 +902,7 @@
     }
     
     .descriptionProduct {
-        color: gray;
+        color: rgba(196, 196, 196, 0.5);
         max-height: 35px;
         letter-spacing: 0.7px;
         font-size: 14px;

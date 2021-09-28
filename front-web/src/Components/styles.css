@@ -95,19 +95,17 @@
 }
 
 .product-item-description {
-    color: var(--light-color);
+    color: rgba(196, 196, 196, 0.5);
     width: 400px;
     height: 120px;
-    opacity: 70%;
     font-size: 16px;
     margin-top: 0px;
 }
 
 .product-item-divider {
-    background-color: var(--light-color);
+    background-color: rgba(196, 196, 196, 0.1);
     width: 400px;
     height: 2px;
-    opacity: 10%;
     margin-top: -20px;
 }
 
@@ -256,19 +254,17 @@
     }
     
     .product-item-description {
-        color: var(--light-color);
+        color: rgba(196, 196, 196, 0.5);
         width: 260px;
         height: 120px;
-        opacity: 70%;
         font-size: 16px;
         margin-top: 10px;
     }
     
     .product-item-divider {
-        background-color: var(--light-color);
+        background-color: rgba(196, 196, 196, 0.1);
         width: 260px;
         height: 2px;
-        opacity: 10%;
         margin-top: -40px;
     }
     
@@ -396,19 +392,17 @@
     }
     
     .product-item-description {
-        color: var(--light-color);
+        color: rgba(196, 196, 196, 0.5);
         width: 310px;
         height: 120px;
-        opacity: 70%;
         font-size: 16px;
         margin-top: 10px;
     }
     
     .product-item-divider {
-        background-color: var(--light-color);
+        background-color: rgba(196, 196, 196, 0.1);
         width: 310px;
         height: 2px;
-        opacity: 10%;
         margin-top: -20px;
     }
     
