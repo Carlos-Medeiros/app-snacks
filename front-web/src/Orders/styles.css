@@ -481,9 +481,16 @@
     font-size: 18px;
 }
 
-.container-btn-finish-order {
-    margin-left: 263px;
+.container-btn-order {
     margin-top: 20px;
+    width: 420px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container-btn-finish-order {
     background-color: var(--primary-hover-color);
     box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.2);
     width: 177px;
@@ -496,11 +503,32 @@
 }
 
 .container-btn-finish-order:hover {
-    margin-left: 259px;
     transform: scale(1.05);
 }
 
 .btn-finish-order {
+    font-size: 14px;
+}
+
+.container-btn-cancel-order {
+    background-color: var(--primary-color);
+    box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.2);
+    width: 173px;
+    height: 39px;
+    border: 2px solid var(--primary-hover-color);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.container-btn-cancel-order:hover {
+    transform: scale(1.05);
+}
+
+.btn-cancel-order {
+    color: var(--primary-hover-color);
     font-size: 14px;
 }
 
@@ -929,6 +957,13 @@
         margin-right: 10px;
     }
 
+    .container-btn-order {
+        margin-top: 20px;
+        margin-left: 0px;
+        width: 100%;
+        display: block;
+    }
+
     .container-btn-finish-order {
         margin-left: auto;
         margin-right: auto;
@@ -951,6 +986,30 @@
     }
 
     .btn-finish-order {
+        font-size: 14px;
+    }
+
+    .container-btn-cancel-order {
+        margin-left: auto;
+        margin-right: auto;
+        background-color: var(--primary-color);
+        box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.2);
+        width: 173px;
+        height: 39px;
+        border: 2px solid var(--primary-hover-color);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    
+    .container-btn-cancel-order:hover {
+        transform: scale(1.05);
+    }
+    
+    .btn-cancel-order {
+        color: var(--primary-hover-color);
         font-size: 14px;
     }
 
@@ -1150,6 +1209,16 @@
     .change-btn-yes {
         color: var(--color-itens);
     }
+
+    .container-btn-order {
+        margin-top: 20px;
+        width: 440px;
+        margin-left: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
 
 }
 
@@ -1354,6 +1423,16 @@
         border-radius: 20px;
         box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.2);
     }
+
+    .container-btn-order {
+        margin-top: 20px;
+        width: 440px;
+        margin-left: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
 }
 
 @media (min-width: 1100px) {

@@ -249,7 +249,7 @@
     border-radius: 25px;
     background-color: var(--color-itens-opacity);
     box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.2);
-    display: grid;
+    display: block;
     cursor: pointer;
 }
 
@@ -258,7 +258,7 @@
     height: 270px;
     border-radius: 25px;
     background-color: var(--color-itens-opacity);
-    display: grid;
+    display: block;
     cursor: pointer;
 }
 
@@ -267,7 +267,7 @@
     height: 270px;
     border-radius: 25px;
     background-color: var(--primary-hover-color);
-    display: grid;
+    display: block;
     cursor: pointer;
 }
 
@@ -299,28 +299,88 @@
     color: var(--light-color);
     font-size: 20px;
     margin-left: 18px;
-    margin-top: 0px;
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 
 .nameProduct.selected {
     color: var(--color-itens);
     font-size: 20px;
     margin-left: 18px;
-    margin-top: 0px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.container-price-discount {
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 18px;
+    width: 90%;
+    height: 30px;
+    margin-bottom: 0px;
 }
 
 .priceProduct {
     color: var(--light-color);
-    font-size: 20px;
-    margin-left: 18px;
-    margin-top: -30px;
+    font-size: 18px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.container-percentage-discount {
+    background-color: var(--primary-hover-color);
+    width: 60px;
+    height: 33px;
+    border-radius: 5px;
+}
+
+.discountProduct {
+    color: var(--primary-color);
+    font-size: 14px;
+    margin: 0px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.discountProductText {
+    color: var(--primary-color);
+    font-size: 14px;
+    margin: 0px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.container-percentage-discount.selected {
+    background-color: var(--primary-color);
+    width: 60px;
+    height: 33px;
+    border-radius: 5px;
+}
+
+
+.discountProduct.selected {
+    color: var(--primary-hover-color);
+    font-size: 14px;
+    margin: 0px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.discountProductText.selected {
+    color: var(--primary-hover-color);
+    font-size: 14px;
+    margin: 0px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .priceProduct.selected {
     color: var(--color-itens);
-    font-size: 20px;
-    margin-left: 18px;
-    margin-top: -30px;
+    font-size: 18px;
+    margin-left: 0px;
+    margin-top: 0px;
 }
 
 .descriptionProduct {
@@ -329,7 +389,7 @@
     letter-spacing: 0.7px;
     font-size: 14px;
     margin-left: 18px;
-    margin-top: -25px;
+    margin-top: 5px;
     max-width: 170px;
     text-overflow: ellipsis;
     white-space: normal;
@@ -340,7 +400,7 @@
     color: var(--color-itens);
     font-size: 14px;
     margin-left: 18px;
-    margin-top: -25px;
+    margin-top: 5px;
 }
 
 .containerFooter {
@@ -609,6 +669,7 @@
         font-size: 14px;
         margin-left: 10px;
         margin-top: 0px;
+        margin-bottom: 0px;
     }
     
     .nameProduct.selected {
@@ -616,29 +677,88 @@
         font-size: 14px;
         margin-left: 10px;
         margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    
+    .container-price-discount {
+        margin-top: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-left: 10px;
+        width: 88%;
+        height: 20px;
+        margin-bottom: 0px;
     }
     
     .priceProduct {
         color: var(--light-color);
         font-size: 14px;
-        margin-left: 10px;
-        margin-top: -20px;
+        margin-top: 0px;
+        margin-bottom: 0px;
     }
     
     .priceProduct.selected {
         color: var(--color-itens);
         font-size: 14px;
-        margin-left: 10px;
-        margin-top: -20px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .container-percentage-discount {
+        background-color: var(--primary-hover-color);
+        width: 40px;
+        height: 22px;
+        border-radius: 5px;
+    }
+    
+    .discountProduct {
+        color: var(--primary-color);
+        font-size: 10px;
+        margin: 0px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .discountProductText {
+        color: var(--primary-color);
+        font-size: 10px;
+        margin: 0px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .container-percentage-discount.selected {
+        background-color: var(--primary-color);
+        width: 40px;
+        height: 22px;
+        border-radius: 5px;
+    }
+    
+    .discountProduct.selected {
+        color: var(--primary-hover-color);
+        font-size: 10px;
+        margin: 0px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .discountProductText.selected {
+        color: var(--primary-hover-color);
+        font-size: 10px;
+        margin: 0px;
+        font-weight: bold;
+        text-align: center;
     }
     
     .descriptionProduct {
         color: rgba(196, 196, 196, 0.5);
-        max-height: 35px;
+        min-height: 30px;
+        max-height: 30px;
         letter-spacing: 0.7px;
-        font-size: 14px;
+        font-size: 12px;
         margin-left: 10px;
-        margin-top: -15px;
+        margin-top: 0px;
         max-width: 100px;
         text-overflow: ellipsis;
         white-space: normal;
@@ -647,9 +767,9 @@
     
     .descriptionProduct.selected {
         color: var(--color-itens);
-        font-size: 14px;
+        font-size: 12px;
         margin-left: 10px;
-        margin-top: -15px;
+        margin-top: 0px;
     }
     
     .containerFooter {
@@ -856,7 +976,7 @@
         margin-right: 30px;
         border-radius: 25px;
         background-color: var(--color-itens-opacity);
-        display: grid;
+        display: none;
         opacity: 70%;
     }
     
@@ -877,28 +997,88 @@
         color: var(--light-color);
         font-size: 16px;
         margin-left: 18px;
-        margin-top: -10px;
+        margin-top: 10px;
+        margin-bottom: 0px;
     }
     
     .nameProduct.selected {
         color: var(--color-itens);
         font-size: 16px;
         margin-left: 18px;
-        margin-top: -10px;
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }
+
+    .container-price-discount {
+        margin-top: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-left: 18px;
+        width: 86%;
+        height: 20px;
+        margin-bottom: 0px;
     }
     
     .priceProduct {
         color: var(--light-color);
         font-size: 16px;
-        margin-left: 18px;
-        margin-top: -30px;
+        margin-top: 0px;
+        margin-bottom: 0px;
     }
+    
+    .container-percentage-discount {
+        background-color: var(--primary-hover-color);
+        width: 50px;
+        height: 28px;
+        border-radius: 5px;
+    }
+    
+    .discountProduct {
+        color: var(--primary-color);
+        font-size: 12px;
+        margin: 0px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .discountProductText {
+        color: var(--primary-color);
+        font-size: 12px;
+        margin: 0px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .container-percentage-discount.selected {
+        background-color: var(--primary-color);
+        width: 50px;
+        height: 28px;
+        border-radius: 5px;
+    }
+    
+    .discountProduct.selected {
+        color: var(--primary-hover-color);
+        font-size: 12px;
+        margin: 0px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .discountProductText.selected {
+        color: var(--primary-hover-color);
+        font-size: 12px;
+        margin: 0px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
     
     .priceProduct.selected {
         color: var(--color-itens);
         font-size: 16px;
-        margin-left: 18px;
-        margin-top: -30px;
+        margin-top: 0px;
+        margin-bottom: 0px;
     }
     
     .descriptionProduct {
@@ -907,7 +1087,7 @@
         letter-spacing: 0.7px;
         font-size: 14px;
         margin-left: 18px;
-        margin-top: -25px;
+        margin-top: 0px;
         max-width: 120px;
         text-overflow: ellipsis;
         white-space: normal;
@@ -918,7 +1098,7 @@
         color: var(--color-itens);
         font-size: 14px;
         margin-left: 18px;
-        margin-top: -25px;
+        margin-top: 0px;
     }
     
     .containerFooter {

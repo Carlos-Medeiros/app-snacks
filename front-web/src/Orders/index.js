@@ -380,8 +380,13 @@ function Orders({onClose = () => {}}) {
                                     </div>
                                 </div> 
                             </div>
-                            <div className="container-btn-finish-order" onClick={() => completedOrder()}>
-                                <p className="btn-finish-order">Concluir Pedido</p>
+                            <div className="container-btn-order">
+                                <div className="container-btn-cancel-order" onClick={onClose}>
+                                    <p className="btn-cancel-order">Cancelar Pedido</p>
+                                </div>
+                                <div className="container-btn-finish-order" onClick={() => completedOrder()}>
+                                    <p className="btn-finish-order">Concluir Pedido</p>
+                                </div>
                             </div>
                         </div>
                        
