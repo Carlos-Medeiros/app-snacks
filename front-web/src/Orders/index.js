@@ -225,6 +225,11 @@ function Orders({onClose = () => {}}) {
         }
     }
 
+    const cancelOrder = () => {
+        emptyCart()
+        onClose()
+    }
+
     return(
         <>
             <div className="container-orders">
@@ -381,7 +386,7 @@ function Orders({onClose = () => {}}) {
                                 </div> 
                             </div>
                             <div className="container-btn-order">
-                                <div className="container-btn-cancel-order" onClick={onClose}>
+                                <div className="container-btn-cancel-order" onClick={() => cancelOrder()}>
                                     <p className="btn-cancel-order">Cancelar Pedido</p>
                                 </div>
                                 <div className="container-btn-finish-order" onClick={() => completedOrder()}>

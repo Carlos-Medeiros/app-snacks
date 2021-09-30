@@ -25,8 +25,7 @@ function ProductCard({ product, setProductItem}) {
                         <h2 className={`priceProduct ${inCart(product.id) ? 'selected' : ''}`}>{formatPrice(product.price)}</h2>
                         {product.discount?
                         <div className={`container-percentage-discount ${inCart(product.id) ? 'selected' : ''}`}>
-                            <p className={`discountProduct ${inCart(product.id) ? 'selected' : ''}`}>{product.percentageDiscount.toFixed(2)}%</p>
-                            <p className={`discountProductText ${inCart(product.id) ? 'selected' : ''}`}>OFF</p>
+                            <p className={`discountProduct ${inCart(product.id) ? 'selected' : ''}`}>-{product.percentageDiscount.toFixed(0)}%</p>
                         </div>
                         :null}
                     </div>
@@ -40,8 +39,7 @@ function ProductCard({ product, setProductItem}) {
                         <h2 className={`priceProduct`}>{formatPrice(product.price)}</h2>
                         {product.discount?
                         <div className="container-percentage-discount">
-                            <h2 className={`discountProduct`}>{product.percentageDiscount.toFixed(2)}%</h2>
-                            <p className={`discountProductText`}>OFF</p>
+                            <h2 className={`discountProduct`}>-{product.percentageDiscount.toFixed(0)}%</h2>
                         </div>
                         :null}
                     </div>
