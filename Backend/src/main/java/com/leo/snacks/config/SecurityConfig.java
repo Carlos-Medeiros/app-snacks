@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 					.antMatchers(HttpMethod.GET,"/categorys",
 							"/categorys/{id}", "/deliveryTax/{id}", "/deliveryTax", "/products/{id}",
-							"/workingDay", "/workingDay/{id}")
+							"/workingDay", "/workingDay/{id}", "/orders/{code}")
 						.permitAll()
 					.antMatchers(HttpMethod.POST, "/user/register",
 							"/user/login", "/keyValidation", "/emailValidator",
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						.permitAll()
 					.antMatchers("/user/details", "/user/name/{email}", "/user/phone/{email}",
 							"/user/password/{email}", "/user/delete/{email}", "/orders/readyForDelivery",
-                            "/orders/{id}/delivered", "/orders/{code}")
+                            "/orders/{id}/delivered")
                         .hasAnyRole("DELIVERYMAN", "ADMIN")
                     .anyRequest()
                         .hasRole("ADMIN")

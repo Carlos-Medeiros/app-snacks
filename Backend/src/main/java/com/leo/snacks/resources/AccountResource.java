@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 import java.security.Principal;
 import java.util.List;
 
+import com.leo.snacks.dto.AccountDeliverymanDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +40,8 @@ public class AccountResource {
 	private JwtService jwtService;
 	
 	@GetMapping
-	public ResponseEntity<List<AccountDTO>> findAll() {
-		List<AccountDTO> list = service.findAll();
+	public ResponseEntity<List<AccountDeliverymanDTO>> findAll() {
+		List<AccountDeliverymanDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	

@@ -3,6 +3,7 @@ package com.leo.snacks.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.leo.snacks.dto.AccountDeliverymanDTO;
 import com.leo.snacks.dto.CredentialsDTO;
 import com.leo.snacks.exception.BusinessRuleException;
 import com.leo.snacks.exception.invalidPasswordException;
@@ -30,9 +31,9 @@ public class AccountService implements UserDetailsService {
 	private PasswordEncoder encoder;
 	
 	@Transactional(readOnly = true)
-	public List<AccountDTO> findAll() {
+	public List<AccountDeliverymanDTO> findAll() {
 		List<Account> list = repository.findAll();
-		return list.stream().map(x -> new AccountDTO(x)).collect(Collectors.toList());
+		return list.stream().map(x -> new AccountDeliverymanDTO(x)).collect(Collectors.toList());
 	}
 	
 	@Transactional(readOnly = true)

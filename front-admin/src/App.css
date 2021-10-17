@@ -1,0 +1,21 @@
+:root {
+  --primary-color: #191A1D;
+  --primary-hover-color: #FFDD00;
+  --color-itens: #121315;
+  --secondary-color: #B7B7B7;
+  --light-color: #FFFFFF;
+  --color-itens-opacity: rgba(68, 68, 68);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+}

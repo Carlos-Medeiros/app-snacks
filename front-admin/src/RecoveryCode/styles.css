@@ -1,0 +1,112 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-login {
+    background-color: var(--color-itens);
+    width: 400px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    display: block;
+    box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.3);
+}
+
+.container-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.logo {
+    width: 250px;
+}
+
+.container-login-form {
+    margin-top: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+}
+
+.form-text {
+    color: var(--light-color);
+    margin-left: 10px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.form-code {
+    margin-top: 5px;
+    height: 30px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    background-color: var(--color-itens);
+    color: var(--primary-hover-color);
+    box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.3);
+    border-radius: 5px;
+    border: none;
+}
+
+.container-error {
+    margin-top: 10px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.form-error {
+    color: var(--primary-hover-color);
+    margin-left: 10px;
+}
+
+.container-login-button {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: var(--primary-hover-color);
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 5px 5px 30px 3px rgba(0, 0, 0,0.3);
+}
+
+.container-login-button:hover {
+    transform: scale(1.05);
+}
+
+.resend-code{
+    color: var(--light-color);
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;    
+}
+
+.resend-code:hover {
+    transform: scale(1.05);
+}
+
+.back-button {
+    color: var(--light-color);
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    transform: scale(1.05);
+}
