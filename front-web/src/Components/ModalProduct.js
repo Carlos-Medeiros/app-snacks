@@ -9,6 +9,15 @@ function ModalProduct({ onClose= () => {}, productItemContainer, categoryActive}
         removeItem,
         inCart} = useCart();
     
+    function formatPrice(price) {
+        const formatter = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+
+        return formatter.format(price);
+    }
+
     return (
         <div className="modal">
             <div className="modal-container">
@@ -19,12 +28,19 @@ function ModalProduct({ onClose= () => {}, productItemContainer, categoryActive}
                     <img src={productItemContainer.imageUri} className="product-body-img" alt={productItemContainer.name} />
                 </div>
                 <div className="container-product-description">
-                    <h2 className="product-item-name">{productItemContainer.name}</h2>
+                    <div className="container-product-name-discount">
+                        <h2 className="product-item-name">{productItemContainer.name}</h2>
+                        {productItemContainer.discount?
+                            <div className="modal-container-percentage-discount">
+                                <p className="modal-product-discount">-{productItemContainer.percentageDiscount.toFixed(0)}%</p>
+                            </div>
+                        :null}
+                    </div>
                     <p className="product-item-description">{productItemContainer.description}</p>
                     <div className="product-item-divider"></div>
                     <div className="container-product-item-price">
                         <p className="product-item-value">Valor:</p>
-                        <p className="product-item-price">R${productItemContainer.price},00</p>
+                        <p className="product-item-price">{formatPrice(productItemContainer.price)}</p>
                     </div>
                     <div className="container-product-buttons">
     
