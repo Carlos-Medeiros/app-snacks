@@ -14,7 +14,7 @@ function Login() {
     const [isForgot, setIsForgot] = useState(false);
 
     let history = useHistory();
-    
+
     const login = () => {
         axios.post(`${API_URL}/user/login`, {
             email: email,

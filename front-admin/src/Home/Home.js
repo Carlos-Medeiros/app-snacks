@@ -2,9 +2,12 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { API_URL } from '../api';
+import Category from '../Category/Category';
 import Deliveryman from '../Deliveryman/Deliveryman';
-import { ReactComponent as Logo } from '../logo.svg'
+import { ReactComponent as Logo } from '../logo.svg';
 import Order from '../Order/Order';
+import Product from '../Product/Product';
+import Schedule from '../Schedule/Schedule';
 import './styles.css';
 
 function Home() {
@@ -26,11 +29,16 @@ function Home() {
         setToggleState(num)
     }
 
+    const exit = () => {
+        localStorage.setItem('@token', 'a');
+        history.push('/')
+    }
+
     return(
         <div className="container-home">
             <div className="container-home-header">
                 <Logo className="logo"/>
-                <div className="container-btn-exit">
+                <div className="container-btn-exit" onClick={()=>exit()}>
                     <p className="btn-exit">Sair</p>
                 </div>
             </div>
@@ -55,9 +63,9 @@ function Home() {
             <div className="container-home-contents">
                 {toggleState === 1 ? <Order/> : null}
                 {toggleState === 2 ? <Deliveryman/> : null}
-                {toggleState === 3 ? null : null}
-                {toggleState === 4 ? null : null}
-                {toggleState === 5 ? null : null}
+                {toggleState === 3 ? <Product/> : null}
+                {toggleState === 4 ? <Category/> : null}
+                {toggleState === 5 ? <Schedule/> : null}
             </div>
         </div>
     )

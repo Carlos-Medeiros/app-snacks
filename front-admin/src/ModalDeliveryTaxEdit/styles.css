@@ -1,0 +1,121 @@
+.modal-category {
+    background-color: var(--color-itens);
+    color: var(--light-color);
+    width: 350px;
+    margin-top: 10px;
+    border-radius: 15px;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25px;
+}
+
+.modal-category-tittle {
+    color: var(--primary-hover-color);
+    text-align: center;
+}
+
+.modal-category-text {
+    text-align: center;
+}
+
+.modal-category-options-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-option-btn-no {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 30px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-hover-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container-option-btn-no:hover {
+    transform: scale(1.05);
+}
+
+.option-btn-no {
+    color: var(--primary-hover-color);
+}
+
+.container-option-btn-yes {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 30px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-hover-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container-option-btn-yes:hover {
+    transform: scale(1.05);
+}
+
+.category-option-btn-yes {
+    color: var(--color-itens);
+    font-weight: bold;
+}
+
+.container-modal-category-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    margin-bottom: 0px;
+}
+
+.modal-category-tittle-input {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.modal-category-input {
+    width: 150px;
+    margin-bottom: 3px;
+    border: none;
+    color: var(--primary-hover-color);
+    background-color: var(--color-itens-opacity);
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+    resize: none;
+}
+
+.modal-category-input-id {
+    width: 50px;
+    margin-bottom: 3px;
+    border: none;
+    color: var(--primary-hover-color);
+    background-color: var(--color-itens-opacity);
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+    resize: none;
+}
+
+
+.category-error-message {
+    color: var(--primary-hover-color);
+    text-align: center;
+    margin-top: 2px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+

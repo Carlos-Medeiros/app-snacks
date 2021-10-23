@@ -4,7 +4,7 @@ import './styles.css';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 
-function ModalOrder({ onClose = () => {}, order}) {
+function ModalOrder({ onClose = () => {}, request = () => {}, order}) {
 
     const [isDelete, setIsDelete] = useState(true);
 
@@ -21,7 +21,8 @@ function ModalOrder({ onClose = () => {}, order}) {
                     draggable: true,
                     progress: undefined,
                     theme: 'dark'
-                });                
+                });     
+                request();           
                 onClose();
             }
         })
@@ -41,7 +42,8 @@ function ModalOrder({ onClose = () => {}, order}) {
                     draggable: true,
                     progress: undefined,
                     theme: 'dark'
-                });                
+                });           
+                request();     
                 onClose();
             }
         })
@@ -62,6 +64,7 @@ function ModalOrder({ onClose = () => {}, order}) {
                     progress: undefined,
                     theme: 'dark'
                 });
+                request();
                 onClose();
             }
         })
@@ -82,6 +85,7 @@ function ModalOrder({ onClose = () => {}, order}) {
                     progress: undefined,
                     theme: 'dark'
                 });
+                request();
                 onClose();
             }
         })
@@ -102,6 +106,7 @@ function ModalOrder({ onClose = () => {}, order}) {
                     progress: undefined,
                     theme: 'dark'
                 });
+                request();
                 onClose();
             }
         })
@@ -122,6 +127,7 @@ function ModalOrder({ onClose = () => {}, order}) {
                     progress: undefined,
                     theme: 'dark'
                 });
+                request();
                 onClose();
             }
         })
@@ -205,7 +211,7 @@ function ModalOrder({ onClose = () => {}, order}) {
                 </div>
             : 
                 <div className="modal-delete">
-                    <h3 className="modal-delete-tittle">Você está preste a escluir um produto</h3>
+                    <h3 className="modal-delete-tittle">Você está preste a escluir um pedido</h3>
                     <p className="modal-delete-text">Tem certeza?</p>
                     <div className="modal-delete-options-btn">
                         <div className="container-option-btn-no">

@@ -1,0 +1,145 @@
+.modal-discount {
+    background-color: var(--color-itens);
+    color: var(--light-color);
+    width: 440px;
+    margin-top: 10px;
+    border-radius: 15px;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25px;
+}
+
+.modal-discount-tittle {
+    color: var(--primary-hover-color);
+    text-align: center;
+}
+
+.modal-discount-text {
+    text-align: center;
+}
+
+.modal-discount-options-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-option-btn-no {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-hover-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container-option-btn-no:hover {
+    transform: scale(1.05);
+}
+
+.option-btn-no {
+    color: var(--primary-hover-color);
+}
+
+.container-option-btn-yes {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-hover-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container-option-btn-yes:hover {
+    transform: scale(1.05);
+}
+
+.option-btn-yes {
+    color: var(--primary-hover-color);
+}
+
+.container-modal-discount-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    margin-bottom: 0px;
+}
+
+.modal-discount-tittle-input {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.modal-discount-input {
+    width: 55px;
+    margin-bottom: 3px;
+    border: none;
+    color: var(--primary-hover-color);
+    background-color: var(--color-itens-opacity);
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+    resize: none;
+}
+
+.discount-error-message {
+    color: var(--primary-hover-color);
+    text-align: center;
+    margin-top: 2px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-option-btn-cancel {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-hover-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container-option-btn-cancel:hover {
+    transform: scale(1.05);
+}
+
+.option-btn-cancel {
+    color: var(--primary-hover-color);
+}
+
+.container-option-btn-save {
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:var(--primary-hover-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container-option-btn-save:hover {
+    transform: scale(1.05);
+}
+
+.option-btn-save {
+    color: var(--color-itens);
+    font-weight: bold;
+}

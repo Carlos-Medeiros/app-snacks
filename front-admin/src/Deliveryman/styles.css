@@ -1,10 +1,49 @@
+.container-tax-delivery {
+    background-color: var(--color-itens);
+    margin-top: 30px;
+    height: 100px;
+    width: 12%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+
+.container-tax-delivery-tittle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid var(--primary-color);
+    background-color: red;
+}
+
+.tax-delivery-tittle {
+    color: var(--color-itens-opacity);
+    font-size: 16px;
+}
+
+.tax-delivery {
+    font-size: 16px;
+    color: var(--primary-hover-color);
+    text-align: center;
+    cursor: pointer;
+}
+
+.tax-delivery:hover {
+    transform: scale(1.05);
+}
+
 .container-deliveryman {
     background-color: var(--color-itens);
-    margin-top: 50px;
+    margin-top: 20px;
     width: 61%;
     margin-left: auto;
     margin-right: auto;
     padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
     border-radius: 10px;
 }
 
@@ -30,7 +69,7 @@
 }
 
 .container-header-email {
-    width: 290px;
+    width: 280px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -44,7 +83,7 @@
 }
 
 .container-header-phone {
-    width: 150px;
+    width: 140px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -58,7 +97,7 @@
 }
 
 .container-header-status {
-    width: 100px;
+    width: 120px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -82,4 +121,138 @@
 .header-admin {
     color: var(--color-itens-opacity);
     font-size: 16px;
+}
+
+.container-deliveryman-contents {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 2px solid var(--primary-color);
+    cursor: pointer;
+}
+
+.container-deliveryman-contents:hover {
+    transform: scale(1.01);
+}
+
+.container-deliveryman-name {
+    width: 190px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid var(--primary-color);
+}
+
+.deliveryman-name {
+    font-size: 14px;
+    color: var(--primary-hover-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.container-deliveryman-email {
+    width: 280px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid var(--primary-color);
+}
+
+.deliveryman-email {
+    font-size: 14px;
+    color: var(--primary-hover-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.container-deliveryman-phone {
+    width: 140px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid var(--primary-color);
+}
+
+.deliveryman-phone {
+    font-size: 14px;
+    color: var(--primary-hover-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.container-deliveryman-status {
+    width: 120px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid var(--primary-color);
+}
+
+.deliveryman-status-pending {
+    font-size: 14px;
+    color: var(--light-color);
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.deliveryman-status-accepted {
+    font-size: 14px;
+    color: rgb(14, 130, 14);
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.deliveryman-status-rejected {
+    font-size: 14px;
+    color: rgb(218, 38, 38);
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.deliveryman-status-disabled {
+    font-size: 14px;
+    color: var(--color-itens-opacity);
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.container-deliveryman-admin {
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deliveryman-admin-yes {
+    font-size: 14px;
+    color: var(--primary-hover-color);
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.deliveryman-admin-no {
+    font-size: 14px;
+    color: var(--color-itens-opacity);
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

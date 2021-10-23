@@ -1,0 +1,76 @@
+.modal-delete {
+    background-color: var(--color-itens);
+    color: var(--light-color);
+    width: 440px;
+    margin-top: 10px;
+    border-radius: 15px;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25px;
+}
+
+.modal-delete-tittle {
+    color: var(--primary-hover-color);
+    text-align: center;
+}
+
+.modal-delete-text {
+    text-align: center;
+}
+
+.modal-delete-error {
+    color: var(--primary-hover-color);
+    text-align: center;
+}
+
+.modal-delete-options-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-option-btn-no {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-hover-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container-option-btn-no:hover {
+    transform: scale(1.05);
+}
+
+.option-btn-no {
+    color: var(--primary-hover-color);
+}
+
+.container-delete-option-btn-yes {
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-hover-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container-delete-option-btn-yes:hover {
+    transform: scale(1.05);
+}
+
+.delete-option-btn-yes {
+    color: var(--color-itens);
+    font-weight: bold;
+}

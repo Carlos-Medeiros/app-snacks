@@ -28,7 +28,7 @@ public class CategoryService {
 	
 	@Transactional(readOnly = true)
 	public List<OnlyCategoryDTO> findAll() {
-		List<Category> list = repository.findAll();
+		List<Category> list = repository.findAllByOrderByIdAsc();
 		return list.stream().map(x -> new OnlyCategoryDTO(x)).collect(Collectors.toList());
 	}
 	

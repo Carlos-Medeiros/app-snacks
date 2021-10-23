@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
 import { API_URL } from '../api';
-import ModalOrder from '../Components/ModalOrder';
-import { ReactComponent as Logo } from '../logo.svg'
+import ModalOrder from '../ModalOrder/ModalOrder';
 import './styles.css';
 
 function Order() {
@@ -106,6 +105,7 @@ function Order() {
                 ))}
 
                 {isModal ? <ModalOrder 
+                            request={()=>getContent(toggleState)}
                             order={orderModal}
                             onClose={()=>setIsModal(false)}/> 
                 : null}

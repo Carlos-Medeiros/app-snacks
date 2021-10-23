@@ -1,0 +1,143 @@
+.container-category {
+    display: flex;
+}
+
+.container-category-contents {
+    margin-left: 6.5%;
+}
+
+.container-category-type {
+    background-color: var(--color-itens);
+    width: 160px;
+    border-radius: 15px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+    box-shadow: 5px 5px 10px 3px rgba(0, 0, 0,0.2);
+
+}
+
+.container-btn-new-category {
+    background-color: var(--color-itens);
+    margin-top: 20px;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px 3px rgba(0, 0, 0,0.2);
+}
+
+.container-btn-new-category:hover {
+    transform: scale(1.05);
+}
+
+.btn-new-category {
+    color: var(--primary-hover-color);
+}
+
+.category {
+    color: var(--color-itens-opacity);
+    cursor: pointer;
+    text-align: center;
+}
+
+.category:hover {
+    transform: scale(1.05);
+}
+
+.category.actived {
+    color: var(--primary-hover-color);
+    cursor: pointer;
+    text-align: center;
+}
+
+.category.actived:hover {
+    transform: scale(1.05);
+}
+
+.container-product-contents {
+    margin-top: 70px;
+    width: 60%;
+    margin-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container-btn-edit-add {
+    height: 200px;
+    margin-left: 20px;
+}
+
+.container-btn-edit {
+    background-color: var(--color-itens);
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 130px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px 3px rgba(0, 0, 0,0.2);
+}
+
+.container-btn-edit:hover {
+    transform: scale(1.05);
+}
+
+.btn-edit {
+    color: var(--primary-hover-color);
+}
+
+.container-btn-add {
+    background-color: var(--color-itens);
+    width: 170px;
+    margin-top: 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px 3px rgba(0, 0, 0,0.2);
+}
+
+.container-btn-add:hover {
+    transform: scale(1.05);
+}
+
+.btn-add {
+    color: var(--primary-hover-color);
+}
+
+.container-btn-delete-category {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: var(--primary-color);
+    width: 170px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px 3px rgba(0, 0, 0,0.2);
+    cursor: pointer;
+}
+
+.container-btn-delete-category:hover {
+    transform: scale(1.05);
+}
+
+.btn-delete-category {
+    color: var(--primary-hover-color);
+}

@@ -32,7 +32,7 @@ public class AccountService implements UserDetailsService {
 	
 	@Transactional(readOnly = true)
 	public List<AccountDeliverymanDTO> findAll() {
-		List<Account> list = repository.findAll();
+		List<Account> list = repository.findAllByOrderByIdAsc();
 		return list.stream().map(x -> new AccountDeliverymanDTO(x)).collect(Collectors.toList());
 	}
 	
