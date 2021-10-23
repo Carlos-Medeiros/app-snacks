@@ -34,7 +34,7 @@ public class CategoryService {
 	
 	@Transactional(readOnly = true)
 	public List<CategoryDTO> findAllCategorys() {
-		List<Category> list = repository.findAll();
+		List<Category> list = repository.findAllByOrderByIdAsc();
 		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
 	}
 	
