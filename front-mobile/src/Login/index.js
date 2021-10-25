@@ -4,6 +4,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UserService from '../Service/UserService';
+import userService from '../Service/UserService';
 
 export default function Login({navigation}) {
 
@@ -13,32 +15,42 @@ export default function Login({navigation}) {
     const [visible, setVisible] = useState(true);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        AsyncStorage.getItem('EmailUser')
-        .then((email) => {
-            setEmail(email);
-        })
-        AsyncStorage.getItem('PasswordUser')
-        .then((password) => {
-            setPassword(password);
-        })
-        API.post(`/login/deliveryman`, {
-            email: email,
-            password: password
-        }).then(deliverymanStatus)
-        .catch(setEmail(''), setPassword(''))
-    }, []);
-
-
+   //    useEffect(() => {
+     //   AsyncStorage.getItem('EmailUser')
+     //   .then((email) => {
+    // /       setEmail(email);
+     //   })
+     //   AsyncStorage.getItem('PasswordUser')
+    //    .then((password) => {
+     //       setPassword(password);
+     //   })
+     //   API.post(`/user/login`, {
+     //       email: email,
+     //       password: password
+     //   }).then(deliverymanStatus)
+     //   .catch(setEmail(''), setPassword(''))
+    //}, []);
 
     const handleLogin = () => {
-        setLoading(false);
-        API.post(`/login/deliveryman`, {
+
+        let data = {
             email: email,
             password: password
-        }).then(setMenssage(''))
-        .then(deliverymanStatus)
-        .catch(errorRegister)
+        }
+        console.log(email),
+        console.log(password),
+        setLoading(false);
+
+        userService.login(data)
+        .then((response) => {
+            console.log(AsyncStorage.getItem('TOKEN')),
+            console.log(response.data.token),
+            setMenssage(''),
+            deliverymanStatus();
+        }).catch((error) => {
+            console.log(error),
+            errorRegister();
+        })
     };
 
     const errorRegister = () => {
@@ -47,6 +59,7 @@ export default function Login({navigation}) {
     }
 
     const deliverymanStatus = () => {
+        console.log('teste')
         AsyncStorage.setItem('EmailUser', email),
         AsyncStorage.setItem('PasswordUser', password),
         navigation.replace('DeliverymanStatus', {userEmail: email})

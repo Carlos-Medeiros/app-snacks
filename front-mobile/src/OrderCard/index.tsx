@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {widthToDP, heightToDP} from '../Responsive';
 import { Order } from '../types';
@@ -19,6 +19,7 @@ function dateFromNow(date: string) {
 
 
 export default function OrderCard({ order }: Props) {
+
     return ( 
         <>
             <View style={styles.container}>
@@ -31,6 +32,18 @@ export default function OrderCard({ order }: Props) {
                     {order.products.map(product => (
                         <Text key={product.id} style={styles.text}>{product.name}</Text>
                     ))}
+                </View>
+                {}
+                <View style={styles.productList}>
+                    {order.paymantToCard? 
+                        <Text style={styles.text}>Cartão</Text>
+                    :
+                        <Text style={styles.text}>Dinheiro</Text>
+                    }
+                    {order.change != null && order.change > 0? 
+                        <Text style={styles.text}>Troco para R${order.change}</Text>
+                    :
+                    null}
                 </View>
                 <View style={styles.productList}>
                     <Text style={styles.text}>{order.details}</Text>

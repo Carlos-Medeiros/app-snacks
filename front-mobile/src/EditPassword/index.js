@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
+import userService from '../Service/UserService';
 
 export default function EditPassword({route, navigation }) {
     
@@ -28,19 +29,32 @@ export default function EditPassword({route, navigation }) {
       }, [navigation]);
 
     useEffect(() => {
-        API.get(`/${email}/status`, {
-        }).then((response) => {setDeliveryman(response.data)})
+        userService.userDetails()
+        .then((response) => {
+            setDeliveryman(response.data),
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(error)
+        })
     }, []);
 
     const completeRegister = () => {
         if (password && repeatPassword != '') {
             if (password == repeatPassword) {
                 setMenssage('')
-                API.put(`/editPassword/deliveryman/${email}`, {
+                let data = {
                     password: password
-                }).then(AsyncStorage.setItem('PasswordUser', password),
-                    navigation.replace('EditAccount', {userEmail: email}))
-                .catch()
+                }
+                userService.editPassword(data)
+                .then(navigation.replace('EditAccount', {userEmail: email}))
+                .catch((error) => {
+                    console.log(error)
+                })
+                //API.put(`/editPassword/deliveryman/${email}`, {
+                //    password: password
+                //}).then(AsyncStorage.setItem('PasswordUser', password),
+                //    navigation.replace('EditAccount', {userEmail: email}))
+                //.catch()
             }
             else {
                 setMenssage('Senhas não coincidem');

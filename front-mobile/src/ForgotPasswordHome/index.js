@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, ActivityIndicator, Image,BackHandler
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive'
 import API from '../api';
+import userService from '../Service/UserService';
 
 export default function ForgotPasswordHome({navigation}) {
 
@@ -23,10 +24,13 @@ export default function ForgotPasswordHome({navigation}) {
 
     const emailValidationPut = () => {
         setLoading(false);
-        API.put(`/emailValidator/${email}/1`, {
-        }).then(setMenssage(''))
+        userService.resendCode(email)
         .then(codeValidation)
         .catch(errorRegister)
+        //API.put(`/emailValidator/${email}/1`, {
+        //}).then(setMenssage(''))
+        //.then(codeValidation)
+        //.catch(errorRegister)
     };
 
     const errorRegister = () => {

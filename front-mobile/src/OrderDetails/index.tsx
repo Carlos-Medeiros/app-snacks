@@ -6,6 +6,7 @@ import { Order } from '../types';
 import OrderCard from '../OrderCard';
 import { RectButton } from 'react-native-gesture-handler';
 import API from '../api';
+import userService from '../Service/UserService';
 
 type Props = {
     route: {
@@ -35,14 +36,21 @@ export default function OrderDetails({ route }: Props) {
     }
 
     const delivered = () => {
-        API.put(`/orders/${order.id}/delivered`, {
-        }).then(() => {
+        userService.orderDelivered(order)
+        .then(() => {
             Alert.alert(`Pedido ${order.code} confirmado com sucesso!`);
             navigation.navigate('RequestsDeliveryman');
-        }) 
-        .catch(() => {
+        }).catch(() => {
             Alert.alert(`Houve um erro ao confirmar o pedido ${order.code}`)
         })
+        //API.put(`/orders/${order.id}/delivered`, {
+        //}).then(() => {
+         //   Alert.alert(`Pedido ${order.code} confirmado com sucesso!`);
+        //    navigation.navigate('RequestsDeliveryman');
+        //}) 
+        //.catch(() => {
+        //    Alert.alert(`Houve um erro ao confirmar o pedido ${order.code}`)
+        //})
     }
     
     const maps = () => {

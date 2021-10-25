@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, BackHandler, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
+import userService from '../Service/UserService';
 
 export default function EditName({route, navigation }) {
 
@@ -13,8 +14,13 @@ export default function EditName({route, navigation }) {
     const [menssage, setMenssage] = useState('');
 
     useEffect(() => {
-        API.get(`/${email}/status`, {
-        }).then((response) => {setDeliveryman(response.data)})
+        userService.userDetails()
+        .then((response) => {
+            setDeliveryman(response.data),
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(error)
+        })
     }, []);
 
     const editAccount = () => {
@@ -31,10 +37,18 @@ export default function EditName({route, navigation }) {
         }
         else {
             setMenssage('')
-            API.put(`/editName/deliveryman/${email}`, {
-                name: name,
-            }).then(navigation.replace('EditAccount', {userEmail: email}))
-            .catch()
+            let data = {
+                name: name
+            }
+            userService.editName(data)
+            .then(navigation.replace('EditAccount', {userEmail: email}))
+            .catch((error) => {
+                console.log(error)
+            })
+           // API.put(`/editName/deliveryman/${email}`, {
+            //    name: name,
+            //}).then(navigation.replace('EditAccount', {userEmail: email}))
+            //.catch()
         }
     }
 

@@ -4,6 +4,7 @@ import {TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import API from '../api';
+import userService from '../Service/UserService';
 
 const CELL_COUNT = 6;
 export default function ForgotPasswordCode({ route, navigation }) {
@@ -30,27 +31,44 @@ export default function ForgotPasswordCode({ route, navigation }) {
 
     useEffect(() => {
         if (parseInt(numberKey) >= 100000) {
-            API.post(`/keyValidation`, {
+            let data = {
                 email: email,
                 numberValidation: parseInt(numberKey)
-            }).then(setMenssage(''))
+            }
+            userService.sendCode(data)
             .then(forgotPassword)
             .catch(errorRegister)
+            //API.post(`/keyValidation`, {
+            //    email: email,
+            //    numberValidation: parseInt(numberKey)
+            //}).then(setMenssage(''))
+            //.then(forgotPassword)
+            //.catch(errorRegister)
         }
     }, [numberKey]);
 
     const emailValidationPut = () => {
-        API.put(`/emailValidator/${email}/1`, {
-        }).then(setMenssage(''))
+        userService.resendCode(email)
+        .then(setMenssage(''))
+        .catch()
+        //API.put(`/emailValidator/${email}/1`, {
+       // }).then(setMenssage(''))
     };
 
     const keyValidation = () => {
-        API.post(`/keyValidation`, {
+        let data = {
             email: email,
             numberValidation: parseInt(numberKey)
-        }).then(setMenssage(''))
+        }
+        userService.sendCode(data)
         .then(forgotPassword)
         .catch(errorRegister)
+        //API.post(`/keyValidation`, {
+        //    email: email,
+        //    numberValidation: parseInt(numberKey)
+        //}).then(setMenssage(''))
+        //.then(forgotPassword)
+        //.catch(errorRegister)
     };
 
     const errorRegister = () => {

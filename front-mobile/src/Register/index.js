@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, ActivityIndicator, Image, BackHandle
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive'
 import API from '../api';
+import userService from '../Service/UserService';
 
 export default function Register({ route, navigation }) {
 
@@ -23,12 +24,20 @@ export default function Register({ route, navigation }) {
       }, [navigation]);
 
     const emailExisting = () => {
+        console.log(email)
         if (email != '') {
+            console.log(email)
             setLoading(false);
-            API.post(`/emailExisting`, {
-                email: email,
-            }).then(errorRegister)
+            let data = {
+                email: email
+            }
+            userService.emailExisting(data)
+            .then(errorRegister)
             .catch(emailValidation)
+            //API.post(`/emailExisting`, {
+            //    email: email,
+            //}).then(errorRegister)
+            //.catch(emailValidation)
         }
         else {
             setLoading(true);
@@ -37,22 +46,34 @@ export default function Register({ route, navigation }) {
     };
 
     const emailValidation = () => {
+        console.log(email)
         setLoading(false);
-        API.post(`/emailValidator`, {
-            email: email,
-        }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
+        let data = {
+            email: email
+        }
+        userService.emailValidation(data)
         .then(codeValidation)
         .catch(emailValidationPut)
+
+        //API.post(`/emailValidator`, {
+        //    email: email,
+        //}).then(setMenssage(''))
+        //.then(setMenssageRoute(''))
+        //.then(codeValidation)
+        //.catch(emailValidationPut)
     };
 
     const emailValidationPut = () => {
+        console.log(email)
         setLoading(false);
-        API.put(`/emailValidator/${email}/0`, {
-        }).then(setMenssage(''))
-        .then(setMenssageRoute(''))
+        userService.emailCode(email)
         .then(codeValidation)
         .catch(errorEmail)
+        //API.put(`/emailValidator/${email}/0`, {
+        //}).then(setMenssage(''))
+        //.then(setMenssageRoute(''))
+        //.then(codeValidation)
+        //.catch(errorEmail)
     };
 
     const errorEmail = () => {

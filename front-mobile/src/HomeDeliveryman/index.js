@@ -12,6 +12,7 @@ export default function HomeDeliveryman({ route, navigation }) {
     const login = () => {
         AsyncStorage.setItem('EmailUser', ''),
         AsyncStorage.setItem('PasswordUser', ''),
+        AsyncStorage.setItem('@token', ''),
         navigation.replace('Login')
     }
 

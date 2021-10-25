@@ -8,6 +8,8 @@ export type Order = {
         details: string;
         total: number;
         moment: string;
+        paymantToCard: boolean,
+        change: number,
         products: Product[];
 }
 

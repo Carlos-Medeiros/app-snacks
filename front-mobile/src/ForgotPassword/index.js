@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Image, BackHandler } from 'react-nat
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
+import userService from '../Service/UserService';
 
 export default function ForgotPassword({ route, navigation }) {
 
@@ -31,11 +32,19 @@ export default function ForgotPassword({ route, navigation }) {
     const completeRegister = () => {
         if (password && repeatPassword != '') {
             if (password == repeatPassword) {
-                API.put(`/forgotYourPassword/deliveryman/${email}`, {
+                let data = {
                     password: password
-                }).then(setMenssage(''))
+                }
+                userService.forgotPassword(data, email)
                 .then(navigation.replace('Login'))
-                .catch()
+                .catch((error) => {
+                    console.log(error)
+                })
+                //API.put(`/forgotYourPassword/deliveryman/${email}`, {
+                //    password: password
+               // }).then(setMenssage(''))
+               // .then(navigation.replace('Login'))
+               // .catch()
             }
             else {
                 setMenssage('Senhas não coincidem');

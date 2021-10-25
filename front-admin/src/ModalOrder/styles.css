@@ -288,5 +288,6 @@
 }
 
 .option-btn-yes {
-    color: var(--primary-hover-color);
+    color: var(--color-itens);
+    font-weight: bold;
 }

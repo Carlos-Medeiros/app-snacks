@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
 import { useIsFocused } from '@react-navigation/native';
 import API from '../api';
+import userService from '../Service/UserService';
 
 export default function EditAccount({ route, navigation }) {
     
@@ -14,9 +15,15 @@ export default function EditAccount({ route, navigation }) {
     const [email, setEmail] = useState(route.params.userEmail);
 
     const fetchData = () => {
-        API.get(`/${email}/status`, {
-        }).then((response) => {setDeliveryman(response.data)})
+        userService.userDetails()
+        .then((response) => {
+            setDeliveryman(response.data),
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(error)
+        })
     }
+
     useEffect(() => {
         function handleBackButton() {
           navigation.navigate('HomeDeliveryman');

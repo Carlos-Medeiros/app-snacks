@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Image, BackHandler } from 'react-nat
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import API from '../api';
+import userService from '../Service/UserService';
 
 export default function RegisterPassword({ route, navigation }) {
 
@@ -33,14 +34,23 @@ export default function RegisterPassword({ route, navigation }) {
     const completeRegister = () => {
         if (password && repeatPassword != '') {
             if (password == repeatPassword) {
-                API.post(`/register/deliveryman`, {
+                let data = {
                     name: name,
                     email: email,
                     password: password,
                     phones: phoneNumber
-                }).then(setMenssage(''))
+                }
+                userService.register(data)
                 .then(completedDeliveryman)
                 .catch()
+                //API.post(`/register/deliveryman`, {
+                ////    name: name,
+                //    email: email,
+                //    password: password,
+                //   phones: phoneNumber
+                //}).then(setMenssage(''))
+                //.then(completedDeliveryman)
+                //.catch()
             }
             else {
                 setMenssage('Senhas não coincidem');
@@ -51,6 +61,7 @@ export default function RegisterPassword({ route, navigation }) {
         }
     }
     const completedDeliveryman = () => {
+        setMenssage(''),
         navigation.replace('DeliverymanStatus', {userEmail: email});
     }
 

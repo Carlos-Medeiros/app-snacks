@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ReactComponent as Close } from '../close.svg'
 import ModalProductDelete from "../ModalProductDelete/ModalProductDelete";
-import ModalProductDiscount from "../ModalCatedoryEdit/ModalCategoryEdit";
 import { API_URL } from '../api';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 import './styles.css';
 import ModalProductEdit from "../ModalProductEdit/ModalProductEdit";
+import ModalProductDiscount from "../ModalProductDiscount/ModalProductDiscount";
 
 function ModalProduct({ onClose= () => {}, update =()=>{}, product}){
 

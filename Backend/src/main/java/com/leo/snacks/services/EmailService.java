@@ -60,7 +60,7 @@ public class EmailService {
 		EmailValidation emailValidation = new EmailValidation(dto.getEmail(), numberRandom);
 		if (emailValidationRepository.findByEmail(dto.getEmail()) == null) {
 			emailValidation = emailValidationRepository.save(emailValidation);
-			return new UserEmailValidationDTO(emailValidationRepository.findByEmail(dto.getEmail()));
+			return new UserEmailValidationDTO(emailValidation);
 		}
 		else {
 			throw new BusinessRuleException("E-mail already registered");
@@ -91,7 +91,7 @@ public class EmailService {
 			if (accountRepository.findByEmail(email) == null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
-				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));
+				return new UserEmailValidationDTO(emailValidation);
 			}
 			else {
 				throw new BusinessRuleException("E-mail already registered");
@@ -100,7 +100,7 @@ public class EmailService {
 			if (accountRepository.findByEmail(email) != null) {
 				emailValidation.setNumberValidation(numberRandom);
 				emailValidation = emailValidationRepository.save(emailValidation);
-				return new UserEmailValidationDTO(emailValidationRepository.findByEmail(email));
+				return new UserEmailValidationDTO(emailValidation);
 			}
 			else {
 				throw new BusinessRuleException("E-mail not registered");

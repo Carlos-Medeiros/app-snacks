@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import { TextInputMask } from 'react-native-masked-text';
 import API from '../api';
+import userService from '../Service/UserService';
 
 export default function EditPhone({route, navigation }) {
    
@@ -26,21 +27,32 @@ export default function EditPhone({route, navigation }) {
       }, [navigation]);
 
     useEffect(() => {
-        API.get(`/${email}/status`, {
-        }).then((response) => {setDeliveryman(response.data)})
+        userService.userDetails()
+        .then((response) => {
+            setDeliveryman(response.data),
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(error)
+        })
     }, []);
-
-    
 
     const validPhone = () => {
         var regex = new RegExp('^((1[1-9])|([2-9][0-9]))((3[0-9]{3}[0-9]{4})|(9[0-9]{3}[0-9]{5}))$');
         const phoneUnmask = cellRef?.current.getRawValue();
         if (regex.test(phoneUnmask)) { 
             setMenssage("");
-            API.put(`/editPhoneNumber/deliveryman/${email}`, {
-                phones: phoneNumber,
-            }).then(navigation.replace('EditAccount', {userEmail: email}))
-            .catch()
+            let data = {
+                phones: phoneNumber
+            }
+            userService.editPhone(data)
+            .then(navigation.replace('EditAccount', {userEmail: email}))
+            .catch((error) => {
+                console.log(error)
+            })
+            //API.put(`/editPhoneNumber/deliveryman/${email}`, {
+             //   phones: phoneNumber,
+            //}).then(navigation.replace('EditAccount', {userEmail: email}))
+           // .catch()
         }
         else setMenssage("Telefone inválido");
     }

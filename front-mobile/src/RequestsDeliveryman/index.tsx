@@ -9,6 +9,7 @@ import API from '../api';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Order } from '../types';
+import userService from '../Service/UserService';
 
 export default function RequestsDeliveryman() {
 
@@ -18,9 +19,12 @@ export default function RequestsDeliveryman() {
     const isFocused = useIsFocused();
 
     const fetchData = () => {
-        API.get(`orders/readyForDelivery`, {
-        }).then(response => setOrders(response.data))
+        userService.allOrderDelivery()
+        .then(response => setOrders(response.data))
         .catch(() => Alert.alert('Houve um erro ao buscar os pedidos!'))
+        //API.get(`orders/readyForDelivery`, {
+        //}).then(response => setOrders(response.data))
+        //.catch(() => Alert.alert('Houve um erro ao buscar os pedidos!'))
     } 
 
     useEffect(() => {

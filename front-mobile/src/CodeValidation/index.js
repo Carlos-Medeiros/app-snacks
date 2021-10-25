@@ -4,6 +4,7 @@ import {TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import API from '../api';
+import userService from '../Service/UserService';
 
 const CELL_COUNT = 6;
 export default function CodeValidation({ route, navigation }) {
@@ -30,27 +31,44 @@ export default function CodeValidation({ route, navigation }) {
 
     useEffect(() => {
         if (parseInt(numberKey) >= 100000) {
-            API.post(`/keyValidation`, {
+            let data = {
                 email: email,
                 numberValidation: parseInt(numberKey)
-            }).then(setMenssage(''))
+            }
+            userService.sendCode(data)
             .then(registerName)
+            .catch()
+            //API.post(`/keyValidation`, {
+            //    email: email,
+            //    numberValidation: parseInt(numberKey)
+           // }).then(setMenssage(''))
+           // .then(registerName)
         }
     }, [numberKey]);
 
 
     const emailValidationPut = () => {
-        API.put(`/emailValidator/${email}/0`, {
-        }).then(setMenssage(''))
+        userService.emailCode(email)
+        .then(setMenssage(''))
+        .catch()
+        //API.put(`/emailValidator/${email}/0`, {
+        //}).then(setMenssage(''))
     };
 
     const keyValidation = () => {
-        API.post(`/keyValidation`, {
+        let data = {
             email: email,
             numberValidation: parseInt(numberKey)
-        }).then(setMenssage(''))
+        }
+        userService.sendCode(data)
         .then(registerName)
         .catch(errorRegister)
+        //API.post(`/keyValidation`, {
+        //    email: email,
+        //    numberValidation: parseInt(numberKey)
+        //}).then(setMenssage(''))
+        //.then(registerName)
+        //.catch(errorRegister)
     };
 
     const errorRegister = () => {

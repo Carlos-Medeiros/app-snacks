@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import API from '../api';
+import userService from '../Service/UserService';
 
 export default function DeliverymanStatus({ route, navigation }) {
 
@@ -23,18 +24,34 @@ export default function DeliverymanStatus({ route, navigation }) {
         return () => backHandler.remove();
       }, [navigation]);
 
-    useEffect(() => {
-        API.get(`/${email}/status`, {
-        }).then((response) => {setDeliverymanStatus(response.data)})
-    }, []);
+    //useEffect(() => {
+        //const token = AsyncStorage.getItem('@token').then((value) => {
+        //    console.log(value);
+       // });
+        //const headers = {
+       //     'Authorization': 'Bearer' + token
+       // }
+       // API.get(`/user/details`, {
+           // headers: headers
+        //}).then((response) => {setDeliverymanStatus(response.data)})
+    //}, []);
 
 
     useEffect(() => {
+        userService.userDetails()
+        .then((response) => {
+            setDeliverymanStatus(response.data),
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(error)
+        })
+
         if (deliverymanStatus.status === 'PENDING') {
             setStatus('Pendente')
         }
         if (deliverymanStatus.status === 'ACCEPTED') {
             navigation.replace('HomeDeliveryman')
+            setStatus('Aceito')
         }
         if (deliverymanStatus.status === 'REJECTED') {
             setStatus('Rejeitado');
@@ -47,6 +64,7 @@ export default function DeliverymanStatus({ route, navigation }) {
     const login = () => {
         AsyncStorage.setItem('EmailUser', ''),
         AsyncStorage.setItem('PasswordUser', ''),
+        AsyncStorage.setItem('@token', ''),
         navigation.replace('Login')
     }
 
