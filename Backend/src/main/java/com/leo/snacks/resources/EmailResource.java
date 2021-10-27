@@ -27,7 +27,7 @@ public class EmailResource {
 	@PostMapping("/emailValidator")
 	public ResponseEntity<UserEmailValidationDTO> EmailValidator(@RequestBody UserEmailValidationDTO dto) {
 		dto = emailService.emailValidator(dto);
-		emailService.sendValidation(dto.getEmail(), "Validation code", String.valueOf(dto.getNumberValidation()));
+		emailService.sendValidation(dto.getEmail(), "Comedoria da Gê - Código de verificação de e-mail", "Seu código de verificação é: " + String.valueOf(dto.getNumberValidation()));
 		return ResponseEntity.ok().body(dto);
 	}
 	
@@ -40,7 +40,7 @@ public class EmailResource {
 	@PutMapping("/emailValidator/{email}/{numberKey}")
 	public ResponseEntity<UserEmailValidationDTO> update(@PathVariable String email, @PathVariable Integer numberKey) {
 		UserEmailValidationDTO dto = emailService.update(email, numberKey);
-		emailService.sendValidation(dto.getEmail(), "Validation code", String.valueOf(dto.getNumberValidation()));
+		emailService.sendValidation(dto.getEmail(), "Comedoria da Gê - Código de verificação de e-mail", "Seu código de verificação é: " + String.valueOf(dto.getNumberValidation()));
 		return ResponseEntity.ok().body(dto);
 	}
 
