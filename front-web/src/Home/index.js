@@ -85,7 +85,7 @@ function Home() {
                     <div className="containerHome">
                         <div className="infoHome">
                             <h1 className="h1Home">Peça já o seu lanche!</h1>
-                            <p className="pHome">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Blandit nisi proin fringilla nibh.</p>
+                            <p className="pHome">Não deixe para amanhã o que você pode comer hoje.</p>
                             <div className="containerLocal">
                                 <Local className="imgLocal"/>
                                 <p className="pLocal">Rua Cuiabá, 835, Jaboatão dos Guararapes, PE</p>

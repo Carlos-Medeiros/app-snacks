@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import { TextInputMask } from 'react-native-masked-text';
-import API from '../api';
 import userService from '../Service/UserService';
 
 export default function EditPhone({route, navigation }) {
@@ -29,11 +28,8 @@ export default function EditPhone({route, navigation }) {
     useEffect(() => {
         userService.userDetails()
         .then((response) => {
-            setDeliveryman(response.data),
-            console.log(response.data)
-        }).catch((error) => {
-            console.log(error)
-        })
+            setDeliveryman(response.data)
+        }).catch()
     }, []);
 
     const validPhone = () => {
@@ -46,13 +42,7 @@ export default function EditPhone({route, navigation }) {
             }
             userService.editPhone(data)
             .then(navigation.replace('EditAccount', {userEmail: email}))
-            .catch((error) => {
-                console.log(error)
-            })
-            //API.put(`/editPhoneNumber/deliveryman/${email}`, {
-             //   phones: phoneNumber,
-            //}).then(navigation.replace('EditAccount', {userEmail: email}))
-           // .catch()
+            .catch()
         }
         else setMenssage("Telefone inválido");
     }
@@ -122,7 +112,7 @@ export default function EditPhone({route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
@@ -137,7 +127,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#121315'
+        color: '#191A1D'
     },
     containerText: {
         width: widthToDP('88%'),
@@ -156,7 +146,7 @@ const styles = StyleSheet.create({
     inputPhoneNumber: {
         width: widthToDP('88%'),
         height: widthToDP('12%'),
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         borderRadius: 15,
         marginTop: heightToDP('4%'),
         fontSize: 24,

@@ -5,12 +5,16 @@ import API from "../api";
 class UserService {
 
     async login(data) {
+        let token = await AsyncStorage.getItem('@token')
         return axios({
             url: API.API_URL + "/user/login",
             method: "POST",
             timeout: API.TIMEOUT_REQUEST,
             data: data,
-            headers: API.HEADER_REQUEST
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
         }).then((response) => {
             AsyncStorage.setItem('@token', response.data.token)
             return Promise.resolve(response)
@@ -91,12 +95,16 @@ class UserService {
     }
 
     async forgotPassword(data, email) {
+        let token = await AsyncStorage.getItem('@token')
         return axios({
             url: API.API_URL + `/user/${email}`,
             method: "PATCH",
             timeout: API.TIMEOUT_REQUEST,
             data: data,
-            headers: API.TIMEOUT_REQUEST,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
         }).then((response) => {
             return Promise.resolve(response)
         }).catch((error) => {
@@ -105,11 +113,15 @@ class UserService {
     }
 
     async resendCode(email) {
+        let token = await AsyncStorage.getItem('@token')
         return axios({
             url: API.API_URL + `/emailValidator/${email}/1`,
             method: "PUT",
             timeout: API.TIMEOUT_REQUEST,
-            headers: API.TIMEOUT_REQUEST,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
         }).then((response) => {
             return Promise.resolve(response)
         }).catch((error) => {
@@ -118,12 +130,16 @@ class UserService {
     }
 
     async sendCode(data) {
+        let token = await AsyncStorage.getItem('@token')
         return axios({
             url: API.API_URL + `/keyValidation`,
             method: "POST",
             timeout: API.TIMEOUT_REQUEST,
             data: data,
-            headers: API.TIMEOUT_REQUEST,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            },
         }).then((response) => {
             return Promise.resolve(response)
         }).catch((error) => {
@@ -132,12 +148,16 @@ class UserService {
     }
 
     async emailExisting(data) {
+        let token = await AsyncStorage.getItem('@token')
         return axios({
             url: API.API_URL + `/emailExisting`,
             method: "POST",
             timeout: API.TIMEOUT_REQUEST,
             data: data,
-            headers: API.TIMEOUT_REQUEST,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
         }).then((response) => {
             return Promise.resolve(response)
         }).catch((error) => {
@@ -146,12 +166,16 @@ class UserService {
     }
 
     async emailValidation(data) {
+        let token = await AsyncStorage.getItem('@token')
         return axios({
             url: API.API_URL + `/emailValidator`,
             method: "POST",
             timeout: API.TIMEOUT_REQUEST,
             data: data,
-            headers: API.TIMEOUT_REQUEST,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
         }).then((response) => {
             return Promise.resolve(response)
         }).catch((error) => {
@@ -160,11 +184,16 @@ class UserService {
     }
 
     async emailCode(email) {
+        let token = await AsyncStorage.getItem('@token')
+        console.log(email)
         return axios({
             url: API.API_URL + `/emailValidator/${email}/0`,
             method: "PUT",
             timeout: API.TIMEOUT_REQUEST,
-            headers: API.TIMEOUT_REQUEST,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
         }).then((response) => {
             return Promise.resolve(response)
         }).catch((error) => {
@@ -173,12 +202,16 @@ class UserService {
     }
 
     async register(data) {
+        let token = await AsyncStorage.getItem('@token')
         return axios({
             url: API.API_URL + `/user/register`,
             method: "POST",
             timeout: API.TIMEOUT_REQUEST,
             data: data,
-            headers: API.TIMEOUT_REQUEST,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
         }).then((response) => {
             return Promise.resolve(response)
         }).catch((error) => {

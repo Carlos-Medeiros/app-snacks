@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View, Image, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
 import { useIsFocused } from '@react-navigation/native';
-import API from '../api';
 import userService from '../Service/UserService';
 
 export default function EditAccount({ route, navigation }) {
@@ -17,11 +15,8 @@ export default function EditAccount({ route, navigation }) {
     const fetchData = () => {
         userService.userDetails()
         .then((response) => {
-            setDeliveryman(response.data),
-            console.log(response.data)
-        }).catch((error) => {
-            console.log(error)
-        })
+            setDeliveryman(response.data)
+        }).catch()
     }
 
     useEffect(() => {
@@ -113,7 +108,7 @@ export default function EditAccount({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
@@ -128,7 +123,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#121315'
+        color: '#191A1D'
     },
     containerText: {
         width: widthToDP('100%'),
@@ -148,11 +143,11 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('5%'),
         width: widthToDP('90%'),
         padding: 15,
-        backgroundColor: '#121315',
+        backgroundColor: '#191A1D',
         borderRadius: 10,
         shadowOpacity: 0.5,
         shadowRadius: 20,
-        shadowColor: '#000000',
+        shadowColor: '#121315',
         shadowOffset: { width: 0, height: 4 },
         elevation: 9
 

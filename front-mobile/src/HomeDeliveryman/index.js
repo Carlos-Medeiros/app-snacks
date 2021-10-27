@@ -82,7 +82,7 @@ export default function HomeDeliveryman({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#121315'
+        color: '#191A1D'
     },
     imgStatus: {
         marginTop: heightToDP('4%'),

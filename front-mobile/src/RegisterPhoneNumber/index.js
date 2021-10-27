@@ -90,7 +90,7 @@ export default function RegisterPhoneNumber({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
     },
     containerHeader: {
         width: widthToDP('100%'),
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('6%')
     },
     textBarra4: {
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     inputPhoneNumber: {
         width: widthToDP('88%'),
         height: widthToDP('12%'),
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         borderRadius: 15,
         marginTop: heightToDP('7%'),
         marginLeft: widthToDP('6%'),
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('6%')
     },
     textButton: {
-        color: '#2C2D34',
+        color: '#191A1D',
         fontSize: widthToDP('4.5%')
     },
     textError: {

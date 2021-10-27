@@ -1,5 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 const API = {
     API_URL: "https://lanchonete-da-ge.herokuapp.com",

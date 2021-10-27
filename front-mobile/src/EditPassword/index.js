@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
-import API from '../api';
 import userService from '../Service/UserService';
 
 export default function EditPassword({route, navigation }) {
@@ -31,15 +29,12 @@ export default function EditPassword({route, navigation }) {
     useEffect(() => {
         userService.userDetails()
         .then((response) => {
-            setDeliveryman(response.data),
-            console.log(response.data)
-        }).catch((error) => {
-            console.log(error)
-        })
+            setDeliveryman(response.data)
+        }).catch()
     }, []);
 
     const completeRegister = () => {
-        if (password && repeatPassword != '') {
+        if (password && repeatPassword != '' && password.length >=8 && repeatPassword.length >=8) {
             if (password == repeatPassword) {
                 setMenssage('')
                 let data = {
@@ -47,14 +42,7 @@ export default function EditPassword({route, navigation }) {
                 }
                 userService.editPassword(data)
                 .then(navigation.replace('EditAccount', {userEmail: email}))
-                .catch((error) => {
-                    console.log(error)
-                })
-                //API.put(`/editPassword/deliveryman/${email}`, {
-                //    password: password
-                //}).then(AsyncStorage.setItem('PasswordUser', password),
-                //    navigation.replace('EditAccount', {userEmail: email}))
-                //.catch()
+                .catch()
             }
             else {
                 setMenssage('Senhas não coincidem');
@@ -145,7 +133,7 @@ export default function EditPassword({route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
@@ -160,7 +148,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#121315'
+        color: '#191A1D'
     },
     containerText: {
         width: widthToDP('88%'),
@@ -179,7 +167,7 @@ const styles = StyleSheet.create({
     inputPassword: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         borderRadius: 15,
         paddingLeft: 50,
         marginTop: heightToDP('4%'),
@@ -214,7 +202,7 @@ const styles = StyleSheet.create({
     inputRepeatPassword: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         borderRadius: 15,
         paddingLeft: 50,
         marginTop: heightToDP('4%'),

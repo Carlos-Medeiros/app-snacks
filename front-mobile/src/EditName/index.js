@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { StyleSheet, Text, View, BackHandler, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
-import API from '../api';
 import userService from '../Service/UserService';
 
 export default function EditName({route, navigation }) {
@@ -16,11 +15,8 @@ export default function EditName({route, navigation }) {
     useEffect(() => {
         userService.userDetails()
         .then((response) => {
-            setDeliveryman(response.data),
-            console.log(response.data)
-        }).catch((error) => {
-            console.log(error)
-        })
+            setDeliveryman(response.data)
+        }).catch()
     }, []);
 
     const editAccount = () => {
@@ -42,13 +38,7 @@ export default function EditName({route, navigation }) {
             }
             userService.editName(data)
             .then(navigation.replace('EditAccount', {userEmail: email}))
-            .catch((error) => {
-                console.log(error)
-            })
-           // API.put(`/editName/deliveryman/${email}`, {
-            //    name: name,
-            //}).then(navigation.replace('EditAccount', {userEmail: email}))
-            //.catch()
+            .catch()
         }
     }
 
@@ -104,7 +94,7 @@ export default function EditName({route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
@@ -119,7 +109,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#121315'
+        color: '#191A1D'
     },
     containerText: {
         width: widthToDP('88%'),
@@ -138,7 +128,7 @@ const styles = StyleSheet.create({
     inputName: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         borderRadius: 15,
         paddingLeft: 15,
         marginTop: heightToDP('4%'),

@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, ActivityIndicator} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
-import API from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import UserService from '../Service/UserService';
 import userService from '../Service/UserService';
 
 export default function Login({navigation}) {
@@ -15,40 +13,19 @@ export default function Login({navigation}) {
     const [visible, setVisible] = useState(true);
     const [loading, setLoading] = useState(true);
 
-   //    useEffect(() => {
-     //   AsyncStorage.getItem('EmailUser')
-     //   .then((email) => {
-    // /       setEmail(email);
-     //   })
-     //   AsyncStorage.getItem('PasswordUser')
-    //    .then((password) => {
-     //       setPassword(password);
-     //   })
-     //   API.post(`/user/login`, {
-     //       email: email,
-     //       password: password
-     //   }).then(deliverymanStatus)
-     //   .catch(setEmail(''), setPassword(''))
-    //}, []);
-
     const handleLogin = () => {
 
         let data = {
             email: email,
             password: password
         }
-        console.log(email),
-        console.log(password),
         setLoading(false);
 
         userService.login(data)
-        .then((response) => {
-            console.log(AsyncStorage.getItem('TOKEN')),
-            console.log(response.data.token),
+        .then(() => {
             setMenssage(''),
             deliverymanStatus();
-        }).catch((error) => {
-            console.log(error),
+        }).catch(() => {
             errorRegister();
         })
     };
@@ -59,7 +36,6 @@ export default function Login({navigation}) {
     }
 
     const deliverymanStatus = () => {
-        console.log('teste')
         AsyncStorage.setItem('EmailUser', email),
         AsyncStorage.setItem('PasswordUser', password),
         navigation.replace('DeliverymanStatus', {userEmail: email})
@@ -147,7 +123,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
         justifyContent: 'center',
     },
     logo: {
@@ -181,7 +157,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('2%')
     },
     InputEmail: {
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         color: '#FFDD00',
         width: widthToDP('85%'),
         height: widthToDP('13%'),
@@ -203,7 +179,7 @@ const styles = StyleSheet.create({
         marginTop: widthToDP('8%')
     },
     InputPassword: {
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         color: '#FFDD00',
         width: widthToDP('85%'),
         height: widthToDP('13%'),

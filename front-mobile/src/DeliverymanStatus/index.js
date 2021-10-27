@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, Image, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import API from '../api';
 import userService from '../Service/UserService';
 
 export default function DeliverymanStatus({ route, navigation }) {
@@ -24,27 +23,11 @@ export default function DeliverymanStatus({ route, navigation }) {
         return () => backHandler.remove();
       }, [navigation]);
 
-    //useEffect(() => {
-        //const token = AsyncStorage.getItem('@token').then((value) => {
-        //    console.log(value);
-       // });
-        //const headers = {
-       //     'Authorization': 'Bearer' + token
-       // }
-       // API.get(`/user/details`, {
-           // headers: headers
-        //}).then((response) => {setDeliverymanStatus(response.data)})
-    //}, []);
-
-
     useEffect(() => {
         userService.userDetails()
         .then((response) => {
-            setDeliverymanStatus(response.data),
-            console.log(response.data)
-        }).catch((error) => {
-            console.log(error)
-        })
+            setDeliverymanStatus(response.data)
+        }).catch()
 
         if (deliverymanStatus.status === 'PENDING') {
             setStatus('Pendente')
@@ -57,7 +40,7 @@ export default function DeliverymanStatus({ route, navigation }) {
             setStatus('Rejeitado');
         }
         if (deliverymanStatus.status === 'DISABLED') {
-            setStatus('Disativado');
+            setStatus('Desativado');
         }
     }, [deliverymanStatus.status]);
         
@@ -67,8 +50,6 @@ export default function DeliverymanStatus({ route, navigation }) {
         AsyncStorage.setItem('@token', ''),
         navigation.replace('Login')
     }
-
-
 
     return ( 
         <>
@@ -100,7 +81,7 @@ export default function DeliverymanStatus({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
@@ -115,7 +96,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#2C2D34'
+        color: '#191A1D'
     },
     imgStatus: {
         marginTop: heightToDP('6%'),
@@ -157,7 +138,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
     textButton: {
-        color: '#2C2D34',
+        color: '#191A1D',
         fontSize: 18,
         fontWeight: 'bold',
         fontSize: widthToDP('4.5%')

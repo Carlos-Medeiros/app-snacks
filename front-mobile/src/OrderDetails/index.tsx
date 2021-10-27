@@ -5,7 +5,6 @@ import {widthToDP, heightToDP} from '../Responsive';
 import { Order } from '../types';
 import OrderCard from '../OrderCard';
 import { RectButton } from 'react-native-gesture-handler';
-import API from '../api';
 import userService from '../Service/UserService';
 
 type Props = {
@@ -43,14 +42,6 @@ export default function OrderDetails({ route }: Props) {
         }).catch(() => {
             Alert.alert(`Houve um erro ao confirmar o pedido ${order.code}`)
         })
-        //API.put(`/orders/${order.id}/delivered`, {
-        //}).then(() => {
-         //   Alert.alert(`Pedido ${order.code} confirmado com sucesso!`);
-        //    navigation.navigate('RequestsDeliveryman');
-        //}) 
-        //.catch(() => {
-        //    Alert.alert(`Houve um erro ao confirmar o pedido ${order.code}`)
-        //})
     }
     
     const maps = () => {
@@ -82,7 +73,7 @@ export default function OrderDetails({ route }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
     },     
     containerHeader: {
         width: widthToDP('100%'),
@@ -96,7 +87,7 @@ const styles = StyleSheet.create({
         marginTop: heightToDP('3%'),
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#121315'
+        color: '#191A1D'
     },
     margin: {
         marginTop: heightToDP('4%')

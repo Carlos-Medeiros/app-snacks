@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, BackHandler } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive';
-import API from '../api';
 import userService from '../Service/UserService';
 
 export default function RegisterPassword({ route, navigation }) {
@@ -32,7 +31,7 @@ export default function RegisterPassword({ route, navigation }) {
     }
 
     const completeRegister = () => {
-        if (password && repeatPassword != '') {
+        if (password && repeatPassword != '' && password.length >=8 && repeatPassword.length >=8) {
             if (password == repeatPassword) {
                 let data = {
                     name: name,
@@ -43,14 +42,6 @@ export default function RegisterPassword({ route, navigation }) {
                 userService.register(data)
                 .then(completedDeliveryman)
                 .catch()
-                //API.post(`/register/deliveryman`, {
-                ////    name: name,
-                //    email: email,
-                //    password: password,
-                //   phones: phoneNumber
-                //}).then(setMenssage(''))
-                //.then(completedDeliveryman)
-                //.catch()
             }
             else {
                 setMenssage('Senhas não coincidem');
@@ -62,7 +53,15 @@ export default function RegisterPassword({ route, navigation }) {
     }
     const completedDeliveryman = () => {
         setMenssage(''),
-        navigation.replace('DeliverymanStatus', {userEmail: email});
+        data = {
+            email: email,
+            password: password
+        }
+        userService.login(data)
+        .then(() => {
+            setMenssage(''),
+            navigation.replace('DeliverymanStatus', {userEmail: email});
+        }).catch()
     }
 
     function visiblePassword(){
@@ -132,7 +131,7 @@ export default function RegisterPassword({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
     },
     containerHeader: {
         width: widthToDP('100%'),
@@ -201,7 +200,7 @@ const styles = StyleSheet.create({
     inputPassword: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         borderRadius: 15,
         paddingLeft: 50,
         marginTop: heightToDP('7%'),
@@ -238,7 +237,7 @@ const styles = StyleSheet.create({
     inputRepeatPassword: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         borderRadius: 15,
         paddingLeft: 50,
         marginTop: heightToDP('7%'),
@@ -285,7 +284,7 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('6%')
     },
     textButton: {
-        color: '#2C2D34',
+        color: '#191A1D',
         fontSize: 18
     },
     textError: {

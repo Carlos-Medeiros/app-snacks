@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthToDP, heightToDP} from '../Responsive';
 import OrderCard from '../OrderCard';
-import API from '../api';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Order } from '../types';
@@ -22,9 +20,6 @@ export default function RequestsDeliveryman() {
         userService.allOrderDelivery()
         .then(response => setOrders(response.data))
         .catch(() => Alert.alert('Houve um erro ao buscar os pedidos!'))
-        //API.get(`orders/readyForDelivery`, {
-        //}).then(response => setOrders(response.data))
-        //.catch(() => Alert.alert('Houve um erro ao buscar os pedidos!'))
     } 
 
     useEffect(() => {
@@ -82,7 +77,7 @@ export default function RequestsDeliveryman() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
         alignItems: 'center'
     },
     containerHeader: {
@@ -99,7 +94,7 @@ const styles = StyleSheet.create({
     logo: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#121315'
+        color: '#191A1D'
     }, 
     containerOrders: {
         marginTop: heightToDP('2%'),

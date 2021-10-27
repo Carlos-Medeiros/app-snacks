@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, ActivityIndicator, Image, BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive'
-import API from '../api';
 import userService from '../Service/UserService';
 
 export default function Register({ route, navigation }) {
@@ -24,9 +23,7 @@ export default function Register({ route, navigation }) {
       }, [navigation]);
 
     const emailExisting = () => {
-        console.log(email)
         if (email != '') {
-            console.log(email)
             setLoading(false);
             let data = {
                 email: email
@@ -34,10 +31,6 @@ export default function Register({ route, navigation }) {
             userService.emailExisting(data)
             .then(errorRegister)
             .catch(emailValidation)
-            //API.post(`/emailExisting`, {
-            //    email: email,
-            //}).then(errorRegister)
-            //.catch(emailValidation)
         }
         else {
             setLoading(true);
@@ -46,7 +39,6 @@ export default function Register({ route, navigation }) {
     };
 
     const emailValidation = () => {
-        console.log(email)
         setLoading(false);
         let data = {
             email: email
@@ -54,26 +46,13 @@ export default function Register({ route, navigation }) {
         userService.emailValidation(data)
         .then(codeValidation)
         .catch(emailValidationPut)
-
-        //API.post(`/emailValidator`, {
-        //    email: email,
-        //}).then(setMenssage(''))
-        //.then(setMenssageRoute(''))
-        //.then(codeValidation)
-        //.catch(emailValidationPut)
     };
 
     const emailValidationPut = () => {
-        console.log(email)
         setLoading(false);
         userService.emailCode(email)
         .then(codeValidation)
         .catch(errorEmail)
-        //API.put(`/emailValidator/${email}/0`, {
-        //}).then(setMenssage(''))
-        //.then(setMenssageRoute(''))
-        //.then(codeValidation)
-        //.catch(errorEmail)
     };
 
     const errorEmail = () => {
@@ -147,7 +126,7 @@ export default function Register({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
     },
     containerHeader: {
         width: widthToDP('100%'),
@@ -180,21 +159,21 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('6%')
     },
     textBarra2: {
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra3: {
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra4: {
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         width: widthToDP('17%'),
         height: 4,
         borderRadius: 5,
@@ -221,7 +200,7 @@ const styles = StyleSheet.create({
     Input: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         borderRadius: 15,
         paddingLeft: 45,
         marginTop: heightToDP('1%'),
@@ -245,7 +224,7 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('6%')
     },
     textButton: {
-        color: '#2C2D34',
+        color: '#191A1D',
         fontSize: 18
     },
     containerError: {

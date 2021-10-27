@@ -61,11 +61,11 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('5%'),
         width: widthToDP('90%'),
         padding: 15,
-        backgroundColor: '#121315',
+        backgroundColor: '#191A1D',
         borderRadius: 10,
         shadowOpacity: 1,
         shadowRadius: 20,
-        shadowColor: '#000000',
+        shadowColor: '#121315',
         shadowOffset: { width: 0, height: 14 },
         elevation: 19
 

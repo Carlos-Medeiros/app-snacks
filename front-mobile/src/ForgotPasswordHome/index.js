@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, ActivityIndicator, Image,BackHandler } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {widthToDP, heightToDP} from '../Responsive'
-import API from '../api';
 import userService from '../Service/UserService';
 
 export default function ForgotPasswordHome({navigation}) {
@@ -27,10 +26,6 @@ export default function ForgotPasswordHome({navigation}) {
         userService.resendCode(email)
         .then(codeValidation)
         .catch(errorRegister)
-        //API.put(`/emailValidator/${email}/1`, {
-        //}).then(setMenssage(''))
-        //.then(codeValidation)
-        //.catch(errorRegister)
     };
 
     const errorRegister = () => {
@@ -91,7 +86,7 @@ export default function ForgotPasswordHome({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#191A1D',
+        backgroundColor: '#121315',
     },
     containerHeader: {
         width: widthToDP('100%'),
@@ -124,14 +119,14 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('6%')
     },
     textBarra2: {
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
         marginLeft: widthToDP('6%')
     },
     textBarra3: {
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         width: widthToDP('25.33%'),
         height: 4,
         borderRadius: 5,
@@ -158,7 +153,7 @@ const styles = StyleSheet.create({
     Input: {
         width: widthToDP('88%'),
         height: widthToDP('13%'),
-        backgroundColor: '#2C2D34',
+        backgroundColor: '#191A1D',
         borderRadius: 15,
         paddingLeft: 50,
         marginTop: heightToDP('1%'),
@@ -182,7 +177,7 @@ const styles = StyleSheet.create({
         marginLeft: widthToDP('6%')
     },
     textButton: {
-        color: '#2C2D34',
+        color: '#191A1D',
         fontSize: 18
     },
     containerError: {
