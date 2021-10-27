@@ -15,7 +15,7 @@ function ModalOrder({ code, onClose = () => {} }){
                             <p className="modal-resume">Para confirmar o pedido envie o seguinte código para o wpp da loja</p>
                             <p className="modal-resume-code">{code}</p> 
                             <div className="container-modal-btn-order">
-                                <a href={`https://api.whatsapp.com/send?1=pt_BR&phone=558192233905&text=Código_do_pedido_${code}`} 
+                                <a href={`https://api.whatsapp.com/send?1=pt_BR&phone=558192233905&text=Código do pedido: ${code}`} 
                                     className="modal-btn-order">Enviar Código</a>
                             </div>
                         </div>
